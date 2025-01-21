@@ -1,0 +1,307 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Assignments - SER120 Lab Syllabus</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Lab Syllabus</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="assignments"><a class="header" href="#assignments">Assignments</a></h1>
+<h2 id="projects"><a class="header" href="#projects">Projects</a></h2>
+<p>I will assign several projects during the semester, and I've created a separate
+website covering the details of these projects. You will not receive a grade on
+these projects; instead, individual projects are marked as complete or
+incomplete depending on whether the work you submitted meets the requirements in
+the assignment.</p>
+<h2 id="project-submission"><a class="header" href="#project-submission">Project Submission</a></h2>
+<p>In order for a project to count as complete, you must:</p>
+<ul>
+<li>submit the project on Blackboard</li>
+<li>pack/format the submission as directed in the assignment</li>
+<li>include every deliverable and meet every requirement listed in the assignment</li>
+<li>submit the proposal, if one is required, at least two weeks before the project
+and receive my approval for that proposal</li>
+</ul>
+<p>If a submission is marked incomplete, then you are allowed to resubmit before
+the deadline. Both the incomplete submission and the new submission count
+towards any limits on how often you can submit assignments.</p>
+<h2 id="deadlines-and-restrictions"><a class="header" href="#deadlines-and-restrictions">Deadlines and Restrictions</a></h2>
+<p>The following restrictions apply to submitting projects and project proposals:</p>
+<ul>
+<li>You can submit up to one project proposal and up to one project per week.</li>
+<li>The cutoff for weekly proposal/project submissions is
+11:59 PM ET on Sunday. If you submit after this time, then it
+will count as your submission for the following week.</li>
+<li>The latest you may submit a proposal is
+11:59 PM ET on Sunday, April 27th, 2025. No new or revised proposals
+are accepted after this deadline.</li>
+<li>The latest you may submit a project is
+11:59 PM ET on Thursday, May 8th, 2025 or the deadline given on that
+assignment, whichever is earlier.</li>
+</ul>
+<p>I give specific times and enforce deadlines strictly to ensure I handle
+assignment submissions consistently and fairly. It doesn't matter how close you
+are to a missed deadline or what excuse you offer. You either submit the
+assignment on time or arrange for an extension (see below); otherwise, I will
+not accept your work. The only exception is projects submitted after a deadline
+but before I download the submissions from Blackboard. This is a small window,
+and I may choose to download the submissions at any time after the deadline.
+Don't count on your project being accepted once the deadline has passed.</p>
+<h2 id="extensions-and-other-exceptions"><a class="header" href="#extensions-and-other-exceptions">Extensions and Other Exceptions</a></h2>
+<p>In rare cases (such as medical or family emergencies), I will allow an extension
+to a deadline or an exception to another restriction on submitting an
+assignment. You can email me to ask for a such an exception if you believe one
+is appropriate in your situation. Your email should include an explanation of
+why you need the extension, a new proposed deadline (or other proposed change to
+existing restrictions), and your current progress on the assignment. Be sure to
+send me your code and any other material you've created for the assignment so
+far.</p>
+<p>I have some expectations if I am going to give an extension or make an exception
+to a class policy:</p>
+<ul>
+<li>You've demonstrated that you read this policy by including <em>all</em> of the
+information I just asked for.</li>
+<li>If you're having trouble with the assignment, then you've taken steps to get
+help. Usually this means seeing a tutor or going to office hours.</li>
+<li>You are clearly making an effort to keep up with the class and not
+procrastinating. If there is an ongoing problem affecting your work or
+participation in the class and you want me to accommodate you, then you must
+let me know early and keep me informed as that situation develops.</li>
+</ul>
+<p>Extensions and other exceptions are given on a case-by-case basis. I will try to
+be as fair as possible, but this comes down to my judgement and whether you've
+been proactively communicating with me.</p>
+<h2 id="other-assignments"><a class="header" href="#other-assignments">Other Assignments</a></h2>
+<p>There will be other assignments in addition to the projects. For example, I may
+ask you to read a section of my notes, view a video, or complete a practice
+activity. While I may not deduct points from your grade if you miss these
+assignments, these assignments help you acquire the necessary skills and
+knowledge to complete the major projects, which means they can still
+<em>indirectly</em> affect your final grade if you skip them. I try not to assign
+unnecessary work, and I expect you to complete all assignments whether or not I
+attach a grade to them.</p>
+<h2 id="advice"><a class="header" href="#advice">Advice</a></h2>
+<p>If you struggle with deadlines or time management, then I'd like to offer some
+advice:</p>
+<ul>
+<li>Start your work early. The workload for any grade is manageable if you spread
+it out, but it will be overwhelming if you let it pile up towards the end of
+the semester.</li>
+<li><strong>Deadlines in this class are not targets.</strong> If I give you a deadline, then
+that is the latest I'm willing to accept the assignment under most
+circumstances. If you plan to submit something the night it's due, then
+there's a good chance you'll miss the deadline and receive no credit for your
+work. Don't take that risk if you're not comfortable with the consequences.</li>
+<li>There are people you can talk to if you need help, and the earlier you talk to
+them the more they can do to help. Talk to someone when you <em>start</em> having
+trouble; don't wait until you feel hopelessly stuck or overwhelmed.
+<ul>
+<li>I'm available by email and during
+<a href="./communication.html#office-hours">office hours</a>.</li>
+<li>The Learning Commons employs peer tutors who can help you with assignments
+and academic coaches who help freshmen with time management and difficulties
+adjusting to college.</li>
+</ul>
+</li>
+<li>Keep remote backups of your work! Google Drive and Dropbox both have free
+plans, and I believe you can use OneDrive for free through your QU account.
+You can also download old submissions from Blackboard.</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="course_material.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="grading.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="course_material.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="grading.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
