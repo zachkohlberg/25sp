@@ -1,0 +1,452 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Mistakes to Avoid - Notes for Learning to Program</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Notes for Learning to Program</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="mistakes-to-avoid"><a class="header" href="#mistakes-to-avoid">Mistakes to Avoid</a></h1>
+<h2 id="semicolon-misuse"><a class="header" href="#semicolon-misuse">Semicolon Misuse</a></h2>
+<p>With if statements, we've introduced lines of code that don't end in semicolons.
+As a general rule, you should never add a semicolon to a line of code that
+normally ends in an opening curly brace. If we review the structure of an if
+statement, we'll see that this means you <strong>do not</strong> add semicolons after an <code>if</code>
+or an <code>else</code>, or the condition of an <code>if</code>.</p>
+<pre><code class="language-java">if (condition) {
+    statement;
+} else {
+    statement;
+}
+</code></pre>
+<p>We also do not normally put semicolons after curly braces, whether they are
+opening or closing braces.</p>
+<p>Programmers who aren't used to the rules for semicolons sometimes make the
+mistake of adding them where they aren't needed. Depending on where you add the
+extra semicolon, it may significantly alter the meaning of your code in a way
+you did not expect. For example, what do you think will happen when we run the
+following jshell script?</p>
+<pre><code class="language-java">int x = nextInt();
+if (x &lt; 0); {
+    println("You entered a negative number.");
+}
+</code></pre>
+<p>Try running the program and entering different numbers: try a negative number,
+zero, and a positive number. Did the program work as you expected?</p>
+<p>There's an extra semicolon after the if statement's condition on the second
+line. This is valid code, but it probably doesn't mean what the programmer
+intended. Java interprets <code>if (condition);</code> as an empty if statement with no
+body. Java also allows us to create code blocks that aren't tied to if
+statements or other structures. All of this means that the previous program is
+equivalent to this program:</p>
+<pre><code class="language-java">int x = nextInt();
+
+if (x &lt; 0) {
+    ; // Empty statement does nothing
+}
+
+// A lone block of code that will always execute, even when x isn't negative!
+{
+    println("You entered a negative number.");
+}
+</code></pre>
+<p>We'd get a similar result if we placed a semicolon after an <code>else</code>:</p>
+<pre><code class="language-java">int x = nextInt();
+if (x &lt; 0) {
+    println("You entered a negative number.");
+} else; {
+    println("You entered zero or a positive number.");
+}
+</code></pre>
+<p>Notice the semicolon after the else on the fourth line. Try running this program
+and noting when its output is incorrect, then run it without the extra
+semicolon. We have the same issue as before: the else's body is actually the
+empty statement denoted by the semicolon, and the code block that <em>appears</em> to
+be its body is actually completely separate from the if-else.</p>
+<h2 id="poor-indentation"><a class="header" href="#poor-indentation">Poor Indentation</a></h2>
+<p>You should always indent code nested within a code block, and you should indent
+<em>consistently</em>. There's no set amount that you <em>have</em> to indent in Java, but
+four spaces is pretty common. Whatever the space you use for one level of
+indentation, this should be the same throughout your entire program. Consistent
+formatting is important for keeping your code readable by a human.</p>
+<p>Some examples of poor indentation:</p>
+<pre><code class="language-java">// No indentation
+if (condition1) {
+if (condition2) {
+statement1;
+} else {
+statement2;
+}
+statement3;
+}
+
+// Inconsistent: some lines are indented and others are not
+if (condition1) {
+    if (condition2) {
+        statement1;
+} else {
+    statement2;
+}
+statement3;
+}
+
+// Inconsistent: different numbers of spaces used for indentation
+if (condition1) {
+  if (condition2) {
+      statement1;
+   } else {
+ statement2;
+     }
+     statement3;
+}
+
+// Inconsistent: first level indents 4 spaces, second level indents 2 spaces
+if (condition1) {
+    if (condition2) {
+      statement1;
+    } else {
+      statement2;
+    }
+    statement3;
+}
+</code></pre>
+<p>Below are examples of good indentation:</p>
+<pre><code class="language-java">if (condition1) {
+    if (condition2) {
+        statement1;
+    } else {
+        statement2;
+    }
+    statement3;
+}
+
+if (condition1) {
+  if (condition2) {
+    statement1;
+  } else {
+    statement2;
+  }
+  statement3;
+}
+
+if (condition1) {
+        if (condition2) {
+                statement1;
+        } else {
+                statement2;
+        }
+        statement3;
+}
+</code></pre>
+<h2 id="dangling-else"><a class="header" href="#dangling-else">Dangling Else</a></h2>
+<p>Aside from readability and their necessity in jshell scripts, another reason to
+always include curly braces is to avoid creating a "dangling else":</p>
+<pre><code class="language-java">// Despite the indentation, both versions of this code are identical. How will
+// it be interpreted by the computer?
+
+// Version A
+if (condition1)
+    if (condition2)
+        statement1;
+else
+    statement2;
+
+// Version B
+if (condition1)
+    if (condition2)
+        statement1;
+    else
+        statement2;
+
+// If you would like to check this in a jshell script, you'll need to put
+// everything on one line and replace the placeholders with actual code. Try it
+// with each combination of true/false values for the conditions and try to
+// determine whether version A or B is correct.
+bool condition1 = true;
+bool condition2 = true;
+if (condition1) if (condition2) println("statement1"); else println("statement2");
+</code></pre>
+<p>The following two flowcharts show the difference in logic implied by the
+indentation:</p>
+<p>Version A:</p>
+<p><img src="../dia/if/dangling_else_a.png" alt="Flowchart: Dangling Else Version A" /></p>
+<p>Version B:</p>
+<p><img src="../dia/if/dangling_else_b.png" alt="Flowchart: Dangling Else Version B" /></p>
+<p>If you test this code, you'll see that version B describes what actually
+happens. The else is attached to the closest if statement it can be attached to.
+The fact that we have a rule for how to consistently interpret this makes it
+unambiguous to the computer, but to a human it can be unclear how to interpret
+this code. The use of curly braces and proper indentation removes all ambiguity,
+makes it easier to read, and allows us to tell the computer to use either
+interpretation:</p>
+<pre><code class="language-java">// If we meant for it to be interpreted as version A, curly braces can make this
+// happen
+if (condition1) {
+    if (condition2) {
+        statement1;
+    }
+} else {
+    statement2;
+}
+
+// If we meant for it be interpreted as version B, curly braces clarify our
+// intent
+if (condition1) {
+    if (condition2) {
+        statement1;
+    } else {
+        statement2;
+    }
+}
+</code></pre>
+<h3 id="version-a-vs-version-b"><a class="header" href="#version-a-vs-version-b">Version A vs Version B</a></h3>
+<p>If you had trouble determining whether version A or version B was correct
+earlier, the following truth table may help. It shows what we should expect to
+happen in version A compared to version B:</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">condition1</th><th style="text-align: center">condition2</th><th style="text-align: center">Version A prints</th><th style="text-align: center">Version B prints</th></tr></thead><tbody>
+<tr><td style="text-align: center">true</td><td style="text-align: center">true</td><td style="text-align: center">statement1</td><td style="text-align: center">statement1</td></tr>
+<tr><td style="text-align: center">true</td><td style="text-align: center">false</td><td style="text-align: center"><em>nothing</em></td><td style="text-align: center">statement2</td></tr>
+<tr><td style="text-align: center">false</td><td style="text-align: center">true</td><td style="text-align: center">statement2</td><td style="text-align: center"><em>nothing</em></td></tr>
+<tr><td style="text-align: center">false</td><td style="text-align: center">false</td><td style="text-align: center">statement2</td><td style="text-align: center"><em>nothing</em></td></tr>
+</tbody></table>
+</div>
+<p>If you try each combination of truth values in jshell with no braces, you'll
+observe the results predicted for version B.</p>
+<h2 id="variable-scope-and-shadowing"><a class="header" href="#variable-scope-and-shadowing">Variable Scope and Shadowing</a></h2>
+<p>Accidental <a href="../variables/scope.html#shadowing">shadowing</a> is a common cause of
+errors when writing if statements. Make sure you understand the difference
+between declaring/initializing and reassigning variables so that you can avoid
+this type of error.</p>
+<p>A similar problem can occur if you declare a variable in the wrong scope. If you
+want to initialize a variable inside of an if statement, it may be tempting to
+declare it inside of the if statement. However, if you intend to use it outside
+of the if statement, then this will not work. See the example in the section
+covering <a href="../variables/scope.html">variable scope</a>.</p>
+<p>If you want your if statement to initialize a variable, I recommend declaring it
+before the if statement, then initializing it within the if statement. You will
+also need to ensure your if statement or chain of else-ifs ends with an else
+unless you assign a default value when first declaring the variable.</p>
+<pre><code class="language-java">// Initialize within if statement
+int x;
+if (condition1) {
+    x = 1;
+} else if (condition2) {
+    x = 2;
+} else { // must end in an else to ensure x is always initialized
+    x = 3;
+}
+
+// Initialize with default value, then reassign within if statement
+int x = 3;
+if (condition1) {
+    x = 1;
+} else if (condition2) {
+    x = 2;
+} // no else required because we already initialized with default value of 3
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../if/else_if.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../boolean.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../if/else_if.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../boolean.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

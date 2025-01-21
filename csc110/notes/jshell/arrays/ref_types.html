@@ -1,0 +1,487 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Reference vs Value Types - Notes for Learning to Program</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Notes for Learning to Program</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="reference-vs-value-types"><a class="header" href="#reference-vs-value-types">Reference vs Value Types</a></h1>
+<p>Arrays and Strings are both types of objects. We can refer to them as reference
+types, which differ from <a href="../../types/primitives.html">primitive types (also called value types)</a> in several ways. The primary difference is how the
+program stores their data:</p>
+<ul>
+<li>Value-type variables directly store the data for the value they represent. If
+<code>x</code> and <code>y</code> are value types, then the assignment statement <code>x = y</code> will copy
+the data from <code>y</code> into <code>x</code>.</li>
+<li>Reference-type variables store a memory address that points to their data,
+which is stored in a region of memory called the <strong>heap</strong>. If <code>x</code> and <code>y</code> are
+reference types, then the assignment statement <code>x = y</code> will copy the memory
+address from <code>y</code> into <code>x</code>, which means both <code>x</code> and <code>y</code> will be pointing to
+the same object that <code>y</code> was previously pointing to.</li>
+</ul>
+<h2 id="comparing-reference-types"><a class="header" href="#comparing-reference-types">Comparing Reference Types</a></h2>
+<p>When you compare two variables using <code>==</code> or <code>!=</code>, the program checks whether
+the data stored in the variables is identical. This works fine for value types,
+which directly store a representation of their value. This will not work for
+reference types, because the data in the variable is a memory address and not a
+representation of the data those variables represent.</p>
+<p>If <code>x</code> and <code>y</code> are reference types, then this means <code>x == y</code> will ask whether
+<code>x</code> and <code>y</code> point to the same location in memory, not whether they point to
+identical data. If you have two different but identical objects stored in <code>x</code>
+and <code>y</code>, then <code>x == y</code> will evaluate to <code>false</code>. Try running the code below to
+see this in action:</p>
+<pre><code class="language-java">int[] a = new int[] { 1, 2, 3 };
+int[] b = new int[] { 1. 2, 3 };
+int[] c = a;
+
+if (a == b) {
+    println("a equals b");
+} else {
+    println("a doesn't equal b");
+}
+
+if (b == c) {
+    println("b equals c");
+} else {
+    println("b doesn't equal c");
+}
+
+if (a == c) {
+    println("a equals c");
+} else {
+    println("a doesn't equal c");
+}
+
+String x = new String("Hello");
+String y = new String("Hello");
+String z = y;
+
+if (x == y) {
+    println("x equals y");
+} else {
+    println("x doesn't equal y");
+}
+
+if (y == z) {
+    println("y equals z");
+} else {
+    println("y doesn't equal z");
+}
+
+if (x == z) {
+    println("x equals z");
+} else {
+    println("x doesn't equal z");
+}
+</code></pre>
+<p>Some reference types define an <code>equals</code> method to compare their data instead of
+their memory addresses. The <code>String</code> type does this, so we can use <code>x.equals(y)</code>
+to ask whether the contents of two strings <code>x</code> and <code>y</code> are equal. If <code>x</code> and <code>y</code>
+are strings, then <code>x.equals(y)</code> behaves the same as <code>a == b</code> would behave if <code>a</code>
+and <code>b</code> were value types.</p>
+<p>Other reference types, such as arrays, do not define their own version of the
+<code>equals</code> method. These reference types still have the <code>equals</code> method, but it
+won't be any more helpful than <code>==</code>. If we want to compare two arrays, then we
+need to write our own code to check each element of the arrays and determine
+whether they're equal:</p>
+<pre><code class="language-java">boolean areEqual(int[] a, int[] b) {
+    // If the lengths differ, then we know they're different. It also wouldn't
+    // be safe to iterate over both with one loop, so it's important to return
+    // before we get to the for loop.
+    if (a.length != b.length) {
+        return false;
+    }
+
+    // If the lengths are the same (and we'll return earlier if they aren't),
+    // then we can use a loop to compare the elements at each index of the
+    // arrays.
+    for (int i = 0; i &lt; a.length; ++i) {
+        // If two elements at the same index don't match, then the arrays aren't
+        // equal
+        if (a[i] != b[i]) {
+            return false;
+        }
+    }
+
+    // If we don't find any pairs of unequal elements, then we know the arrays
+    // have the same length and contain the same elements. Sounds like they're
+    // equal!
+    return true;
+}
+
+int[] a = new int[] { 1, 2, 3 };
+int[] b = new int[] { 1, 2, 3 };
+int[] c = new int[] { 1, 2, 3, 4 };
+
+println("If we use the == comparison operator:");
+
+if (a == b) {
+    println("a equals b");
+} else {
+    println("a doesn't equal b");
+}
+if (b == c) {
+    println("b equals c");
+} else {
+    println("b doesn't equal c");
+}
+if (a == c) {
+    println("a equals c");
+} else {
+    println("a doesn't equal c");
+}
+
+println("If we use the equals method:");
+
+if (a.equals(b)) {
+    println("a equals b");
+} else {
+    println("a doesn't equal b");
+}
+if (b.equals(c)) {
+    println("b equals c");
+} else {
+    println("b doesn't equal c");
+}
+if (a.equals(c)) {
+    println("a equals c");
+} else {
+    println("a doesn't equal c");
+}
+
+println("If we use the areEqual function:");
+
+if (areEqual(a, b)) {
+    println("a equals b");
+} else {
+    println("a doesn't equal b");
+}
+if (areEqual(b, c)) {
+    println("b equals c");
+} else {
+    println("b doesn't equal c");
+}
+if (areEqual(a, c)) {
+    println("a equals c");
+} else {
+    println("a doesn't equal c");
+}
+</code></pre>
+<h2 id="immutable-data"><a class="header" href="#immutable-data">Immutable Data</a></h2>
+<p>The <code>String</code> type is <strong>immutable</strong>, which means that we can't modify (or mutate)
+the data inside of a string after we create the string. However, we can create
+new strings based on an existing string, which is what happens when we
+concatenate strings or call one of the string methods (such as <code>toLowerCase</code>).
+The following code demonstrates that the original string <code>a</code> won't change when
+we concatenate it with other strings and call various methods on it.</p>
+<pre><code class="language-java">String a = "Hello";
+
+// Show the value of a
+println("a: " + a);
+
+// Create new strings using a
+String b = a + " World";
+String c = a.toUpperCase();
+String d = a.replace("ello", "i");
+
+// Show the value of a again (hasn't changed)
+println("a: " + a);
+
+// Show the value of the variables we created using a
+println("b: " + b);
+println("c: " + c);
+println("d: " + d);
+</code></pre>
+<p>If we reassign a variable containing a reference to immutable data, then the
+original data still exists. The string that <code>a</code> points to is immutable, but
+this doesn't mean the memory address stored in <code>a</code> can't be changed to point to
+different data.</p>
+<pre><code class="language-java">// Create a new string
+String a = "Hello";
+
+// Create a second variable pointing to the same string
+String b = a;
+
+// Show the values in each string
+println("a: " + a);
+println("b: " + b);
+
+// Create a new string and change a to point to the new string
+a = a.toUpperCase();
+
+// Show the values in each string again, which demonstrates that the original
+// string (stored in b) has not changed
+println("a: " + a);
+println("b: " + b);
+</code></pre>
+<h2 id="mutable-data"><a class="header" href="#mutable-data">Mutable Data</a></h2>
+<p>Unlike the <code>String</code> type, an array is <strong>mutable</strong> (which means its data <em>can</em>
+change). We can reassign any element of an array to a different value, which
+changes part of the array. If multiple variables point to the same array, then
+they will both reflect this change.</p>
+<pre><code class="language-java">// Need a way to print arrays
+void printArray(String label, int[] array) {
+    // Include a label for the array
+    String s = label + ": ";
+    // Add each int to the string
+    for (int x: array) {
+        s += x + " ";
+    }
+    println(s);
+}
+
+// Create a new array
+int[] a = new int[] { 1, 2, 3, 4 };
+
+// Show the value of a
+printArray("a", a);
+
+// Create variables that point to the same array as a
+int[] b = a;
+int[] c = a;
+// Create a variable that points to a different array, but contains the same
+// elements as a
+int[] d = new int[] { a[0], a[1], a[2], a[3] };
+
+// Change a different element of each variable's array
+a[0] = 5;
+b[1] = 6;
+c[2] = 7;
+d[3] = 8;
+
+// Show the value of the array that a points to
+printArray("a", a);
+
+// b and c contain the same elements because they point to the same array as a
+printArray("b", b);
+printArray("c", c);
+
+// d contains different elements because it points to a different array from a
+printArray("d", d);
+
+// Create a new array using the current elements of a
+int[] e = new int[] { a[0], a[1], a[2], a[3] };
+
+// e has the same elements as a
+printArray("e", e);
+
+// Change each element of e
+e[0] = -1;
+e[1] = -2;
+e[2] = -3;
+e[3] = -4;
+
+// Changing e hasn't affected a, b, c, or d because e is a different array
+printArray("a", a);
+printArray("b", b);
+printArray("c", c);
+printArray("d", d);
+printArray("e", e);
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../jshell/arrays/iteration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../java/compiled_intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../jshell/arrays/iteration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../java/compiled_intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Syntax Changes - Notes for Learning to Program</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Notes for Learning to Program</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="syntax-changes"><a class="header" href="#syntax-changes">Syntax Changes</a></h1>
+<h2 id="output"><a class="header" href="#output">Output</a></h2>
+<p>The script we added to our jshell startup created shorter print functions for
+our jshell scripts to use. This is why we could type <code>println</code> instead of
+<code>System.out.println</code>. In a Java program, we need to specify an output stream
+when we want to print something. <code>System.out</code> is an output stream connected to
+standard out, and <code>System.err</code> is an output stream connected to standard err
+(which is used for printing error messages). All of the print functions we used
+in jshell still work in Java as long as you begin them with <code>System.out.</code>.</p>
+<h2 id="input"><a class="header" href="#input">Input</a></h2>
+<p>The script we added to our jshell startup also created a <code>Scanner</code> and some
+shorter input functions (<code>nextInt</code>, <code>nextLine</code>, etc.) for our jshell scripts to
+use. To do the same thing in a Java program, we need to create a scanner
+connected to an input stream (<code>System.in</code> is what we'll normally use), then we
+can call that scanner's input methods. The same input functions will work as
+long as we call them as methods on our <code>System.in</code> scanner.</p>
+<p>We also need to import the scanner class before we can use it in our program. An
+<code>import</code> statement normally goes at the beginning of our program, before the
+start of our class. See the code below for a complete example of creating and
+using a <code>System.in</code> scanner.</p>
+<pre><code class="language-java">// Import the scanner at the beginning of the file
+import java.util.Scanner;
+
+// Remember to name this file InputExample.java so it can compile
+class InputExample
+{
+    public static void main(String[] args)
+    {
+        // Create a new scanner to read from the System.in input stream
+        // NOTE: We should only create the System.in scanner once in our entire
+        // program! We should only have one scanner reading from a particular
+        // input stream.
+        Scanner input = new Scanner(System.in);
+
+        // The usual prompt for input pattern, but with a scanner!
+        System.out.println("Please enter your first name.");
+        String firstName = input.nextLine();
+
+        System.out.println("Please enter your last name.");
+        String lastName = input.nextLine();
+
+        // Don't forget we have printf as well as println
+        System.out.printf("Your full name is %s %s.\n", firstName, lastName);
+    }
+}
+</code></pre>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>Functions have to be formatted slightly differently in a Java program compared
+to a jshell script. They're also referred to as methods (although the term
+function is still accurate, just less specific). All of our functions will need
+to include the <code>static</code> keyword before their return type (just like main). This
+marks them as a standalone function that can be called from the class. When we
+learn how to instantiate our classes later on, we'll be able to write non-static
+methods.</p>
+<p>We also cannot define methods inside of other methods. Jshell didn't allow this
+either, but if you copy a jshell script into your <code>main</code> method, then you'll end
+up with all of your functions defined inside of the <code>main</code> method.</p>
+<p>Finally, we don't have to worry about the order of our method definitions in a
+Java program! You can define all of your other methods after the main method,
+and Java won't have a problem with this.</p>
+<h2 id="semicolons"><a class="header" href="#semicolons">Semicolons</a></h2>
+<p>Jshell did not require semicolons at the end of statements outside of code
+blocks. In Java, statements typically need to end with a semicolon. There are
+some lines of code where we should never use semicolons, and we've covered many
+of these before. However, let's go over them all again right here:</p>
+<ul>
+<li>Never put a semicolon at the end of an <code>if</code> statement, <code>while</code> loop, or <code>for</code>
+loop. The chapters about if statements and loops goes into more detail about
+why.
+<ul>
+<li>One small exception is the do-while loop: you must put a semicolon at the
+end of the <code>while</code> line in a do-while loop, but you should <strong>never</strong> do this
+to a regular while loop!</li>
+</ul>
+</li>
+<li>Never put a semicolon at the end of a function signature or class declaration.</li>
+<li>We rarely need to put semicolons after curly braces, at least not when they're
+marking a code block.</li>
+</ul>
+<p>All of the code examples in this book will show examples of where to use
+semicolons and where not to use them. You're probably somewhat used to this
+already from writing code in code blocks for jshell scripts. The only difference
+when switching to Java programs is that they're no longer optional in the main
+body of your program.</p>
+<h2 id="code-blocks"><a class="header" href="#code-blocks">Code Blocks</a></h2>
+<p>One other small change is the structure of code blocks. Jshell's interpreter
+will not associate the <code>else</code> with the preceding <code>if</code> in the example below:</p>
+<pre><code class="language-java">// jshell won't like this
+if (condition) {
+    body;
+}
+else {
+    body;
+}
+
+// jshell will be fine with this
+if (condition) {
+    body;
+} else {
+    body;
+}
+</code></pre>
+<p>In a compiled Java program, this is no longer an issue. Any of the following
+formats for if statements should be fine, but you should stick to the same
+format throughout your program. Consistency is important for keeping your code
+easy to read.</p>
+<pre><code class="language-java">// braces on separate lines
+// more verbose, but extra lines visually separate body from surrounding code
+if (condition)
+{
+    body;
+}
+else if (condition)
+{
+    body;
+}
+else
+{
+    body;
+}
+
+// my preference (for Java code)
+// opening braces on same line as associated statement
+// else on same line as closing brace
+// shorter, but less whitespace to visually separate body from surrounding code
+if (condition) {
+    body;
+} else if (condition) {
+    body;
+} else {
+    body;
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../java/compiled_intro/compilation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../../templates.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../java/compiled_intro/compilation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../../templates.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../../ace.js"></script>
+        <script src="../../editor.js"></script>
+        <script src="../../mode-rust.js"></script>
+        <script src="../../theme-dawn.js"></script>
+        <script src="../../theme-tomorrow_night.js"></script>
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

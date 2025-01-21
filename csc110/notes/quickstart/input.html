@@ -1,0 +1,327 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Input - Notes for Learning to Program</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Notes for Learning to Program</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="input"><a class="header" href="#input">Input</a></h1>
+<p>Now we'll look at how to read user input in your program. As you'll see
+shortly, it's important to know how to use variables before we read user input.
+The code in this section will not work if you haven't set up <code>INPUT.jsh</code>
+correctly, so make sure you do that before continuing. The scripts in this
+section will also fail if you try to run them without setting
+<code>--execution local</code> as part of the jshell command (but remember this only
+applies when running scripts, not when running jshell interactively).</p>
+<h2 id="reading-text"><a class="header" href="#reading-text">Reading Text</a></h2>
+<p>You can read a line of text with the <code>nextLine()</code> function. If you try this in
+jshell, you should see the following:</p>
+<pre><code>jshell&gt; nextLine();
+
+</code></pre>
+<p>Jshell will continue waiting until you type something and press enter, so
+go ahead and type some text:</p>
+<pre><code>jshell&gt; nextLine();
+Hello, Jshell!
+$1 ==&gt; "Hello, Jshell!"
+
+jshell&gt;
+</code></pre>
+<p>We can see that jshell saw what we typed, but if we want to use it in our code
+we need to assign the result to a variable. All of the input functions can be
+used in expressions, so you can assign input to a variable like this:</p>
+<pre><code>jshell&gt; var input = nextLine();
+Hello again, Jshell!
+
+jshell&gt; println(input);
+Hello again, Jshell!
+
+jshell&gt;
+</code></pre>
+<h2 id="other-input-functions"><a class="header" href="#other-input-functions">Other Input Functions</a></h2>
+<p>There are many other input functions, but those most likely to be useful to you
+right now are:</p>
+<ul>
+<li><code>next()</code>: reads a single word instead of an entire line</li>
+<li><code>nextInt()</code>: reads an integer</li>
+<li><code>nextDouble()</code>: reads a real number</li>
+</ul>
+<h2 id="nextline-issue"><a class="header" href="#nextline-issue"><code>nextLine()</code> Issue</a></h2>
+<p>The <code>nextLine()</code> function may not behave as you expect if you use it after one
+of the other input functions. Here's an example program you can try running:</p>
+<pre><code class="language-java">var number1 = nextInt();
+var number2 = nextInt();
+var text = nextLine();
+println(number1);
+println(number2);
+println(text);
+</code></pre>
+<p>This program should read two integers and a line of text, then print everything
+it read.
+However, when running the program you'll notice that it immediately prints the
+numbers and a blank line after we enter the second number.
+It doesn't give us a chance to type the line of text.</p>
+<p>This is the result of how the input functions process input, not a bug.
+To understand why it happens, let's pretend all the user's input is in a single
+text file instead of being typed as the program runs.
+Here's an example of what we might type as input:</p>
+<pre><code>100
+200
+line of text
+</code></pre>
+<p>We'll also include a cursor to mark our position in this text as we process it
+with input functions. The cursor will be marked with the pipe (<code>|</code>) character:</p>
+<pre><code>|100
+200
+line of text
+</code></pre>
+<p>When we use the <code>nextInt()</code> function (or any input function that doesn't read an
+entire line of text), it will move the cursor to the end of the input that it
+read.
+If it doesn't find anything on the current line, then it will move to the next
+line and keep looking.
+Here is the cursor after the first <code>nextInt()</code>:</p>
+<pre><code>100|
+200
+line of text
+</code></pre>
+<p>And here is the cursor after the second <code>nextInt()</code>:</p>
+<pre><code>100
+200|
+line of text
+</code></pre>
+<p>The <code>nextLine()</code> function is a bit different. It moves to the end of the current
+line and reads everything it moved past, then skips the cursor to the start of
+the next line. After the <code>nextLine()</code>, we end up with this:</p>
+<pre><code>100
+200
+|line of text
+</code></pre>
+<p>Did you notice that the cursor hasn't moved through any new text?
+It was already at the end of the "200" line, so it jumped to the beginning
+of the third line and read nothing.</p>
+<p>So how do we deal with this?</p>
+<ul>
+<li>This will only happen if you use <code>nextLine()</code> <em>after a different input
+function</em>, so it won't come up very often.</li>
+<li>If you need to use <code>nextLine()</code> after a different input function, run the
+<code>nextLine()</code> function once to move the cursor to the start of a fresh line of
+input, then run it again to get your input.
+A modified version of our program would look like this:</li>
+</ul>
+<pre><code class="language-java">var number1 = nextInt();
+var number2 = nextInt();
+nextLine();
+var text = nextLine();
+println(number1);
+println(number2);
+println(text);
+</code></pre>
+<p>This program will work as intended and read/print all three inputs from the user.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../quickstart/variables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../quickstart/data_types.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../quickstart/variables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../quickstart/data_types.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+        <script>
+            window.playground_line_numbers = true;
+        </script>
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+        <script src="../ace.js"></script>
+        <script src="../editor.js"></script>
+        <script src="../mode-rust.js"></script>
+        <script src="../theme-dawn.js"></script>
+        <script src="../theme-tomorrow_night.js"></script>
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
