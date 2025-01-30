@@ -570,6 +570,161 @@ about it:</p>
 <li>FAQ: <a href="https://www.geany.org/documentation/faq/">https://www.geany.org/documentation/faq/</a></li>
 <li>Manual: <a href="https://www.geany.org/manual/current/index.html">https://www.geany.org/manual/current/index.html</a></li>
 </ul>
+<h1 id="intro"><a class="header" href="#intro">Intro</a></h1>
+<p>Weekly notes for CSC110, intended for reading assignments between lectures. I
+don't have time to fully revise my old notes, so I'm going to write shorter
+weekly notes for reading assignments to introduce the new topics for that week.</p>
+<p>Read the notes by the end of the week in which they were assigned, before the
+next week's lecture. Write down your answers to any questions or practice
+exercises given in the notes, and be prepared to answer those questions during
+class.</p>
+<h1 id="week-2"><a class="header" href="#week-2">Week 2</a></h1>
+<h2 id="java-programs"><a class="header" href="#java-programs">Java Programs</a></h2>
+<p>We're using preview features in Java 23 to simplify the structure of Java
+programs. With these preview features, a Java program looks like this:</p>
+<pre><code class="language-java">void main() {
+    // our code
+}
+</code></pre>
+<p>The <code>void main()</code> creates a function called "main". When a Java program runs, it
+always starts by running the code in this main function. All of your programs
+must include this <code>void main()</code>. The curly brackets <code>{ ... }</code> enclose all of the
+code inside of the main function: this is the code your program will run.</p>
+<p>The program also must be saved in a file, which should be named according to the
+following rules:</p>
+<ol>
+<li>The filename must end in <code>.java</code> (all lowercase)</li>
+<li>The filename must not contain any spaces</li>
+<li>The filename should be written in UpperCamelCase, which means the first
+letter of each word is capitalized</li>
+</ol>
+<p>You can run your program from the terminal by navigating to the directory where
+you saved the program and running the command <code>java MyProgram.java</code>. Replace
+"MyProgram" with the name of your program.</p>
+<h2 id="output"><a class="header" href="#output">Output</a></h2>
+<p>Traditionally, the first program we write when learning to code is called Hello
+World. This is a program that prints some version of the phrase "Hello World" to
+the command line. A Hello World program looks like this:</p>
+<pre><code class="language-java">void main() {
+    println("Hello World");
+}
+</code></pre>
+<p>We use the term "output" to describe information produced by our program. A
+program's output can include text on the terminal, new files or changes to
+existing files, images or animated graphics, sounds, and more. Most of our
+programs in this class will produce all of their output by printing text to the
+terminal, but we may have time to learn other forms of output later in the
+semester.</p>
+<p>For now, we have two ways to produce output:</p>
+<ul>
+<li><code>println</code> prints a line of text to the terminal</li>
+<li><code>print</code> prints text to the terminal, but it does not move to a new line after
+printing the text</li>
+</ul>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>Much of the code we write will involve functions. A function is a block of code
+with a name attached to it, and we can run the code inside that function by
+calling (or invoking) the function. The Hello World program demonstrates
+defining a function and invoking a function:</p>
+<p>This part defines a function called <code>main</code>:</p>
+<pre><code class="language-java">void main() {
+    ...
+}
+</code></pre>
+<p>This part invokes a function called <code>println</code>:</p>
+<pre><code class="language-java">println("Hello World");
+</code></pre>
+<p>When we define a function, we tell the computer what is supposed to happen when
+this function is invoked. When we invoke a function, we actually run the code
+inside the function. We don't have to invoke our main function because Java does
+this for us when it starts running the program.</p>
+<h3 id="function-arguments"><a class="header" href="#function-arguments">Function Arguments</a></h3>
+<p>Some functions require additional information before they can run, just like a
+command you write on the terminal. When we provide this information, it is
+called an <strong>argument</strong>. The arguments for a function call always appear in
+parenthesis after the function's name.</p>
+<p>For example, the <code>println</code> function needs an argument to tell it what text to
+display. In the Hello World program, the quoted text <code>"Hello World"</code> is an
+argument used when invoking <code>println</code>.</p>
+<h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
+<p>Our programs can produce information through calculations or manipulating text.
+If we want to use this new information in our program, then we need the program
+to remember and assign it a name. The name lets us refer to it in other parts of
+the code.</p>
+<p>A <strong>variable</strong> is a name associated with a piece of data. That data can be a
+number, text, or something more complicated. We can create a variable by typing
+<code>var</code> followed by the variable's name, an equal sign, and the information we
+wish to store in the variable. For example:</p>
+<pre><code class="language-java">var x = 2 + 2;
+</code></pre>
+<p>The above code creates a variable named <code>x</code> and assigns the result of <code>2 + 2</code> to
+this variable. If we later used the variable <code>x</code>, it would be treated as a
+number with the value <code>4</code>. For example, the following program prints the number
+4 because that's the value stored in the variable <code>x</code>:</p>
+<pre><code class="language-java">void main() {
+    var x = 2 + 2;
+
+    println(x);
+}
+</code></pre>
+<p>We can also reassign a variable, which gives it a different value, by using the
+name followed by an equal sign. Note that we <strong>do not</strong> include the <code>var</code>
+keyword when the variable already exists.</p>
+<pre><code class="language-java">void main() {
+    var x = 2 + 2;
+
+    println(x);
+
+    x = 7;
+
+    println(x);
+}
+</code></pre>
+<h2 id="input"><a class="header" href="#input">Input</a></h2>
+<p>So far we can write programs that perform calculations and produce output, but
+these programs aren't interactive. If we want our program to respond to the
+user, then they need to accept <strong>input</strong>. Input refers to any information we
+provide to our program, and it can include text, images, files, sounds, mouse
+movements, and more. For now, we'll focus on providing input by typing text into
+the terminal.</p>
+<p>We have another function available that prompts the user for input. This
+function is called <code>readln</code>:</p>
+<pre><code class="language-java">void main() {
+    var name = readln("What is your name? ");
+    println("Hello " + name + ", nice to meet you!");
+}
+</code></pre>
+<p>If you run the program above and enter your name when prompted, then it will
+print a greeting that includes your name. Note that this does not involve
+editing the above code! Save the program exactly as shown above to a file and
+run it on the terminal.</p>
+<p>The <code>readln</code> requires one argument: text with which to prompt the user for
+input. It will print this text, just as if you had called the <code>print</code> function,
+and then read whatever the user types. When the user presses enter, the program
+will resume, and the function will <strong>return</strong> any text typed by the user.</p>
+<p>When a function returns information, this information will be lost unless we do
+something with it. If we want to remember that information and use it later in
+our program, then we can store it in a variable. That's what we did in the above
+program: we created a variable called <code>name</code> and set it equal to the text
+returned by the <code>readln</code> function.</p>
+<p>Some functions don't return anything. These functions are marked as <code>void</code>, like
+our main function. The <code>print</code> and <code>println</code> functions are also <code>void</code>: they
+send information outside of the program, so there's nothing for them to return
+once they finish.</p>
+<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<p>The last concept we'll introduce is called a comment. A comment is text in your
+program that is ignored when the program runs. We can use comments to document
+our code or leave notes for ourselves. There are two ways to write a comment in
+Java:</p>
+<pre><code class="language-java">// This is a one-line comment. Any text after two forward slashes is a comment.
+
+/*
+This is a multi-line comment.
+Any text between the slash-asterisk and asterisk-slash is a comment.
+*/
+</code></pre>
+<p>You'll see comments throughout our example programs to help explain what the
+code is doing.</p>
 <h1 id="flowcharts"><a class="header" href="#flowcharts">Flowcharts</a></h1>
 <p>The flowcharts in this book will follow a similar style to those shown in the
 <a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Programming_Fundamentals_(Busbee_and_Braunschweig)/01%3A_Introduction_to_Programming/1.05%3A_Flowcharts">flowcharts section</a>
@@ -873,7 +1028,7 @@ a jshell script</li>
 <li>Make sure you set the startup scripts as explained above and confirm that
 they're working</li>
 </ul>
-<h1 id="output"><a class="header" href="#output">Output</a></h1>
+<h1 id="output-1"><a class="header" href="#output-1">Output</a></h1>
 <p>A program's output is the information it sends to some external location, such
 as the terminal, the screen, a speaker, a file, or a web server.
 For now, our only method of producing output will be printing text to the
@@ -923,7 +1078,7 @@ letter standing in for the special symbol you want to include:</p>
 <li><code>\n</code> is printed as a line break</li>
 </ul>
 <p>Try printing messages containing these escape sequences and see what happens!</p>
-<h1 id="variables"><a class="header" href="#variables">Variables</a></h1>
+<h1 id="variables-1"><a class="header" href="#variables-1">Variables</a></h1>
 <p>Sometimes we want our program to remember information and reuse the information
 later.
 We tell our program to remember something by creating a variable and
@@ -1017,7 +1172,7 @@ further meaning in the context of the program.</p>
 <p>Your program can still work if you do not follow these rules, but your code
 will be harder for a human to read. A human has to understand the code in order
 to use and maintain it, so writing readable code is very important.</p>
-<h1 id="input"><a class="header" href="#input">Input</a></h1>
+<h1 id="input-1"><a class="header" href="#input-1">Input</a></h1>
 <p>Now we'll look at how to read user input in your program. As you'll see
 shortly, it's important to know how to use variables before we read user input.
 The code in this section will not work if you haven't set up <code>INPUT.jsh</code>
@@ -1225,7 +1380,7 @@ This makes it easier to specify types other than the default <code>int</code> an
 for numbers, and it makes it easier to tell what type a variable is when looking
 at the code.
 From now on, most examples will use explicit types rather than inferred types.</p>
-<h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
+<h1 id="functions-1"><a class="header" href="#functions-1">Functions</a></h1>
 <p>A function is a series of instructions (lines of code) that can be <strong>called</strong>
 from another part of the program.
 We'll learn more about functions and how to write our own functions later, but
@@ -1266,7 +1421,7 @@ Technically, most functions in Java are methods, including all of the functions
 we've used so far.
 For now, I'll use the term function for anything that is presented to you as a
 standalone function.</p>
-<h1 id="comments"><a class="header" href="#comments">Comments</a></h1>
+<h1 id="comments-1"><a class="header" href="#comments-1">Comments</a></h1>
 <p>A comment is text that is ignored when compiling or running a program. Comments
 can be used for many purposes, and the way you use comments will evolve as you
 learn more about programming.</p>
@@ -1320,7 +1475,7 @@ working on a project understand code and don't need every line explained.
 However, these types of comments can be useful if you're learning a new
 language, and they're good to include in code samples that are meant to teach
 a new concept to someone.</p>
-<h1 id="variables-1"><a class="header" href="#variables-1">Variables</a></h1>
+<h1 id="variables-2"><a class="header" href="#variables-2">Variables</a></h1>
 <p>This chapter covers variables in a little more depth than the Quickstart
 chapter. Some information will be repeated here so that this chapter can serve
 as a better reference.</p>
@@ -2730,7 +2885,7 @@ used in mathematics and may be relevant to some of your programs:</p>
 <li><code>Math.TAU</code> is an approximation of pi doubled</li>
 <li><code>Math.E</code> is an approximation of <a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">e</a></li>
 </ul>
-<h2 id="functions-1"><a class="header" href="#functions-1">Functions</a></h2>
+<h2 id="functions-2"><a class="header" href="#functions-2">Functions</a></h2>
 <p>The functions shown below will use placeholder variable names, which you should
 replace with the appropriate variables or literals from your program when you
 use these functions.</p>
@@ -3306,7 +3461,7 @@ values for <code>x</code>. Otherwise, it isn't going to matter which way you wri
 operators, so go with the style you prefer. I also tend to avoid using them in
 situations where they behave differently because it can make the code harder to
 read.</p>
-<h1 id="functions-2"><a class="header" href="#functions-2">Functions</a></h1>
+<h1 id="functions-3"><a class="header" href="#functions-3">Functions</a></h1>
 <p>Functions were briefly mentioned in the quickstart chapter, and you've been
 using several functions for a while: <code>println</code>, <code>nextLine</code>, and the other I/O
 commands are all functions.</p>
@@ -4201,7 +4356,7 @@ program will print the wrong answer to a question five percent of the time. You
 can catch logic errors by manually testing your program or by writing automated
 tests, like the test scripts included with some of the projects.</p>
 <h1 id="syntax-changes"><a class="header" href="#syntax-changes">Syntax Changes</a></h1>
-<h2 id="output-1"><a class="header" href="#output-1">Output</a></h2>
+<h2 id="output-2"><a class="header" href="#output-2">Output</a></h2>
 <p>The script we added to our jshell startup created shorter print functions for
 our jshell scripts to use. This is why we could type <code>println</code> instead of
 <code>System.out.println</code>. In a Java program, we need to specify an output stream
@@ -4209,7 +4364,7 @@ when we want to print something. <code>System.out</code> is an output stream con
 standard out, and <code>System.err</code> is an output stream connected to standard err
 (which is used for printing error messages). All of the print functions we used
 in jshell still work in Java as long as you begin them with <code>System.out.</code>.</p>
-<h2 id="input-1"><a class="header" href="#input-1">Input</a></h2>
+<h2 id="input-2"><a class="header" href="#input-2">Input</a></h2>
 <p>The script we added to our jshell startup also created a <code>Scanner</code> and some
 shorter input functions (<code>nextInt</code>, <code>nextLine</code>, etc.) for our jshell scripts to
 use. To do the same thing in a Java program, we need to create a scanner
@@ -4246,7 +4401,7 @@ class InputExample
     }
 }
 </code></pre>
-<h2 id="functions-3"><a class="header" href="#functions-3">Functions</a></h2>
+<h2 id="functions-4"><a class="header" href="#functions-4">Functions</a></h2>
 <p>Functions have to be formatted slightly differently in a Java program compared
 to a jshell script. They're also referred to as methods (although the term
 function is still accurate, just less specific). All of our functions will need

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Text Editor - Notes for Learning to Program</title>
+        <title>Week 2 - Notes for Learning to Program</title>
 
 
         <!-- Custom HTML head -->
@@ -152,55 +152,163 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="text-editor"><a class="header" href="#text-editor">Text Editor</a></h1>
-<h2 id="using-geany"><a class="header" href="#using-geany">Using Geany</a></h2>
-<p>For now, you only need to know how to perform a few tasks in your editor:</p>
+                        <h1 id="week-2"><a class="header" href="#week-2">Week 2</a></h1>
+<h2 id="java-programs"><a class="header" href="#java-programs">Java Programs</a></h2>
+<p>We're using preview features in Java 23 to simplify the structure of Java
+programs. With these preview features, a Java program looks like this:</p>
+<pre><code class="language-java">void main() {
+    // our code
+}
+</code></pre>
+<p>The <code>void main()</code> creates a function called "main". When a Java program runs, it
+always starts by running the code in this main function. All of your programs
+must include this <code>void main()</code>. The curly brackets <code>{ ... }</code> enclose all of the
+code inside of the main function: this is the code your program will run.</p>
+<p>The program also must be saved in a file, which should be named according to the
+following rules:</p>
+<ol>
+<li>The filename must end in <code>.java</code> (all lowercase)</li>
+<li>The filename must not contain any spaces</li>
+<li>The filename should be written in UpperCamelCase, which means the first
+letter of each word is capitalized</li>
+</ol>
+<p>You can run your program from the terminal by navigating to the directory where
+you saved the program and running the command <code>java MyProgram.java</code>. Replace
+"MyProgram" with the name of your program.</p>
+<h2 id="output"><a class="header" href="#output">Output</a></h2>
+<p>Traditionally, the first program we write when learning to code is called Hello
+World. This is a program that prints some version of the phrase "Hello World" to
+the command line. A Hello World program looks like this:</p>
+<pre><code class="language-java">void main() {
+    println("Hello World");
+}
+</code></pre>
+<p>We use the term "output" to describe information produced by our program. A
+program's output can include text on the terminal, new files or changes to
+existing files, images or animated graphics, sounds, and more. Most of our
+programs in this class will produce all of their output by printing text to the
+terminal, but we may have time to learn other forms of output later in the
+semester.</p>
+<p>For now, we have two ways to produce output:</p>
 <ul>
-<li>Create, save, and open files (<strong>File</strong> -&gt; <strong>New</strong>, <strong>Save</strong>, and <strong>Open</strong>)</li>
-<li>Edit the text in a file</li>
+<li><code>println</code> prints a line of text to the terminal</li>
+<li><code>print</code> prints text to the terminal, but it does not move to a new line after
+printing the text</li>
 </ul>
-<p>I recommend learning more than the bare minimum. The more you know about your
-editor, the faster and more convenient it becomes to edit code. Take a look at
-the commands available in the various dropdown menus (particularly <strong>File</strong> and
-<strong>Edit</strong>) and learn what some of them do. These menus also show keyboard
-shortcuts for most commands. Try getting in the habit of using keyboard
-shortcuts instead of reaching for the mouse.</p>
-<h2 id="file-extensions"><a class="header" href="#file-extensions">File Extensions</a></h2>
-<p>A text file normally has the file extension <code>.txt</code>. However, the file extension
-doesn't change anything about the file's contents. It's just there to tell other
-software and the user what kind of information is stored in the file. When we
-write code, we give our file a different extension to indicate what kind of code
-we are writing. For example, Python files end in <code>.py</code>, Java files end in
-<code>.java</code>, and C++ files end in <code>.cpp</code>. These are all plain text files, and
-changing the file extension would not convert the text inside the file to a
-different format.</p>
-<p>When you save a new file for the first time, make sure you use the correct file
-extension. Since we're using Java, this will usually be <code>.java</code>.</p>
-<h2 id="neovim"><a class="header" href="#neovim">Neovim</a></h2>
-<p>I use a text editor called neovim (<a href="https://neovim.io/">https://neovim.io/</a>). It has a steep
-learning curve and I do not recommend it for new programmers, but you will see
-me using it in videos and during class. Nothing we do in this class is specific
-a particular editor, and anything I show you in neovim is still a task that you
-can replicate using Geany. It doesn't matter which editor you're watching
-someone else use as long as you know your own editor well enough to use it
-effectively.</p>
-<h2 id="additional-resources"><a class="header" href="#additional-resources">Additional Resources</a></h2>
-<p>Geany has online documentation that you can read if you'd like to learn more
-about it:</p>
-<ul>
-<li>FAQ: <a href="https://www.geany.org/documentation/faq/">https://www.geany.org/documentation/faq/</a></li>
-<li>Manual: <a href="https://www.geany.org/manual/current/index.html">https://www.geany.org/manual/current/index.html</a></li>
-</ul>
+<h2 id="functions"><a class="header" href="#functions">Functions</a></h2>
+<p>Much of the code we write will involve functions. A function is a block of code
+with a name attached to it, and we can run the code inside that function by
+calling (or invoking) the function. The Hello World program demonstrates
+defining a function and invoking a function:</p>
+<p>This part defines a function called <code>main</code>:</p>
+<pre><code class="language-java">void main() {
+    ...
+}
+</code></pre>
+<p>This part invokes a function called <code>println</code>:</p>
+<pre><code class="language-java">println("Hello World");
+</code></pre>
+<p>When we define a function, we tell the computer what is supposed to happen when
+this function is invoked. When we invoke a function, we actually run the code
+inside the function. We don't have to invoke our main function because Java does
+this for us when it starts running the program.</p>
+<h3 id="function-arguments"><a class="header" href="#function-arguments">Function Arguments</a></h3>
+<p>Some functions require additional information before they can run, just like a
+command you write on the terminal. When we provide this information, it is
+called an <strong>argument</strong>. The arguments for a function call always appear in
+parenthesis after the function's name.</p>
+<p>For example, the <code>println</code> function needs an argument to tell it what text to
+display. In the Hello World program, the quoted text <code>"Hello World"</code> is an
+argument used when invoking <code>println</code>.</p>
+<h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
+<p>Our programs can produce information through calculations or manipulating text.
+If we want to use this new information in our program, then we need the program
+to remember and assign it a name. The name lets us refer to it in other parts of
+the code.</p>
+<p>A <strong>variable</strong> is a name associated with a piece of data. That data can be a
+number, text, or something more complicated. We can create a variable by typing
+<code>var</code> followed by the variable's name, an equal sign, and the information we
+wish to store in the variable. For example:</p>
+<pre><code class="language-java">var x = 2 + 2;
+</code></pre>
+<p>The above code creates a variable named <code>x</code> and assigns the result of <code>2 + 2</code> to
+this variable. If we later used the variable <code>x</code>, it would be treated as a
+number with the value <code>4</code>. For example, the following program prints the number
+4 because that's the value stored in the variable <code>x</code>:</p>
+<pre><code class="language-java">void main() {
+    var x = 2 + 2;
+
+    println(x);
+}
+</code></pre>
+<p>We can also reassign a variable, which gives it a different value, by using the
+name followed by an equal sign. Note that we <strong>do not</strong> include the <code>var</code>
+keyword when the variable already exists.</p>
+<pre><code class="language-java">void main() {
+    var x = 2 + 2;
+
+    println(x);
+
+    x = 7;
+
+    println(x);
+}
+</code></pre>
+<h2 id="input"><a class="header" href="#input">Input</a></h2>
+<p>So far we can write programs that perform calculations and produce output, but
+these programs aren't interactive. If we want our program to respond to the
+user, then they need to accept <strong>input</strong>. Input refers to any information we
+provide to our program, and it can include text, images, files, sounds, mouse
+movements, and more. For now, we'll focus on providing input by typing text into
+the terminal.</p>
+<p>We have another function available that prompts the user for input. This
+function is called <code>readln</code>:</p>
+<pre><code class="language-java">void main() {
+    var name = readln("What is your name? ");
+    println("Hello " + name + ", nice to meet you!");
+}
+</code></pre>
+<p>If you run the program above and enter your name when prompted, then it will
+print a greeting that includes your name. Note that this does not involve
+editing the above code! Save the program exactly as shown above to a file and
+run it on the terminal.</p>
+<p>The <code>readln</code> requires one argument: text with which to prompt the user for
+input. It will print this text, just as if you had called the <code>print</code> function,
+and then read whatever the user types. When the user presses enter, the program
+will resume, and the function will <strong>return</strong> any text typed by the user.</p>
+<p>When a function returns information, this information will be lost unless we do
+something with it. If we want to remember that information and use it later in
+our program, then we can store it in a variable. That's what we did in the above
+program: we created a variable called <code>name</code> and set it equal to the text
+returned by the <code>readln</code> function.</p>
+<p>Some functions don't return anything. These functions are marked as <code>void</code>, like
+our main function. The <code>print</code> and <code>println</code> functions are also <code>void</code>: they
+send information outside of the program, so there's nothing for them to return
+once they finish.</p>
+<h2 id="comments"><a class="header" href="#comments">Comments</a></h2>
+<p>The last concept we'll introduce is called a comment. A comment is text in your
+program that is ignored when the program runs. We can use comments to document
+our code or leave notes for ourselves. There are two ways to write a comment in
+Java:</p>
+<pre><code class="language-java">// This is a one-line comment. Any text after two forward slashes is a comment.
+
+/*
+This is a multi-line comment.
+Any text between the slash-asterisk and asterisk-slash is a comment.
+*/
+</code></pre>
+<p>You'll see comments throughout our example programs to help explain what the
+code is doing.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../software/terminal/files.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../weekly/intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../weekly/intro.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../flowcharts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -210,11 +318,11 @@ about it:</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../software/terminal/files.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../weekly/intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../weekly/intro.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../flowcharts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
