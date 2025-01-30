@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Week 2 - SER120 Note Handouts</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Note Handouts</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="week-2"><a class="header" href="#week-2">Week 2</a></h1>
+<h2 id="mutability"><a class="header" href="#mutability">Mutability</a></h2>
+<p>If something can change (mutate), then it is <strong>mutable</strong>. If something cannot
+change, then it is <strong>immutable</strong>. If a class prevents any change to its
+properties after instantiation, then we would consider it to be an immutable
+type. If a class can change its properties after instantiation, then it is a
+mutable type. For example: Java's built-in <code>String</code> class is immutable because
+we cannot modify any properties of a string after we create it, whereas every
+array is mutable (even if its individual elements are immutable) because we can
+reassign the individual elements of an array.</p>
+<h2 id="value-and-reference-types"><a class="header" href="#value-and-reference-types">Value and Reference Types</a></h2>
+<p>Java has a set of basic "primitive" or <strong>value</strong> types: <code>byte</code>, <code>short</code>, <code>int</code>,
+<code>long</code>, <code>char</code>, <code>float</code>, <code>double</code>, and <code>boolean</code>. By convention, these types
+start with a lowercase letter. Every other type in Java is an object, or
+reference type. These are defined by classes, and by convention their names
+begin with an uppercase letter.</p>
+<p>The word "value" may refer to the contents of a variable or the result of an
+expression. The difference between a value type and reference type is what that
+value represents:</p>
+<ul>
+<li>In a value type, the value <em>is</em> the data (such as the number 5, or the letter
+'q')</li>
+<li>In a reference type, the value is a reference to the data</li>
+</ul>
+<p>Instead of storing an object's data directly in a variable, the object's data is
+stored in an area of memory called the heap. The variable instead stores a
+reference to that object: a number pointing to its location on the heap (this
+number is also called a pointer or memory address).</p>
+<p>Two important differences between reference and value types to keep in mind:</p>
+<ul>
+<li>Assigning one reference variable to another (<code>Person b = a;</code>) will copy the
+<em>reference</em>, not the object that the reference points to. This means multiple
+variables can point to the same object. This can cause problems when the
+object is mutable.</li>
+<li>Direct comparisons using <code>==</code> and <code>!=</code> will compare the reference, not the
+object that the reference points to. This means that two different objects
+with identical properties will not be considered equal when using <code>==</code> and
+<code>!=</code>. If a class implements its own <code>.equals()</code> method, then you can get
+around this by comparing instances of that class with the <code>.equals()</code> method.</li>
+</ul>
+<h3 id="dereferencing"><a class="header" href="#dereferencing">Dereferencing</a></h3>
+<p>As objects, reference types usually contain variables and methods. We can access
+these with the <strong>dot operator</strong> (a period). This causes Java to follow the
+reference to the object on the heap so that it can access the variable or method
+after the dot operator. This process is called "dereferencing."</p>
+<h3 id="null-references-and-default-values"><a class="header" href="#null-references-and-default-values">Null References and Default Values</a></h3>
+<p>Every type has a default value. The default value for <code>boolean</code> is <code>false</code>, and
+for every other primitive type it is the number zero. Reference types have a
+default value of <code>null</code>, which is a reference that doesn't point to anything.</p>
+<p>There are many situations in which you want a value to be <code>null</code>. For example,
+if a method searches a list of accounts for one with a particular name,
+returning <code>null</code> is a good way to indicate that it failed to find a matching
+account.</p>
+<p>There are also many situations where you would never want a value to equal
+<code>null</code>. If such a value ever is <code>null</code>, then you're likely to encounter a
+<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/NullPointerException.html"><code>NullPointerException</code></a>.
+A null pointer exception most often occurs when you attempt to dereference a
+variable that is equal to <code>null</code>. If the variable doesn't point to an object,
+then there's no way to access the variable or method you were trying to access,
+and that instruction cannot be executed.</p>
+<h2 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h2>
+<p>One of the main features of OOP is inheritance. Inheritance allows you to define
+a class that <strong>extends</strong> an existing class, which means your class will inherit
+the properties and methods of that other class. Every class you write extends
+exactly one other class: either the class you specify, or the
+<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/Object.html"><code>Object</code></a>
+class if you don't specify anything.</p>
+<p>Inheritance creates a hierarchy among all classes in a program. The <code>Object</code>
+class is the root of that hierarchy, with every other class either extending
+<code>Object</code> or one of its subclasses. Before we continue, let's define a few new
+terms:</p>
+<ul>
+<li><strong>Extend</strong>: The Java keyword used to state that one class inherits from
+another. If class B extends class A, then class B inherits all of the
+variables and methods defined in class A.</li>
+<li><strong>Subclass</strong>: A class that extends another class or one of its subclasses. If
+class B extends class A, then B is a subclass of A. If class C extends class
+B, then it is a subclass of both A and B.</li>
+<li><strong>Superclass</strong>: A class that is extended by another class or by one of its
+superclasses. In the previous example with classes A, B, and C, A is the
+superclass of both B and C, and B is the superclass of C.</li>
+</ul>
+<p>Example classes from the above definitions:</p>
+<pre><code class="language-java">// A implicitly extends Object because it does not state which class it extends
+// A is a subclass of Object, and it is the superclass of B and C
+class A {}
+
+// B explicitly extends A
+// B is a subclass of Object and A, and it is the superclass of C
+class B extends A {}
+
+// C explicitly extends B
+// C is a subclass of Object, A, and B
+class C extends B {}
+</code></pre>
+<h2 id="signatures-overloading-and-overriding"><a class="header" href="#signatures-overloading-and-overriding">Signatures, Overloading, and Overriding</a></h2>
+<p>A constructor or method's <strong>signature</strong> consists of its name and parameter types
+(in the order they were declared). This signature is important when discussing
+overloading and overriding.</p>
+<h3 id="overloading"><a class="header" href="#overloading">Overloading</a></h3>
+<p>A class can declare multiple constructors and multiple methods with the same
+name as long as their signatures still differ. This is called <strong>overloading</strong>.
+For example, the <code>println</code> method you're used to using for command line output
+is overloaded to allow either a <code>String</code> or zero parameters (along with other
+overloads). This is why you can write both <code>System.out.println();</code> and
+<code>System.out.println("Hello, I'm a String!");</code>.</p>
+<p>Each overloaded method must have a different signature so that the compiler can
+determine which version of the method is being invoked. That's why the following
+program won't compile:</p>
+<pre><code class="language-java">public class BadOverload {
+    public static void main(String[] args) {
+        // Which version of mystery are we calling? It's impossible to tell!
+        System.out.println(mystery(10, 10));
+    }
+
+    public static int mystery(int a, int b) {
+        return a + b;
+    }
+
+    public static int mystery(int a, int b) {
+        return a * b;
+    }
+}
+</code></pre>
+<h3 id="overriding"><a class="header" href="#overriding">Overriding</a></h3>
+<p>If a class inherits a method from another class, then it can provide its own
+implementation of this method that differs from the implementation in its
+superclass. This is called <strong>overriding</strong>. The signature of the new
+implementation must be identical to the inherited method you wish to override.</p>
+<p>When overriding a method, it's good to mark the method with the @Override
+annotation. This will generate a compilation error if you do not correctly
+override the method. Without this, you may not realize that you haven't
+overridden the method and have a more difficulty time finding the bug.</p>
+<p>It is common to override the <code>toString</code> and <code>equals</code> methods that every class
+inherits from <code>Object</code>. These allow you to print your object in a readable form
+and use <code>equals</code> to compare different instances and determine whether they are
+equivalent. The example below demonstrates this:</p>
+<pre><code class="language-java">public class Point {
+    private int x, y;
+
+    public Point(int initX, int initY) {
+        x = initX;
+        y = initY;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%d,%d)", x, y);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || !(other instanceof Point)) {
+            return false;
+        }
+
+        // must perform a typecast to treat the other object as a point
+        Point otherPoint = (Point) other;
+        return x == otherPoint.x &amp;&amp; y == otherPoint.y;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Point a = new Point(1, 2);
+        Point b = new Point(3, 4);
+        Point c = new Point(1, 2);
+
+        // printing or concatenating an object automatically calls its toString
+        // method, giving us more readable output
+        System.out.println("a: " + a);
+        System.out.println("b: " + b);
+        System.out.println("c: " + c);
+
+        // comparing references results in false for equivalent points
+        System.out.println("a == c results in: " + (a == c));
+        // comparing with .equals results in true for equivalent points
+        System.out.println("a.equals(c) results in: " + a.equals(c));
+    }
+}
+</code></pre>
+<h2 id="constructors-and-superclass-methods"><a class="header" href="#constructors-and-superclass-methods">Constructors and Superclass Methods</a></h2>
+<p>Every class must have at least one constructor, and a class does not inherit any
+constructors from its superclass<sup class="footnote-reference"><a href="#1">1</a></sup>. However, Java will add a <strong>default
+constructor</strong> (one with no parameters) for you in the following situation:</p>
+<ul>
+<li>Your superclass defines a default constructor</li>
+<li>Your class does not explicitly define a constructor</li>
+</ul>
+<p>Every constructor in Java also starts by calling a constructor in its
+superclass. You can do this explicitly with the <code>super</code> keyword, but Java will
+add a call to the superclass's default constructor for you in the following
+situation:</p>
+<ul>
+<li>Your superclass defines a default constructor</li>
+<li>Your constructor does not explicitly call a constructor from the superclass</li>
+</ul>
+<p>The following example demonstrates what Java adds for you:</p>
+<pre><code class="language-java">// minimal class
+public class A {}
+
+// equivalent class, but explicitly showing what the compiler adds
+public class A extends Object { // compiler would have extended Object for us
+    public A() { // compiler would have added default constructor for us
+        super(); // compiler would have called super() for us
+    }
+}
+
+// another class
+public class B extends Object {
+    public B() {
+        System.out.println("B");
+    }
+}
+
+// and the equivalent with compiler addition
+public class B extends Object {
+    public B() {
+        super(); // compiler would have called super() for us
+
+        System.out.println("B");
+    }
+}
+</code></pre>
+<h2 id="footnotes"><a class="header" href="#footnotes">Footnotes</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>While your class may have multiple superclasses above it in the hierarchy,
+when we say "superclass" with no further context we usually mean the class
+yours is directly extending.</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="week1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="week1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

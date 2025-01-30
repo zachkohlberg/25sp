@@ -1,0 +1,413 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Week 1 - SER120 Note Handouts</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Note Handouts</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="week-1"><a class="header" href="#week-1">Week 1</a></h1>
+<h2 id="terms"><a class="header" href="#terms">Terms</a></h2>
+<p>These are Java-specific, and I'm more interested in helping you understand the
+underlying concepts than giving rigorous or overly-technical definitions. You
+can always find a more precise/thorough definition online if you'd like one.</p>
+<ul>
+<li><strong>Object</strong>: a combination of data (variables) and behaviors/capabilities
+(functions)</li>
+<li><strong>Class</strong>: the definition or blueprint for a type of object<sup class="footnote-reference"><a href="#1">1</a></sup></li>
+<li><strong>Instance</strong>: an individual object created from a class definition</li>
+<li><strong>Method</strong>: a function belonging to a class (its behaviors/capabilities),
+which describes every Java function<sup class="footnote-reference"><a href="#2">2</a></sup></li>
+<li><strong>Property</strong>: variable belonging to a class (its data), also called an
+instance variable because each instance has its own copy of the variable</li>
+<li><strong>Member</strong>: more general term for anything that belongs to a class (method,
+property, etc.)</li>
+<li><strong>Constructor</strong>: similar to a function, used to initialize the properties of a
+new object</li>
+<li><strong>Initialize</strong>: set a variable's initial value</li>
+<li><strong>Instantiate</strong>: create a new instance of a class (a new object)</li>
+<li><strong>Identifier</strong>: the name of a class, method, or variable</li>
+</ul>
+<p>Finally, you'll see the words <code>public</code> and <code>private</code> in most of our examples.
+These are <strong>modifiers</strong>, keywords that appear at the beginning of class, method,
+and variable declarations. We'll talk more about public, private, and modifiers
+in general later, but for now we won't worry about them. Until then, our rule is
+that all <strong>classes, methods, and constructors</strong> are <code>public</code> and all <strong>instance
+variables</strong> are <code>private</code>.</p>
+<h2 id="class-structure"><a class="header" href="#class-structure">Class Structure</a></h2>
+<p>While the order within a class is flexible, it's good to stay organized. We'll
+generally write our classes in this format:</p>
+<pre><code class="language-java">public class MyClassName {
+    // instance variables
+
+    // constructors
+
+    // methods
+}
+</code></pre>
+<p>For example, let's write a Person class and a program that uses it:</p>
+<pre><code class="language-java">// file: Main.java
+public class Main {
+    // the main method is where our program starts running
+    // it is always public and static with a return type of void
+    public static void main(String[] args) {
+        // declare a local variable of type Person
+        Person p;
+        // instantiate a Person and use it to initialize the variable p
+        p = new Person("Your Name Here");
+        // call/invoke the sayName() method using the Person we just
+        // instantiated
+        p.sayName();
+    }
+}
+
+// file: Person.java
+public class Person {
+    // instance variable
+    private String name;
+
+    // constructor
+    public Person(String initName) {
+        // initialize name
+        name = initName;
+    }
+
+    // method
+    public void sayName() {
+        System.out.println("Hello, my name is " + name + "!");
+    }
+}
+</code></pre>
+<h3 id="syntax"><a class="header" href="#syntax">Syntax</a></h3>
+<p>Below is the general syntax for what we saw in the above examples.</p>
+<p>Class declaration</p>
+<ul>
+<li>filename must match class name if public</li>
+<li>while we can have nested classes, for now we will declare one class per file</li>
+</ul>
+<pre><code>&lt;modifiers&gt; class &lt;identifier&gt; {
+    &lt;body&gt;
+}
+</code></pre>
+<p>Method declaration</p>
+<ul>
+<li>must be inside of a class body</li>
+<li>cannot be inside another method or a constructor</li>
+</ul>
+<pre><code>&lt;modifiers&gt; &lt;return type&gt; &lt;identifier&gt;(&lt;parameters&gt;) {
+    &lt;body&gt;
+}
+</code></pre>
+<p>Constructor declaration</p>
+<ul>
+<li>must have the same identifier as the class</li>
+<li>note that unlike a regular method, there is no return type</li>
+<li>otherwise these follow the same rules as methods</li>
+</ul>
+<pre><code>&lt;modifiers&gt; &lt;identifier&gt;(&lt;parameters&gt;) {
+    &lt;body&gt;
+}
+</code></pre>
+<p>Instance variable declaration</p>
+<ul>
+<li>must be inside of a class body</li>
+<li>cannot be inside a method or constructor</li>
+</ul>
+<pre><code>&lt;modifiers&gt; &lt;type&gt; &lt;identifier&gt;;
+</code></pre>
+<p>Instance variable declaration with initializer</p>
+<ul>
+<li>you can optionally initialize an instance variable in the same place you
+declare it</li>
+</ul>
+<pre><code>&lt;modifiers&gt; &lt;type&gt; &lt;identifier&gt; = &lt;expression&gt;;
+</code></pre>
+<p>Invoke/call an instance method</p>
+<ul>
+<li>requires an instance of the class in which the method is defined</li>
+<li>if the method returns something (return type isn't <code>void</code>), then this can be
+used as an expression</li>
+</ul>
+<pre><code>&lt;instance identifier&gt;.&lt;method identifier&gt;(&lt;arguments&gt;)
+</code></pre>
+<p>Instantiate an object</p>
+<ul>
+<li>creates a new instance of a class</li>
+<li>instantiating an object is an expression, and we usually want to assign it to
+a variable as shown in the example</li>
+<li>this is similar to a normal method invokation</li>
+</ul>
+<pre><code>new &lt;identifier&gt;(&lt;arguments&gt;)
+</code></pre>
+<h2 id="variables"><a class="header" href="#variables">Variables</a></h2>
+<p>Variables fall into different categories depending on their scope, and these
+categories serve different purposes. A variable's <strong>scope</strong> is the portion of
+the program in which it exists. A variable's name should be unique within its
+scope (there are exceptions), and it cannot be accessed or modified outside of
+its scope.</p>
+<h3 id="local-variable"><a class="header" href="#local-variable">Local Variable</a></h3>
+<p>A local variable is declared within a method or a code block within a method.
+Its scope is limited to the block in which it was declared.</p>
+<pre><code class="language-java">public void scopeExample() {
+    // x is a local variable and only valid until the end of main
+    int x = 5;
+
+    // we're placing an arbitrary code block here to create a smaller scope within main
+    {
+        // y is a local variable and only valid until the end of this block
+        int y = 10;
+        x = x * y;
+    }
+
+    // we can still access x, but we can no longer access y
+    System.out.println(x);
+    System.out.println(y); // ERROR!
+}
+</code></pre>
+<h3 id="parameter"><a class="header" href="#parameter">Parameter</a></h3>
+<p>A parameter (or formal parameter) appears in the paranthesis after a method's
+name when declaring the method. It represents input required to invoke the
+method, and its scope is limited to the body of the method.</p>
+<p>When invoking a method, you must supply an argument (or actual parameter) for
+each of that method's formal parameters. The arguments are the values used by
+the method during that invokation.</p>
+<pre><code class="language-java">public class ParamExample {
+    public void example() {
+        // calling add with the actual parameters x = 1, y = 2, and z = 3
+        int sum = add(1, 2, 3);
+
+        // calling println with the actual parameter "Sum = " + sum
+        System.out.println("Sum = " + sum);
+
+        // we cannot access x, y, or z outside of the add method
+        System.out.println(x); // ERROR!
+        System.out.println(y); // ERROR!
+        System.out.println(z); // ERROR!
+    }
+
+    // add declares three formal parameters: x, y, and z
+    public int add(int x, int y, int z) {
+        return x + y + z;
+    }
+}
+</code></pre>
+<h3 id="instance-variable"><a class="header" href="#instance-variable">Instance Variable</a></h3>
+<p>An instance variable is declared in the body of a class (not in one of its
+methods or constructors), and it doesn't have the <code>static</code> modifier (more about
+static when we discuss modifiers). Its scope is the body of its class.</p>
+<p>Each instance of a class has its own separate copy of each instance variable
+declared for that class. Those instance variables exist for as long as that
+instance exists.</p>
+<h2 id="footnotes"><a class="header" href="#footnotes">Footnotes</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Java requires almost everything to be inside of a class, so we also use them
+as containers for standalone functions (methods with the static modifier). A
+single class can serve one or both of these purposes (blueprint or function
+container). In SER120, we're usually talking about classes in their role as
+a blueprint rather than function container.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Java does have lambdas (a functional programming concept), but I believe
+these are implemented as methods of anonymous classes and still technically
+qualify as methods. You don't need to know anything about lambdas or
+functional programming in this class. I just like to use it as an example to
+contrast with OOP.</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="week2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="week2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
