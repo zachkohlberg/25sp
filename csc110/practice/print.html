@@ -217,6 +217,56 @@ reading a single number and printing that number plus one.</li>
 <p>We haven't explained what this code does yet, but I want you to try figuring it
 out based on the working examples. It's okay if this takes some trial and error.
 We'll learn more about how these programs work next week.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-3"><a class="header" href="#week-3">Week 3</a></h1>
+<p>Write the programs in these practice exercises from scratch, and try to avoid
+looking at and copying from previous examples. It's a little more work, but
+they're short programs and it'll help you remember how these simplified Java
+program are structured.</p>
+<h2 id="problem-1-hard-coded-email"><a class="header" href="#problem-1-hard-coded-email">Problem 1: Hard-Coded Email</a></h2>
+<p>Write a Java program that prints your QU email address. It only has to print
+<em>your</em> email, not anyone else's email. Run the program on your terminal to make
+sure it works.</p>
+<h2 id="problem-2-email-script"><a class="header" href="#problem-2-email-script">Problem 2: Email Script</a></h2>
+<p>Pair up with another student for this exercise. Each of you need to figure out
+the other person's QU email address, and you're not allowed to show or tell each
+other your email address. Instead, come up with a script that you can follow to
+ask someone for the information necessary to figure out their QU email. Test the
+script on each other and make sure it works.</p>
+<h2 id="problem-3-variable-email"><a class="header" href="#problem-3-variable-email">Problem 3: Variable Email</a></h2>
+<p>Write a Java program that prints the user's QU email address. As with problem 2,
+you can't just ask them for their email and repeat what they tell you. You'll
+need to prompt the user for information that can be used to determine their QU
+email, then print that email to the terminal. Your script from problem 2 should
+help.</p>
+<p>Remember that this program must print the user's email, and people other than
+you might use it. When you finish this program, <em>anyone</em> in the classroom should
+be able to use it to print their email without modifying your code. Have a
+classmate try running it to make sure it also works for them.</p>
+<p>Hints:</p>
+<ul>
+<li>prompt for input with <code>readln("some message in quotes")</code></li>
+<li>always store input in a variable</li>
+<li>you can combine variables with quoted text by placing a plus sign between
+them, as shown in previous examples</li>
+</ul>
+<h2 id="problem-4-syntax-errors"><a class="header" href="#problem-4-syntax-errors">Problem 4: Syntax Errors</a></h2>
+<p>The program below contains syntax errors and will not run. Try running it
+yourself and take a look at the error messages. See if you can fix the program
+and get it to run by the end of class.</p>
+<pre><code class="language-java">void greetUser() {
+    var name = readln("What is your name? ");
+    println("Hello " + name + ", welcome to the CSC110 Math Quiz!");
+}
+
+void main {
+    greetUser();
+
+    var answer = readln("What is 2 + 3?");
+    println("You answered '" + answer + "', and the correct answer is '5'.";
+    var answer = readln("What is 2 + 4?");
+    println("You answered '" + answer + "', and the correct answer is '6'.";
+    printIn("That's the end of the CSC110 Math Quiz. Thanks for playing!");
+</code></pre>
 
                     </main>
 

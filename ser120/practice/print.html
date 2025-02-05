@@ -245,6 +245,112 @@ or constructors in your list.</p>
 <p>There are many possible answers to this question. Aim for at least three
 properties and at least three methods, but feel free to go above that if you
 think of more examples.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-3"><a class="header" href="#week-3">Week 3</a></h1>
+<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<p>Copy the <code>Pet</code> and <code>Main</code> classes below. Run the program and make sure it works
+before you continue.</p>
+<pre><code class="language-java">// file: Main.java
+public class Main {
+    public static void main(String[] args) {
+        Pet a = new Pet();
+
+        System.out.println(a.getName());
+        System.out.println(a.getSound());
+    }
+}
+
+// file: Pet.java
+public class Pet {
+    private String name;
+
+    public Pet() {
+        this.name = "Nameless";
+    }
+
+    public Pet(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getSound() {
+        return "...";
+    }
+}
+</code></pre>
+<h2 id="problem-1-questions"><a class="header" href="#problem-1-questions">Problem 1: Questions</a></h2>
+<p>Answer the following questions about the classes:</p>
+<ol>
+<li>Identify at least one example of the following in the above code:
+<ul>
+<li>constructor definition</li>
+<li>instance method definition</li>
+<li>instance variable declaration</li>
+<li>initializing a variable</li>
+<li>instantiating an object</li>
+<li>constructor invokation</li>
+<li>instance method invokation</li>
+</ul>
+</li>
+<li>Look at the alternative <code>Pet</code> class below without putting it in your editor.
+What problems can you identify with this class? Your editor can identify
+these problems quite easily, but I want you to see how many you can recognize
+from the previous lecture.</li>
+</ol>
+<pre><code class="language-java">public class Pet {
+    private String name, sound;
+
+    public Pet() {
+        this("Nameless", "...");
+    }
+
+    public Pet(String name) {
+        this(name, "...");
+    }
+
+    public Pet(String sound) {
+        this("Nameless", sound);
+    }
+
+    public Pet(String name, String sound) {
+        name = name;
+        sound = sound;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSound() {
+        return sound;
+    }
+
+    @Override
+    public void toString() {
+        System.out.println(String.format("Pet[name=%s, sound=%s]", name, sound));
+    }
+}
+</code></pre>
+<h2 id="problem-2-extending-pet"><a class="header" href="#problem-2-extending-pet">Problem 2: Extending Pet</a></h2>
+<p>Write two subclasses of <code>Pet</code>. Each subclass should be a different type of
+animal (such as cat and dog, but it's up to you). Your subclasses should each
+include the following:</p>
+<ul>
+<li>A parameterized constructor that sets the pet's name (remember you can call
+one of the <code>Pet</code> constructors with <code>super</code>)</li>
+<li>An override of the <code>getSound</code> method that returns an appropriate sound for
+that type of animal</li>
+</ul>
+<p>Instantiate both of your new classes in the program's <code>main</code> method and print
+their name and sound.</p>
+<h2 id="problem-3-speak"><a class="header" href="#problem-3-speak">Problem 3: Speak</a></h2>
+<p>Add a method to the <code>Pet</code> class called <code>speak</code>. This method should print a
+message similar to "Fido says 'woof!'". The message must include the name and
+sound made by that pet. You should only modify the code in <code>Pet</code> for this part.</p>
+<p>After you've added the speak method, try calling it on all three pets in your
+<code>main</code> method. Does the output match what you would expect?</p>
 
                     </main>
 
