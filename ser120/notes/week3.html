@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Week 3 - SER120 Note Handouts</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Note Handouts</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="week-3"><a class="header" href="#week-3">Week 3</a></h1>
+<h2 id="modifiers"><a class="header" href="#modifiers">Modifiers</a></h2>
+<p>We've already seen several different modifier keywords in our Java programs.
+Let's talk about what they mean.</p>
+<h3 id="access-modifiers"><a class="header" href="#access-modifiers">Access Modifiers</a></h3>
+<p>Access modifiers determine which parts of a program have access to something.
+We've already used <code>public</code> and <code>private</code>, but there is also a <code>protected</code>
+access modifier and the default "package private" level of access you get with
+no modifier.</p>
+<p>To describe these access levels:</p>
+<ul>
+<li><code>public</code> members can be accessed from anywhere</li>
+<li><code>protected</code> members can be accessed from their class, package, or a subclass</li>
+<li>"package private" (no modifier) members can be accessed from their class or
+package</li>
+<li><code>private</code> members can only be accessed from their class</li>
+</ul>
+<p>These access modifiers allow us to encapsulate code: hide implementation details
+from users (other programmers) of a class and only expose the portions of the
+class they need in order to use it.</p>
+<p>Oracle's
+<a href="https://docs.oracle.com/javase/tutorial/java/javaOO/accesscontrol.html">access control tutorial</a>
+explains these in more detail. Below is a table from the tutorial summarizing
+the different access modifiers.</p>
+<div class="table-wrapper"><table><thead><tr><th>Modifier</th><th>Class</th><th>Package</th><th>Subclass</th><th>World</th></tr></thead><tbody>
+<tr><td><code>public</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td><code>protected</code></td><td>Yes</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+<tr><td><em>no modifier</em></td><td>Yes</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td><code>private</code></td><td>Yes</td><td>No</td><td>No</td><td>No</td></tr>
+</tbody></table>
+</div>
+<p>The tutorial also includes a small diagram with a class fitting each of the
+above categories (class, package, subclass, world). I've included code below for
+classes that fit the diagram and demonstrate where a variable with each modifier
+can be accessed.</p>
+<pre><code class="language-java">// file: one/Alpha.java
+package one;
+
+public class Alpha {
+  public int a = 1;
+  protected int b = 2;
+  int c = 3;
+  private int d = 4;
+
+  public static void main(String[] args) {
+    Alpha example = new Alpha();
+    // can access everything from inside of MyClass
+    System.out.println(example.a);
+    System.out.println(example.b);
+    System.out.println(example.c);
+    System.out.println(example.d);
+  }
+}
+
+// file: one/Beta.java
+package one;
+
+public class Beta {
+  public static void main(String[] args) {
+    Alpha example = new Alpha();
+    // can access public, protected, and no modifier from another class in the same package
+    System.out.println(example.a);
+    System.out.println(example.b);
+    System.out.println(example.c);
+    // cannot access private from another class in the same package
+    // System.out.println(example.d);
+  }
+}
+
+// file: two/AlphaSub.java
+package two;
+
+public class AlphaSub extends one.Alpha {
+  public static void main(String[] args) {
+    one.Alpha example = new one.Alpha();
+    // can access public and protected from a subclass class in another package
+    System.out.println(example.a);
+    System.out.println(example.b);
+    // cannot access no modifier and private from a subclass class in another package
+    // System.out.println(example.c);
+    // System.out.println(example.d);
+  }
+}
+
+// file: two/Gamma.java
+package two;
+
+public class Gamma {
+  public static void main(String[] args) {
+    one.Alpha example = new one.Alpha();
+    // can only access public from an unrelated class in another package
+    System.out.println(example.a);
+    // cannot access protected, no modifier, or private from an unrelated class in another package
+    // System.out.println(example.b);
+    // System.out.println(example.c);
+    // System.out.println(example.d);
+  }
+}
+</code></pre>
+<h3 id="static-vs-instance"><a class="header" href="#static-vs-instance">Static vs Instance</a></h3>
+<p>We've also seen the <code>static</code> modifier before. A static member belongs to the
+class as a whole, whereas a non-static (instance) member belongs to instances of
+the class, each of which has its own copy of the non-static member.</p>
+<p>We often use the <code>static</code> modifier when we want to write a method that can be
+called without an instance of its class. We access static members by typing the
+<em>class</em> name rather than the name of an instance of that class. We also use the
+<code>static</code> modifier when creating <a href="#constants">constants</a>. If you've used the
+<code>Math</code> class before, then you already know how to access static methods and
+variables:</p>
+<pre><code class="language-java">// We access the static constant PI and static method pow through the Math class:
+double piSquared = Math.pow(Math.PI, 2);
+
+// It would be strange if we had to instantiate Math to access its constants and methods:
+Math m = new Math();
+double piSquared = m.pow(m.PI, 2);
+</code></pre>
+<h3 id="constants"><a class="header" href="#constants">Constants</a></h3>
+<p>The <code>final</code> modifier marks a variable as a constant. If a variable is final,
+then it cannot be reassigned once it is initialized. However, if the variable
+references a mutable object, then the object itself is still mutable. For
+example:</p>
+<pre><code class="language-java">final int[] array = new int[] { 1, 2, 3 };
+
+// we cannot reassign a final variable
+array = new int[] { 4, 5, 6 }; // error
+
+// we can, however, mutate the array assigned to a final variable
+array[0] = 10; // no error
+</code></pre>
+<h2 id="abstract-classes"><a class="header" href="#abstract-classes">Abstract Classes</a></h2>
+<p>We've seen some examples of inheritance where we have a more generic "base"
+type, such as "Pet", and specific subtypes, such as "Dog" and "Cat". In cases
+like this, it may not make sense to define all of the methods we want to include
+in our subclasses. It also may not make sense to instantiate this vague base
+class. This is a situation where we may want to use an abstract class.</p>
+<p>The <code>abstract</code> keyword is another modifier. When applied to a class, it allows
+the class to contain abstract methods and does not allow the class to be
+instantiated. When applied to a method, it allows us to leave out the method
+definition. Instead, we'll rely on any subclasses to define their own version of
+the abstract method. A non-abstract class (the classes we've seen so far) can
+also be called a <strong>concrete</strong> class.</p>
+<p>Here's an abstract version of the <code>Pet</code> class from our previous activity:</p>
+<pre><code class="language-java">public abstract class Pet {
+  private String name;
+
+  public Pet(String name) {
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public abstract String getSound();
+
+  public void speak() {
+    System.out.println(getName() + " says " + getSound());
+  }
+}
+</code></pre>
+<p>We can extend this class just like we did in the activity, but we are now
+<em>required</em> to override the abstract <code>getSound</code> method we inherit from Pet. We
+want to include that requirement so that our <code>speak</code> method can call the
+subclass's implementation of <code>getSound</code>. It also lets us skip putting a
+meaningless default <code>getSound</code> implementation in our <code>Pet</code> class, as you saw in
+the activity's starter code.</p>
+<h2 id="wheels"><a class="header" href="#wheels">Wheels</a></h2>
+<p>We're going to use a graphics library called wheels to get started writing
+graphical programs. It's an old library intended for educational use, and it
+simplifies the process of creating a graphical program in Java. We will switch
+to using a more standard library, swing, later in the semester.</p>
+<h3 id="wheels-documentation"><a class="header" href="#wheels-documentation">Wheels Documentation</a></h3>
+<p>You can download the wheels library and documentation from Blackboard or our
+shared OneDrive folder. The wheels documentation is a website generated with the
+<code>javadoc</code> program, which is also used to generate the
+<a href="https://docs.oracle.com/en/java/javase/23/docs/api/index.html">Java API</a>. To
+view the documentation, unzip the wheels-docs folder and open <code>index.html</code> in
+your web browser.</p>
+<h3 id="wheels-projects"><a class="header" href="#wheels-projects">Wheels Projects</a></h3>
+<p>If you're using Eclipse, then you can add the wheels library to a project by
+right-clicking on the project, selecting "Build Path", selecting "Add External
+Archives", locating and selecting the wheels.zip file you downloaded, and
+clicking "Open".</p>
+<p>If you're running your program on the terminal, then you can either include
+wheels.zip on your classpath or add a copy to the same folder as your code. If I
+were keeping wheels.zip in my <code>ser120/</code> directory and my program was in my
+<code>ser120/practice/week3/</code> directory, then I could run <code>Main.java</code> with the
+command <code>java -cp "../../wheels.zip" Main.java</code>.</p>
+<p>You can use the sample program below to check whether you've imported wheels
+correctly. It should display a window with a quit button.</p>
+<pre><code class="language-java">public class Main extends wheels.users.Frame {
+  public static void main(String[] args) {
+    new Main();
+  }
+}
+</code></pre>
+<p>If a class extends the <code>Frame</code> class in the wheels library, then instantiating
+that class will create a window. Any shapes instantiated by that class will
+appear in the window. Add the following constructor to <code>Main.java</code> and you
+should see a red circle in the middle of the window:</p>
+<pre><code class="language-java">public Main() {
+  new wheels.users.Ellipse();
+}
+</code></pre>
+<p>The <code>wheels.users</code> portion of the name specifies the package containing the
+<code>Frame</code> and <code>Ellipse</code> classes. You can import <code>wheels.users.Frame</code> and
+<code>wheels.users.Ellipse</code> to avoid having to type the package as part of the type:</p>
+<pre><code class="language-java">import wheels.users.Ellipse;
+import wheels.users.Frame;
+
+public class Main extends Frame {
+  private Ellipse ellipse;
+  public Main() {
+    ellipse = new Ellipse();
+  }
+
+  public static void main(String[] args) {
+    new Main();
+  }
+}
+</code></pre>
+<p>We'll use wheels in many of our example programs to add a visual element to the
+object-oriented concepts we're learning.</p>
+<h2 id="composition"><a class="header" href="#composition">Composition</a></h2>
+<p>Like inheritance, composition is another technique that allows us to reuse code.
+Instead of extending a common superclass, we can put the code we want to reuse
+in a separate class and include an instance of that separate class as a
+property.</p>
+<p>For example, we might want classes for a Student and Worker. Both classes will
+have a bank account, and we would like to avoid duplicating the code for
+managing the bank account. An inheritance solution might look like this:</p>
+<pre><code class="language-java">public class PersonWithBankAccount {
+  private int balance;
+
+  public void deposit(int amount) {
+    balance += amount;
+  }
+
+  public int withdraw(int amount) {
+    if (balance &gt;= amount) {
+      balance -= amount;
+      return amount;
+    } else {
+      return 0;
+    }
+  }
+}
+public class Student extends PersonWithBankAccount {
+  public void buyTextbook(int cost) {
+    int cash = withdraw(cost);
+    if (cash == cost) {
+      System.out.println("Bought the books.");
+    } else {
+      System.out.println("Couldn't buy the books.");
+    }
+  }
+}
+public class Worker extends PersonWithBankAccount {
+  public void depositPaycheck(int amount) {
+    deposit(amount);
+    System.out.println("Deposited paycheck.");
+  }
+}
+</code></pre>
+<p>A composition solution would look like this:</p>
+<pre><code class="language-java">public class BankAccount {
+  private int balance;
+
+  public void deposit(int amount) {
+    balance += amount;
+  }
+
+  public int withdraw(int amount) {
+    if (balance &gt;= amount) {
+      balance -= amount;
+      return amount;
+    } else {
+      return 0;
+    }
+  }
+}
+public class Student {
+  private BankAccount account;
+
+  public void buyTextbook(int cost) {
+    int cash = account.withdraw(cost);
+    if (cash == cost) {
+      System.out.println("Bought the books.");
+    } else {
+      System.out.println("Couldn't buy the books.");
+    }
+  }
+}
+public class Worker {
+  private BankAccount account;
+
+  public void depositPaycheck(int amount) {
+    account.deposit(amount);
+    System.out.println("Deposited paycheck.");
+  }
+}
+</code></pre>
+<p>This is a simple example, and there's not a huge difference between the two
+versions. However, on a larger scale, we can encounter some problems with the
+inheritance version. Remember that each class extends <em>exactly</em> one other class.
+What if we want to reuse code from two different classes? If these classes are
+in different parts of the class hierarchy, then we can't extend both of them.
+Composition doesn't have this limitation.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="week2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="week2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
