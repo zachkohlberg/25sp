@@ -725,6 +725,143 @@ Any text between the slash-asterisk and asterisk-slash is a comment.
 </code></pre>
 <p>You'll see comments throughout our example programs to help explain what the
 code is doing.</p>
+<h1 id="week-3"><a class="header" href="#week-3">Week 3</a></h1>
+<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<p>The type of a variable or expression tells us what kind of information it
+represents and how we're allowed to use it. For now, the types we're going to
+learn about fall into four groups: integers, real numbers, text, and boolean.</p>
+<p>All information in a computer is represented in <strong>binary</strong>, a number system that
+only uses the digits 0 and 1. A single binary digit is called a <strong>bit</strong>, and we
+can measure the amount of memory a type uses by the number of bits required to
+encode it.</p>
+<h3 id="integers"><a class="header" href="#integers">Integers</a></h3>
+<p>Integers include positive and negative whole numbers (and zero). Java has
+several integers types: <code>long</code>, <code>int</code>, <code>short</code>, and <code>byte</code>. Each integer type
+takes up a different amount of memory and can store a different range of
+numbers. You can see the details in the <a href="weekly/week3.html#types-table">types table</a> further
+down.</p>
+<p>The smaller integer types allow programs to use less memory when dealing with
+many small numbers, and the larger integer types allow programs to represent
+much larger numbers. By default, Java uses the <code>int</code> type for integer values,
+and this is usually enough for our purposes.</p>
+<p>Java also has a <code>BigInteger</code> type to handle arbitrarily large integers, but this
+is used much less often than the other integer types. It takes up more memory
+and is slower to use in computations.</p>
+<h3 id="real-numbers"><a class="header" href="#real-numbers">Real Numbers</a></h3>
+<p>Real numbers include integers, fractions, and numbers like \( \pi \) that
+cannot be represented as a fraction. Java has two types that can represent real
+numbers: <code>float</code> and <code>double</code>. The name "float" refers to floating-point, the
+system used to represent these numbers in binary. The name "double" is short for
+"double-precision floating-point number."</p>
+<p>Floating numbers can get quite large. The minimum and maximum values in the
+types table are represented using a form of scientific notation called
+<a href="https://en.wikipedia.org/wiki/Scientific_notation#E_notation">E notation</a>.
+You'll see E notation used if your program tries to print a particularly large
+or small floating-point number. If we were to write 3.4028235E38 without
+scientific notation, it would be
+340,282,350,000,000,000,000,000,000,000,000,000,000.</p>
+<p><strong>Question</strong>: You may have noticed the both an <code>int</code> and a <code>float</code> use 32 bits
+of memory, but the <code>float</code> type can represent a far greater range of values than
+the <code>int</code> type. Shouldn't this make <code>int</code> obsolete? Do a bit of research and try
+to find out why we still use types like <code>int</code> and <code>long</code> instead of always using
+<code>float</code> and <code>double</code>. We'll cover this in more depth when we learn binary.</p>
+<p>Like the integer types, there is also a special <code>BigDecimal</code> type that can store
+real numbers of an arbitrary size. It has similar trade-offs to the <code>BigInteger</code>
+type.</p>
+<h3 id="text"><a class="header" href="#text">Text</a></h3>
+<p>We use two different types to represent text: <code>char</code> and <code>String</code>. A <code>char</code> is a
+single character, such as a letter, digit, or punctuation mark, and a <code>String</code>
+is a sequence of characters.</p>
+<h3 id="boolean"><a class="header" href="#boolean">Boolean</a></h3>
+<p>The <code>boolean</code> type doesn't fit in any of the other categories. It can represent
+just two values: <code>true</code> and <code>false</code>. We'll learn more about booleans when we
+discuss control flow and how our programs make decisions.</p>
+<h3 id="types-table"><a class="header" href="#types-table">Types Table</a></h3>
+<div class="table-wrapper"><table><thead><tr><th>Type</th><th>Size</th><th>Minimum Value</th><th>Maximum Value</th></tr></thead><tbody>
+<tr><td><code>byte</code></td><td>8 bits</td><td>-256</td><td>255</td></tr>
+<tr><td><code>short</code></td><td>16 bits</td><td>-32,768</td><td>32,767</td></tr>
+<tr><td><code>int</code></td><td>32 bits</td><td>-2,147,483,648</td><td>2,147,483,647</td></tr>
+<tr><td><code>long</code></td><td>64 bits</td><td>-9,223,372,036,854,775,808</td><td>9,223,372,036,854,775,807</td></tr>
+<tr><td><code>float</code></td><td>32 bits</td><td>-3.4028235E38</td><td>3.4028235E38</td></tr>
+<tr><td><code>double</code></td><td>64 bits</td><td>-1.7976931348623157E308</td><td>1.7976931348623157E308</td></tr>
+<tr><td><code>char</code></td><td>16 bits</td><td>0</td><td>65,535</td></tr>
+<tr><td><code>boolean</code></td><td>8 bits</td><td>N/A</td><td>N/A</td></tr>
+<tr><td><code>String</code></td><td>varies</td><td>N/A</td><td>N/A</td></tr>
+<tr><td><code>BigInteger</code></td><td>varies</td><td>N/A</td><td>N/A</td></tr>
+<tr><td><code>BigDecimal</code></td><td>varies</td><td>N/A</td><td>N/A</td></tr>
+</tbody></table>
+</div>
+<h3 id="uppercase-types"><a class="header" href="#uppercase-types">Uppercase Types</a></h3>
+<p>You may notice that the last three types on that list all begin with an
+uppercase letter, unlike the others. Types that begin with an uppercase letter
+have additional capabilities called <strong>methods</strong>. A method is a function attached
+to a piece of data, like a string. For example, a string can convert itself to
+all uppercase letters:</p>
+<pre><code class="language-java">void main() {
+    println("hello world".toUpperCase());
+}
+</code></pre>
+<h2 id="operations"><a class="header" href="#operations">Operations</a></h2>
+<p>A variable's type determines which operations can be performed on it. The table
+below lists all of the operations we'll be covering in this section.</p>
+<div class="table-wrapper"><table><thead><tr><th>Operation</th><th>Symbol</th></tr></thead><tbody>
+<tr><td>Addition</td><td><code>+</code></td></tr>
+<tr><td>Subtraction</td><td><code>-</code></td></tr>
+<tr><td>Multiplication</td><td><code>*</code></td></tr>
+<tr><td>Division</td><td><code>/</code></td></tr>
+<tr><td>Modulo</td><td><code>%</code></td></tr>
+<tr><td>String concatenation</td><td><code>+</code></td></tr>
+</tbody></table>
+</div>
+<h3 id="arithmetic"><a class="header" href="#arithmetic">Arithmetic</a></h3>
+<p>For the most part, addition, subtraction, multiplication, and division work as
+you're used to. The main exception is integer division: when you divide one
+integer by another integer, the result will always be an integer. This means
+<code>7 / 3</code> results in <code>2</code>, not <code>2.33333...</code>.</p>
+<h3 id="modulo"><a class="header" href="#modulo">Modulo</a></h3>
+<p>Unless you already have programming experience, you probably aren't familiar
+with the modulo operator. This operator divides two numbers and gives the
+remainder rather than the quotient. It's related to
+<a href="https://en.wikipedia.org/wiki/Modular_arithmetic">modular arithmetic</a>, and it
+has a surprising number of uses in programming.</p>
+<h3 id="concatenation"><a class="header" href="#concatenation">Concatenation</a></h3>
+<p>If you attempt to add a string to a value of any type, your program will perform
+string concatenation instead of addition. Concatenation converts the other value
+to a string (if it wasn't already) and combines them into a single string. The
+expression <code>"Hello" + " " + "World"</code>, for example, would result in the string
+<code>"Hello World"</code>.</p>
+<h2 id="variables-1"><a class="header" href="#variables-1">Variables</a></h2>
+<p>When we introduced variables, we used <code>var</code> to declare a new variable. This
+tells Java to infer the variable's type based on the initial value we provide.
+We can also state the variable's type instead of using <code>var</code>:</p>
+<pre><code class="language-java">var x = 10; // infers x is an int
+int y = 5;  // explicitly states y is an int
+</code></pre>
+<p>We used <code>var</code> initially so that we could introduce variables without also
+covering types, but I would recommend avoiding <code>var</code> and stating the type for
+most variables.</p>
+<h2 id="functions-1"><a class="header" href="#functions-1">Functions</a></h2>
+<p>Now that we've learned about types, we can talk more about functions. For
+starters, look at the following example:</p>
+<pre><code class="language-java">void main() {
+    println(square(5));
+}
+
+int square(int x) {
+    return x * x;
+}
+</code></pre>
+<p>This example demonstrates two concepts that we left out when we first discussed
+functions: parameters and return values.</p>
+<p>When you define a function, you can list parameters in the parenthesis after its
+name to require additional input when the function is called. Each parameter
+must have a type followed by a name, just like a variable declaration. This is
+the <code>int x</code> in the definition for the <code>square</code> function in the above program.</p>
+<p>You can also write functions that <strong>return</strong> information to the code that called
+them. This is how the <code>readln</code> function is able to give you the string it reads
+from the user. If a function returns a value, then it must state the type of
+value it returns before its name. Functions that don't return a value instead
+put <code>void</code> before their name.</p>
 <h1 id="flowcharts"><a class="header" href="#flowcharts">Flowcharts</a></h1>
 <p>The flowcharts in this book will follow a similar style to those shown in the
 <a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Programming_Fundamentals_(Busbee_and_Braunschweig)/01%3A_Introduction_to_Programming/1.05%3A_Flowcharts">flowcharts section</a>
@@ -1078,7 +1215,7 @@ letter standing in for the special symbol you want to include:</p>
 <li><code>\n</code> is printed as a line break</li>
 </ul>
 <p>Try printing messages containing these escape sequences and see what happens!</p>
-<h1 id="variables-1"><a class="header" href="#variables-1">Variables</a></h1>
+<h1 id="variables-2"><a class="header" href="#variables-2">Variables</a></h1>
 <p>Sometimes we want our program to remember information and reuse the information
 later.
 We tell our program to remember something by creating a variable and
@@ -1149,7 +1286,7 @@ character, and they cannot start with a number. Among other things, this means
 they <strong>cannot include spaces</strong>. Java also has certain [reserved words]
 (https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)
 that cannot be used as variable names.</p>
-<h2 id="types"><a class="header" href="#types">Types</a></h2>
+<h2 id="types-1"><a class="header" href="#types-1">Types</a></h2>
 <p>We'll learn more about types later. For now, keep in mind that a variable's
 type is set with its initial value and cannot be changed. If you make a
 variable that stores text, you cannot reassign it to hold a number. Try running
@@ -1333,7 +1470,7 @@ If you use numbers of different types, then they will be converted to the type
 that can represent a greater range of numbers.
 The symbols to use for arithmetic are <code>+</code>, <code>-</code>, <code>*</code> (multiplication for), and
 <code>/</code> (for division).</p>
-<h2 id="text"><a class="header" href="#text">Text</a></h2>
+<h2 id="text-1"><a class="header" href="#text-1">Text</a></h2>
 <p>There are two types commonly used for representing text:</p>
 <ul>
 <li><code>char</code>: a single character encoded as a 2-byte integer</li>
@@ -1380,7 +1517,7 @@ This makes it easier to specify types other than the default <code>int</code> an
 for numbers, and it makes it easier to tell what type a variable is when looking
 at the code.
 From now on, most examples will use explicit types rather than inferred types.</p>
-<h1 id="functions-1"><a class="header" href="#functions-1">Functions</a></h1>
+<h1 id="functions-2"><a class="header" href="#functions-2">Functions</a></h1>
 <p>A function is a series of instructions (lines of code) that can be <strong>called</strong>
 from another part of the program.
 We'll learn more about functions and how to write our own functions later, but
@@ -1475,7 +1612,7 @@ working on a project understand code and don't need every line explained.
 However, these types of comments can be useful if you're learning a new
 language, and they're good to include in code samples that are meant to teach
 a new concept to someone.</p>
-<h1 id="variables-2"><a class="header" href="#variables-2">Variables</a></h1>
+<h1 id="variables-3"><a class="header" href="#variables-3">Variables</a></h1>
 <p>This chapter covers variables in a little more depth than the Quickstart
 chapter. Some information will be repeated here so that this chapter can serve
 as a better reference.</p>
@@ -1935,7 +2072,7 @@ that you may find <a href="https://docs.oracle.com/javase/tutorial/essential/io/
 of this documentation is going to make sense early on, but the more you use
 <code>printf</code> and check the documentation, the better you'll be able to use Java's
 documentation to find the information you need.</p>
-<h1 id="types-1"><a class="header" href="#types-1">Types</a></h1>
+<h1 id="types-2"><a class="header" href="#types-2">Types</a></h1>
 <p>This chapter covers primitive numeric types and Strings. Several new terms are
 used in this chapter, so here are some definitions:</p>
 <ul>
@@ -1957,7 +2094,7 @@ strings (<code>"hello"</code> or <code>"this is a string"</code>).</li>
 <p>Most of the types we cover in this chapter represent numbers. We'll usually use
 only a few of these types, but they're all covered here so you're familiar with
 the terms.</p>
-<h1 id="integers"><a class="header" href="#integers">Integers</a></h1>
+<h1 id="integers-1"><a class="header" href="#integers-1">Integers</a></h1>
 <p>Integer types can represent positive and negative whole numbers, as well as the
 number zero. Java's integer types are <code>long</code>, <code>int</code>, <code>short</code>, and <code>byte</code>.</p>
 <p><code>int</code> is Java's default integer type. Most of our integers will use the <code>int</code>
@@ -2060,7 +2197,7 @@ escaped inside a <code>String</code> literal: <code>"\""</code></li>
 <li>A linebreak is represented as <code>\n</code> inside a <code>char</code> or <code>String</code> literal</li>
 <li>A tab is represented as <code>\t</code> inside a <code>char</code> or <code>String</code> literal</li>
 </ul>
-<h1 id="modulo"><a class="header" href="#modulo">Modulo</a></h1>
+<h1 id="modulo-1"><a class="header" href="#modulo-1">Modulo</a></h1>
 <p>The modulo operator is like a fifth arithmetic operation. You're probably used
 to addition (<code>+</code>), subtraction (<code>-</code>), multiplication (<code>*</code>), and division (<code>/</code>).
 Modulo is written as <code>%</code>, and it will divide its operands but give us the
@@ -2198,7 +2335,7 @@ learn about more advanced string manipulation.</p>
 <p>A string literal is text enclosed within double-quotes (<code>"</code>). You can use
 <a href="types/./numeric/chars.html#escape-sequences">escape sequences</a> in string literals just
 like <code>char</code> literals.</p>
-<h2 id="concatenation"><a class="header" href="#concatenation">Concatenation</a></h2>
+<h2 id="concatenation-1"><a class="header" href="#concatenation-1">Concatenation</a></h2>
 <p>Anything can be concatenated with a string. The plus sign <code>+</code> performs string
 concatenation instead of addition whenever one of the operands is a string.</p>
 <p>If one of the operands is a string and the other is a different type, Java will
@@ -2219,7 +2356,8 @@ result in <code>"sum: 5"</code>.</p>
 be more relevant later when we learn about <a href="types/../if.html">if statements</a> and
 <a href="types/../boolean.html">boolean expressions</a>.</p>
 <h1 id="primitive-type-summary"><a class="header" href="#primitive-type-summary">Primitive Type Summary</a></h1>
-<p>The table below summarizes Java's <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">primitive types</a>.</p>
+<p>The table below summarizes Java's
+<a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">primitive types</a>.</p>
 <div class="table-wrapper"><table><thead><tr><th style="text-align: center">type name</th><th style="text-align: center">category</th><th style="text-align: center">size (bits)</th><th style="text-align: center">size (bytes)</th><th style="text-align: center">min value</th><th style="text-align: center">max value</th></tr></thead><tbody>
 <tr><td style="text-align: center">byte</td><td style="text-align: center">signed integer</td><td style="text-align: center">8</td><td style="text-align: center">1</td><td style="text-align: center">-256</td><td style="text-align: center">255</td></tr>
 <tr><td style="text-align: center">short</td><td style="text-align: center">signed integer</td><td style="text-align: center">16</td><td style="text-align: center">2</td><td style="text-align: center">-32,768</td><td style="text-align: center">32,767</td></tr>
@@ -2238,8 +2376,8 @@ requires</li>
 <li>The <code>char</code> type represents a single text character, but it <code>char</code>s are stored
 as integers and will readily convert to an <code>int</code></li>
 <li>The main integer types are listed as <strong>signed</strong>, which means they can
-represent positive <strong>and</strong> negative numbers (and zero). An unsigned integer type
-(such as <code>char</code>) can only represent positive numbers (and zero).</li>
+represent positive <strong>and</strong> negative numbers (and zero). An unsigned integer
+type (such as <code>char</code>) can only represent positive numbers (and zero).</li>
 <li>The notation used for the min/max values of floating-point numbers is a form
 of scientific notation called "E notation". The E38 means "multiplied by
 10^38," and the E308 means "multiplied by 10^308". These are extremely large
@@ -2885,7 +3023,7 @@ used in mathematics and may be relevant to some of your programs:</p>
 <li><code>Math.TAU</code> is an approximation of pi doubled</li>
 <li><code>Math.E</code> is an approximation of <a href="https://en.wikipedia.org/wiki/E_(mathematical_constant)">e</a></li>
 </ul>
-<h2 id="functions-2"><a class="header" href="#functions-2">Functions</a></h2>
+<h2 id="functions-3"><a class="header" href="#functions-3">Functions</a></h2>
 <p>The functions shown below will use placeholder variable names, which you should
 replace with the appropriate variables or literals from your program when you
 use these functions.</p>
@@ -3461,7 +3599,7 @@ values for <code>x</code>. Otherwise, it isn't going to matter which way you wri
 operators, so go with the style you prefer. I also tend to avoid using them in
 situations where they behave differently because it can make the code harder to
 read.</p>
-<h1 id="functions-3"><a class="header" href="#functions-3">Functions</a></h1>
+<h1 id="functions-4"><a class="header" href="#functions-4">Functions</a></h1>
 <p>Functions were briefly mentioned in the quickstart chapter, and you've been
 using several functions for a while: <code>println</code>, <code>nextLine</code>, and the other I/O
 commands are all functions.</p>
@@ -4401,7 +4539,7 @@ class InputExample
     }
 }
 </code></pre>
-<h2 id="functions-4"><a class="header" href="#functions-4">Functions</a></h2>
+<h2 id="functions-5"><a class="header" href="#functions-5">Functions</a></h2>
 <p>Functions have to be formatted slightly differently in a Java program compared
 to a jshell script. They're also referred to as methods (although the term
 function is still accurate, just less specific). All of our functions will need
