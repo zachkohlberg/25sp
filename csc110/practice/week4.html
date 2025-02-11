@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Week 3 - SER120 Practice Exercises</title>
+        <title>Week 4 - CSC110 Practice Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -120,7 +120,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">SER120 Practice Exercises</h1>
+                    <h1 class="menu-title">CSC110 Practice Exercises</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -152,124 +152,75 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="week-3"><a class="header" href="#week-3">Week 3</a></h1>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<p>Copy the <code>Pet</code> and <code>Main</code> classes below. Run the program and make sure it works
-before you continue.</p>
-<pre><code class="language-java">// file: Main.java
-public class Main {
-    public static void main(String[] args) {
-        Pet a = new Pet();
-
-        System.out.println(a.getName());
-        System.out.println(a.getSound());
-    }
-}
-
-// file: Pet.java
-public class Pet {
-    private String name;
-
-    public Pet() {
-        this.name = "Nameless";
-    }
-
-    public Pet(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getSound() {
-        return "...";
-    }
-}
-</code></pre>
-<h2 id="problem-1-questions"><a class="header" href="#problem-1-questions">Problem 1: Questions</a></h2>
-<p>Answer the following questions about the classes:</p>
+                        <h1 id="week-4"><a class="header" href="#week-4">Week 4</a></h1>
+<h2 id="part-1-expression-types"><a class="header" href="#part-1-expression-types">Part 1: Expression Types</a></h2>
+<p>Look at the following expressions and, without typing them into jshell or a java
+program, try to predict both the <strong>type</strong> (<code>int</code>, <code>double</code>, <code>char</code>, or <code>String</code>)
+and <strong>value</strong> of each expression. For example, the first expression results in
+the <code>int</code> 4.</p>
+<p>Once you've made your predictions, try running each expression in jshell to
+check your answers. Note which predictions were wrong and try explaining why the
+answer didn't match your prediction. If you're not sure, discuss it with a
+classmate.</p>
 <ol>
-<li>Identify at least one example of the following in the above code:
-<ul>
-<li>constructor definition</li>
-<li>instance method definition</li>
-<li>instance variable declaration</li>
-<li>initializing a variable</li>
-<li>instantiating an object</li>
-<li>constructor invokation</li>
-<li>instance method invokation</li>
-</ul>
-</li>
-<li>Look at the alternative <code>Pet</code> class below without putting it in your editor.
-What problems can you identify with this class? Your editor can identify
-these problems quite easily, but I want you to see how many you can recognize
-from the previous lecture.</li>
+<li><code>2 + 2</code></li>
+<li><code>2 + 2.0</code></li>
+<li><code>2 + "2"</code></li>
+<li><code>2 + '2'</code></li>
+<li><code>10 / 3</code></li>
+<li><code>10 % 3</code></li>
+<li><code>2.0 / 3</code></li>
+<li><code>0.1 + 0.1 + 0.1</code></li>
+<li><code>"A" + 2 + 2</code></li>
+<li><code>2 + 2 + "A"</code></li>
+<li><code>"A" + "B"</code></li>
+<li><code>'c' - 'a'</code></li>
 </ol>
-<pre><code class="language-java">public class Pet {
-    private String name, sound;
-
-    public Pet() {
-        this("Nameless", "...");
-    }
-
-    public Pet(String name) {
-        this(name, "...");
-    }
-
-    public Pet(String sound) {
-        this("Nameless", sound);
-    }
-
-    public Pet(String name, String sound) {
-        name = name;
-        sound = sound;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSound() {
-        return sound;
-    }
-
-    @Override
-    public void toString() {
-        System.out.println(String.format("Pet[name=%s, sound=%s]", name, sound));
-    }
-}
-</code></pre>
-<h2 id="problem-2-extending-pet"><a class="header" href="#problem-2-extending-pet">Problem 2: Extending Pet</a></h2>
-<p>Write two subclasses of <code>Pet</code>. Each subclass should be a different type of
-animal (such as cat and dog, but it's up to you). Your subclasses should each
-include the following:</p>
-<ul>
-<li>A parameterized constructor that sets the pet's name (remember you can call
-one of the <code>Pet</code> constructors with <code>super</code>)</li>
-<li>An override of the <code>getSound</code> method that returns an appropriate sound for
-that type of animal</li>
-</ul>
-<p>Instantiate both of your new classes in the program's <code>main</code> method and print
-their name and sound.</p>
-<h2 id="problem-3-speak"><a class="header" href="#problem-3-speak">Problem 3: Speak</a></h2>
-<p>Add a method to the <code>Pet</code> class called <code>speak</code>. This method should print a
-message similar to "Fido says 'woof!'". The message must include the name and
-sound made by that pet. You should only modify the code in <code>Pet</code> for this part.</p>
-<p>After you've added the speak method, try calling it on all three pets in your
-<code>main</code> method. Does the output match what you would expect?</p>
+<h2 id="part-2-short-programs"><a class="header" href="#part-2-short-programs">Part 2: Short Programs</a></h2>
+<p>Write a java program to solve each of the problems listed below. You are not
+allowed to use the <code>var</code> keyword in any of these programs; you must explicitly
+state your variable types.</p>
+<ol>
+<li>Ask the user for a temperature in Fahrenheit and convert that temperature to
+Celsius. (F = C * 9 / 5 + 32)</li>
+<li>Same as the previous problem, but convert from Celsius to Fahrenheit. (C =
+(F - 32) * 5 / 9)</li>
+<li>Ask the user for their height in inches, then display their height in feet
+and inches. For example, if the user said they were 70 inches tall, then your
+program would tell them that they are 5 feet and 10 inches tall. Don't worry
+about grammar, it's okay for your program to print results such as "1 feet
+and 0 inches" even if we wouldn't normally phrase it this way. Hint: you can
+get the leftover inches by dividing the total inches by 12 and taking the
+remainder instead of the quotient. Do you remember an operator that gives you
+a remainder?</li>
+</ol>
+<h2 id="part-3-functions"><a class="header" href="#part-3-functions">Part 3: Functions</a></h2>
+<p>For each question listed below, write a function that <strong>returns</strong> the answer to
+that question. You should avoid using <code>print</code>, <code>println</code>, and <code>readln</code> in these
+functions; instead, declare parameters for the input and return the output. You
+can call the functions with hard-coded inputs and print their results in your
+<code>main</code> function to test them.</p>
+<ol>
+<li>Given a temperature in Fahrenheit, what is the equivalent temperature in
+Celsius?</li>
+<li>Given a temperature in Celsius, what is the equivalent temperature in
+Fahrenheit?</li>
+<li>Given a person's full height in inches, how many feet would you write when
+stating their height in feet and inches?</li>
+<li>Given a person's full height in inches, how many inches would you write when
+stating their height in feet and inches?</li>
+</ol>
+<p>If you finish all of the problems early, then try modifying the programs from
+Part 2 to use the functions you wrote in Part 3.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="week2.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="week3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="week4.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -277,13 +228,10 @@ sound made by that pet. You should only modify the code in <code>Pet</code> for 
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="week2.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="week3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="week4.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
