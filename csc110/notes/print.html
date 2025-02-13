@@ -862,7 +862,191 @@ them. This is how the <code>readln</code> function is able to give you the strin
 from the user. If a function returns a value, then it must state the type of
 value it returns before its name. Functions that don't return a value instead
 put <code>void</code> before their name.</p>
-<h1 id="flowcharts"><a class="header" href="#flowcharts">Flowcharts</a></h1>
+<h1 id="week-4"><a class="header" href="#week-4">Week 4</a></h1>
+<h2 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h2>
+<p>At this point, you can write very limited interactive programs. You're still
+missing two tools necessary to write arbitrarily complex code, and we're about
+to cover them: selection (choose which code to run next) and iteration (repeat
+the same piece of code). Java has multiple constructs for performing selection
+and iteration, but we'll just focus on two for now.</p>
+<h3 id="selection-if-statements"><a class="header" href="#selection-if-statements">Selection: If Statements</a></h3>
+<p>An if statement allows you to select one of two different code blocks to
+execute. It requires a condition (a boolean expression) to select which block to
+run.</p>
+<pre><code class="language-java">if (condition) {
+    // code in this block runs if condition is true
+} else {
+    // code in this block runs if condition is false
+}
+</code></pre>
+<h3 id="iteration-while-loops"><a class="header" href="#iteration-while-loops">Iteration: While Loops</a></h3>
+<p>A while loop allows you to repeat a block of code for as long as its condition
+remains true. Like an if statement, a while loop's condition must be a boolean
+expression.</p>
+<pre><code class="language-java">while (condition) {
+    // code in this block will repeat while condition is true
+}
+</code></pre>
+<p>It is possible for a while loop to repeat indefinitely if the condition remains
+true. This is called an infinite or indefinite loop. If your program appears
+stuck in a loop while running in the terminal, then pressing ctrl + c will
+usually cancel it and return you to the normal terminal prompt. For Mac users: I
+believe the shortcut is still ctrl + c on your computer, <em>not</em> cmd + c.</p>
+<h3 id="boolean-expressions"><a class="header" href="#boolean-expressions">Boolean Expressions</a></h3>
+<p>A boolean expression is an expression that, when evaluated results in a boolean
+value (<code>true</code> or <code>false</code>). You can use the following comparison operators to
+write boolean expressions:</p>
+<div class="table-wrapper"><table><thead><tr><th>Operator</th><th>Purpose</th></tr></thead><tbody>
+<tr><td><code>&gt;</code></td><td>Greater than</td></tr>
+<tr><td><code>&gt;=</code></td><td>Greater than or equal to</td></tr>
+<tr><td><code>&lt;</code></td><td>Less than</td></tr>
+<tr><td><code>&lt;=</code></td><td>Less than or equal to</td></tr>
+<tr><td><code>==</code></td><td>Equal to</td></tr>
+<tr><td><code>!=</code></td><td>Not equal to</td></tr>
+</tbody></table>
+</div>
+<p>Note that an equality comparison uses <code>==</code>, not <code>=</code>. A single equal sign
+represents an assignment statement, which is completely different from a
+comparison. If you mix these up, your code will usually not run.</p>
+<p>Try typing the following boolean expressions into jshell and predicting the
+results:</p>
+<pre><code class="language-java">4 &gt; 2 + 2
+4 &gt;= 2 + 2
+10 &lt; 10 * 10
+3 &lt;= 2
+0.3 == 0.1 + 0.1 + 0.1
+0.3 != 0.1 + 0.1 + 0.1
+</code></pre>
+<p>Just like other expressions, you can store the result of a boolean expression in
+a variable:</p>
+<pre><code class="language-java">void main() {
+    boolean a = 4 &lt; 5;
+    boolean b = 1 == 2;
+
+    println("a = " + a);
+    println("b = " + b);
+</code></pre>
+<h2 id="flowcharts"><a class="header" href="#flowcharts">Flowcharts</a></h2>
+<p>Now that we're introducing selection and iteration, it's helpful to visually
+represent the steps in our program. We'll use flowcharts to do this. The
+following sections will cover flowcharts along with some example programs
+demonstrating the use of if statements and while loops.</p>
+<p>A flowchart is a sequence of instructions that must be followed in order. They
+can become a little more complex when we start adding branching and referencing
+other flowcharts, but the flowchart still just gives us instructions and tells
+us the order in which to follow those instructions.</p>
+<h3 id="symbols"><a class="header" href="#symbols">Symbols</a></h3>
+<p>Here are some of the symbols you'll see in my flowcharts:</p>
+<ul>
+<li><strong>Terminators</strong>: the capsule shapes mark the start/end of a flowchart</li>
+<li><strong>I/O Instructions</strong>: parallelograms indicate an instruction that performs
+input or output</li>
+<li><strong>Process Instructions</strong>: rectangtles represent most other instructions that
+do not involve input or output</li>
+<li><strong>Arrows</strong>: each part of a flowchart is connected to one or more others by
+arrows</li>
+<li><strong>Lines</strong>: if the flowchart reads left to right, top to bottom, then the
+arrows can be left off the connections</li>
+</ul>
+<p><img src="weekly/../dia/flowcharts/sequential_symbols.png" alt="Sequential Symbols" /></p>
+<h3 id="reading-a-flowchart"><a class="header" href="#reading-a-flowchart">Reading a Flowchart</a></h3>
+<p>Beginning with the start terminator, each instruction in the flowchart is
+performed in sequence. Below are several examples followed by equivalent Java
+programs.</p>
+<p><img src="weekly/../dia/flowcharts/hello_world.png" alt="Hello World" /></p>
+<pre><code class="language-java">void main() {
+    println("Hello, world!");
+}
+</code></pre>
+<p><img src="weekly/../dia/flowcharts/repeat_it.png" alt="Repeat It" /></p>
+<pre><code class="language-java">void main() {
+    String text = readln("Please enter some text. ");
+    println("Now I'll repeat what you just typed.");
+    println(text);
+}
+</code></pre>
+<p><img src="weekly/../dia/flowcharts/simple_age.png" alt="Simple Age" /></p>
+<pre><code class="language-java">void main() {
+    int birthYear = Integer.parseInt(readln("Please enter the year you were born. "));
+    int currentYear = Integer.parseInt(readln("Please enter the current year. "));
+    int maxAge = currentYear - birthYear;
+    int minAge = maxAge - 1;
+    println("You are either " + minAge + " or " + maxAge + " years old.");
+}
+</code></pre>
+<p>Note that this last flowchart left out the details of what text the program
+should print. Instead, the output instructions focused on the purpose of the
+output. This is usually fine; the purpose of our flowchart is to show the
+structure of our code, not specify the exact details of its input and output.</p>
+<h3 id="decision-points"><a class="header" href="#decision-points">Decision Points</a></h3>
+<p>Decision points allow our flowchart to branch in multiple directions, and the
+condition in the decision point determines which branch we follow. All branches
+eventually converge and lead to the flowchart's end terminator.</p>
+<p>A diamond shape represents a decision or branching point. The text in this
+symbol states the condition, which can usually be true or false. Each branch
+coming from this symbol is labelled with the result that would cause the program
+to follow that branch (again, usually true or false).</p>
+<p><img src="weekly/../dia/flowcharts/decision_symbols.png" alt="Decision Symbols" /></p>
+<h3 id="selection-vs-iteration"><a class="header" href="#selection-vs-iteration">Selection vs Iteration</a></h3>
+<p>There are two ways we can use decision points: selection and iteration.</p>
+<ul>
+<li><strong>Selection</strong>: the decision point chooses which instruction(s) to perform
+next, but these do not lead back to earlier parts of the flowchart.</li>
+<li><strong>Iteration</strong>: the decision point chooses whether to follow a branch that
+leads back to an earlier part of the flowchart or to continue towards the end
+of the flowchart. Iteration allows us to repeat instructions multiple times
+until a condition is met.</li>
+</ul>
+<h3 id="selection-examples"><a class="header" href="#selection-examples">Selection Examples</a></h3>
+<p>The flowcharts below demonstrate selection. The equivalent Java programs are
+also shown after each flowchart.</p>
+<p><img src="weekly/../dia/flowcharts/type_five.png" alt="Type Five" /></p>
+<pre><code class="language-java">void main() {
+    int five = Integer.parseInt(readln("Please type the number 5."));
+    if (five == 5) {
+        println("Thank you for typing 5.");
+    } else {
+        println("Error: you didn't type 5.");
+    }
+}
+</code></pre>
+<p><img src="weekly/../dia/flowcharts/sign.png" alt="Sign" /></p>
+<pre><code class="language-java">void main() {
+    double num = Double.parseDouble(readln("Please enter a number."));
+    if (num &gt; 0) {
+        println(num + " is a positive number.");
+    } else {
+        if (num &lt; 0) {
+            println(num + " is a negative number.");
+        } else {
+            println(num + " is zero, which is neither positive nor negative.");
+        }
+    }
+}
+</code></pre>
+<h3 id="iteration-examples"><a class="header" href="#iteration-examples">Iteration Examples</a></h3>
+<p>The flowcharts below demonstrate iteration. The equivalent Java programs are
+also shown after each flowchart.</p>
+<p><img src="weekly/../dia/flowcharts/type_five_loop.png" alt="Type Five Loop" /></p>
+<pre><code class="language-java">void main() {
+    int five = Integer.parseInt(readln("Please type the number 5."));
+    while (five != 5) {
+        five = Integer.parseInt(readln("Error: you didn't type 5. Try again.");
+    }
+    println("Thank you for typing 5.")
+}
+</code></pre>
+<p><img src="weekly/../dia/flowcharts/countdown.png" alt="Countdown" /></p>
+<pre><code class="language-java">void main() {
+    int countdown = Integer.parseInt(
+        readln("Please type a positive integer to start the countdown."));
+    while (countdown &gt; 0) {
+        println(countdown + "!");
+        --countdown;
+    }
+}
+</code></pre>
+<h1 id="flowcharts-1"><a class="header" href="#flowcharts-1">Flowcharts</a></h1>
 <p>The flowcharts in this book will follow a similar style to those shown in the
 <a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Programming_Fundamentals_(Busbee_and_Braunschweig)/01%3A_Introduction_to_Programming/1.05%3A_Flowcharts">flowcharts section</a>
 of the <a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Programming_Fundamentals_(Busbee_and_Braunschweig)">Programming Fundamentals textbook (by Busbee and Braunschweig)</a>
@@ -881,7 +1065,7 @@ The examples you see in my notes were made using <a href="https://gitlab.gnome.o
 can become a little more complex when we start adding branching and referencing
 other flowcharts, but the flowchart still just gives us instructions and tells
 us the order in which to follow those instructions.</p>
-<h2 id="symbols"><a class="header" href="#symbols">Symbols</a></h2>
+<h2 id="symbols-1"><a class="header" href="#symbols-1">Symbols</a></h2>
 <p>Here are some of the symbols you'll see in my flowcharts:</p>
 <ul>
 <li><strong>Terminators</strong>: the capsule shapes mark the start/end of a flowchart</li>
@@ -889,52 +1073,55 @@ us the order in which to follow those instructions.</p>
 input or output</li>
 <li><strong>Process Instructions</strong>: rectangtles represent most other instructions that
 do not involve input or output</li>
-<li><strong>Arrows</strong>: each part of a flowchart is connected to one or more
-others by arrows</li>
+<li><strong>Arrows</strong>: each part of a flowchart is connected to one or more others by
+arrows</li>
 <li><strong>Lines</strong>: if the flowchart reads left to right, top to bottom, then the
 arrows can be left off the connections</li>
 </ul>
 <p><img src="flowcharts/../dia/flowcharts/sequential_symbols.png" alt="Sequential Symbols" /></p>
-<h2 id="reading-a-flowchart"><a class="header" href="#reading-a-flowchart">Reading a Flowchart</a></h2>
+<h2 id="reading-a-flowchart-1"><a class="header" href="#reading-a-flowchart-1">Reading a Flowchart</a></h2>
 <p>Beginning with the start terminator, each instruction in the flowchart is
-performed in sequence. Below are several examples followed by equivalent jshell
-scripts.</p>
+performed in sequence. Below are several examples followed by equivalent Java
+programs.</p>
 <h3 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h3>
 <p><img src="flowcharts/../dia/flowcharts/hello_world.png" alt="Hello World" /></p>
-<pre><code class="language-java">println("Hello, world!")
+<pre><code class="language-java">void main() {
+    println("Hello, world!");
+}
 </code></pre>
 <h3 id="repeat-it"><a class="header" href="#repeat-it">Repeat It</a></h3>
 <p><img src="flowcharts/../dia/flowcharts/repeat_it.png" alt="Repeat It" /></p>
-<pre><code class="language-java">println("Please enter some text.")
-String text = nextLine()
-println("Now I'll repeat what you just typed.")
-println(text)
+<pre><code class="language-java">void main() {
+    String text = readln("Please enter some text. ");
+    println("Now I'll repeat what you just typed.");
+    println(text);
+}
 </code></pre>
 <h3 id="simple-age"><a class="header" href="#simple-age">Simple Age</a></h3>
 <p><img src="flowcharts/../dia/flowcharts/simple_age.png" alt="Simple Age" /></p>
-<pre><code class="language-java">println("Please enter the year you were born.")
-int birthYear = nextInt()
-println("Please enter the current year.")
-int currentYear = nextInt()
-int maxAge = currentYear - birthYear
-int minAge = maxAge - 1
-println("You are either " + minAge + " or " + maxAge + " years old.")
+<pre><code class="language-java">void main() {
+    int birthYear = Integer.parseInt(readln("Please enter the year you were born. "));
+    int currentYear = Integer.parseInt(readln("Please enter the current year. "));
+    int maxAge = currentYear - birthYear;
+    int minAge = maxAge - 1;
+    println("You are either " + minAge + " or " + maxAge + " years old.");
+}
 </code></pre>
 <p>Note that this last flowchart left out the details of what text the program
 should print. Instead, the output instructions focused on the purpose of the
 output. This is usually fine; the purpose of our flowchart is to show the
 structure of our code, not specify the exact details of its input and output.</p>
-<h1 id="decision-points"><a class="header" href="#decision-points">Decision Points</a></h1>
+<h1 id="decision-points-1"><a class="header" href="#decision-points-1">Decision Points</a></h1>
 <p>Decision points allow our flowchart to branch in multiple directions, and the
 condition in the decision point determines which branch we follow. All branches
 eventually converge and lead to the flowchart's end terminator.</p>
-<h2 id="symbols-1"><a class="header" href="#symbols-1">Symbols</a></h2>
+<h2 id="symbols-2"><a class="header" href="#symbols-2">Symbols</a></h2>
 <p>A diamond shape represents a decision or branching point. The text in this
 symbol states the condition, which can usually be true or false. Each branch
-coming from this symbol is labelled with the result that would cause the
-program to follow that branch (again, usually true or false).</p>
+coming from this symbol is labelled with the result that would cause the program
+to follow that branch (again, usually true or false).</p>
 <p><img src="flowcharts/../dia/flowcharts/decision_symbols.png" alt="Decision Symbols" /></p>
-<h2 id="selection-vs-iteration"><a class="header" href="#selection-vs-iteration">Selection vs Iteration</a></h2>
+<h2 id="selection-vs-iteration-1"><a class="header" href="#selection-vs-iteration-1">Selection vs Iteration</a></h2>
 <p>There are two ways we can use decision points: selection and iteration.</p>
 <ul>
 <li><strong>Selection</strong>: the decision point chooses which instruction(s) to perform
@@ -946,51 +1133,46 @@ until a condition is met.</li>
 </ul>
 <p>In Java code, selection is handled with if statements and switch statements.
 Iteration is handled with loops (while, do-while, for).</p>
-<h2 id="selection-examples"><a class="header" href="#selection-examples">Selection Examples</a></h2>
-<p>The flowcharts below demonstrate selection. The equivalent jshell scripts are
+<h2 id="selection-examples-1"><a class="header" href="#selection-examples-1">Selection Examples</a></h2>
+<p>The flowcharts below demonstrate selection. The equivalent Java programs are
 also shown after each flowchart.</p>
 <p><img src="flowcharts/../dia/flowcharts/type_five.png" alt="Type Five" /></p>
-<pre><code class="language-java">println("Please type the number 5.")
-int five = nextInt()
+<pre><code class="language-java">int five = Integer.parseInt(readln("Please type the number 5."));
 if (five == 5) {
-    println("Thank you for typing 5.")
+    println("Thank you for typing 5.");
 } else {
-    println("Error: you didn't type 5.")
+    println("Error: you didn't type 5.");
 }
 </code></pre>
 <p><img src="flowcharts/../dia/flowcharts/sign.png" alt="Sign" /></p>
-<pre><code class="language-java">println("Please enter a number.")
-int num = nextDouble()
+<pre><code class="language-java">double num = Double.parseDouble(readln("Please enter a number."));
 if (num &gt; 0) {
-    println(num + " is a positive number.")
+    println(num + " is a positive number.");
 } else {
     if (num &lt; 0) {
-        println(num + " is a negative number.")
+        println(num + " is a negative number.");
     } else {
-        println(num + " is zero, which is neither positive nor negative.")
+        println(num + " is zero, which is neither positive nor negative.");
     }
 }
 </code></pre>
-<h2 id="iteration-examples"><a class="header" href="#iteration-examples">Iteration Examples</a></h2>
-<p>The flowcharts below demonstrate iteration. The equivalent jshell scripts are
+<h2 id="iteration-examples-1"><a class="header" href="#iteration-examples-1">Iteration Examples</a></h2>
+<p>The flowcharts below demonstrate iteration. The equivalent Java programs are
 also shown after each flowchart.</p>
 <p><img src="flowcharts/../dia/flowcharts/type_five_loop.png" alt="Type Five Loop" /></p>
 <p>This flowchart duplicates an instruction to more closely match the structure of
-the jshell code below.</p>
-<pre><code class="language-java">println("Please type the number 5.")
-int five = nextInt()
+the Java code below.</p>
+<pre><code class="language-java">int five = Integer.parseInt(readln("Please type the number 5."));
 while (five != 5) {
-    println("Error: you didn't type 5. Try again.")
-    five = nextInt()
+    five = Integer.parseInt(readln("Error: you didn't type 5. Try again.");
 }
 println("Thank you for typing 5.")
 </code></pre>
 <p><img src="flowcharts/../dia/flowcharts/countdown.png" alt="Countdown" /></p>
-<pre><code class="language-java">println("Please type a positive integer.")
-int countdown = nextInt()
+<pre><code class="language-java">int countdown = Integer.parseInt(readln("Please type a positive integer to start the countdown."));
 while (countdown &gt; 0) {
-    println(countdown + "!")
-    --countdown
+    println(countdown + "!");
+    --countdown;
 }
 </code></pre>
 <h1 id="quickstart"><a class="header" href="#quickstart">Quickstart</a></h1>

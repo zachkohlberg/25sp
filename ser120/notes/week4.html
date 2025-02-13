@@ -1,0 +1,374 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Week 4 - SER120 Note Handouts</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Note Handouts</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="week-4"><a class="header" href="#week-4">Week 4</a></h1>
+<h2 id="interfaces"><a class="header" href="#interfaces">Interfaces</a></h2>
+<p>An interface is like a fully abstract class<sup class="footnote-reference"><a href="#1">1</a></sup>. All methods declared in an
+interface are implicitly <code>public</code> and <code>abstract</code>. Here are two example
+interfaces:</p>
+<pre><code class="language-java">public interface Movable {
+    // translates an object's location by (dx, dy)
+    void move(int dx, int dy);
+}
+
+public interface Colorable {
+    // changes an object's color
+    void setColor(java.awt.Color color);
+}
+</code></pre>
+<p>Interfaces allow for something close to multiple inheritance: each class extends
+exactly one other class, but it can also <strong>implement</strong><sup class="footnote-reference"><a href="#2">2</a></sup> any number of
+interfaces. A concrete class implementing an interface inherits and must
+override the interface's abstract methods. For example:</p>
+<pre><code class="language-java">import java.awt.Color;
+
+public class SmileyFace implements Movable, Colorable {
+    @Override
+    public void move(int dx, int dy) {
+        this.setLocation(this.getXLocation() + dx, this.getYLocation() + dy);
+    }
+
+    @Override
+    public void setColor(Color newColor) {
+        this.face.setColor(newColor);
+    }
+
+    // remaining SmileyFace implementation elided
+}
+</code></pre>
+<p>Like the abstract methods in an abstract class, an interface is a way of
+requiring a class to implement one or more methods. However, this doesn't reuse
+code; you inherit abstract methods and must write them yourself in each class
+that implements the interface. If they don't let us reuse code, then why would
+we use them? The answer to that is...</p>
+<h2 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h2>
+<p>When you declare a variable, the variable is assigned a type. You can either
+explicitly state the variable's type or use <code>var</code> to have the type inferred from
+the initial value. The type assigned during declaration is the <strong>declared
+type</strong>. However, a variable is not restricted to storing values of its declared
+type. If the declared type is a class, then it can also store instances of any
+subclass of its declared type. If the declared type is an interface, then it can
+also store instances of any class that implements the declared type. This is
+polymorphism.</p>
+<p>Here's an example using inheritance. Irrelevant code will be left out so we can
+focus on polymorphism.</p>
+<pre><code class="language-java">public class Pet {
+    public void speak() {
+        // speak implementation elided
+    }
+    // remaining Pet implementation elided
+}
+
+public class Dog extends Pet {
+    // Dog implementation elided
+}
+
+public class Cat extends Pet {
+    // Cat implementation elided
+}
+
+public class Main {
+    // both parameters have declared type Pet
+    public static void haveConversation(Pet a, Pet b) {
+        // we can call speak() because it's in the declared type Pet
+        a.speak();
+        b.speak();
+    }
+
+    public static void main(String[] args) {
+        Dog dog = new Dog("Fido");
+        Cat cat = new Cat("Whiskers");
+
+        // passing instances of Dog to parameters with declared type Pet
+        haveConversation(dog, dog);
+        // passing instances of Dog and Cat to parameters with declared type Pet
+        haveConversation(dog, cat);
+        // passing instances of Cat and Dog to parameters with declared type Pet
+        haveConversation(cat, dog);
+        // passing instances of Cat to parameters with declared type Pet
+        haveConversation(cat, cat);
+    }
+}
+</code></pre>
+<p>The <code>haveConversation</code> method takes <code>Pet</code> parameters, and because <code>Dog</code> and
+<code>Cat</code> are subclasses of <code>Pet</code>, we can supply instances of those classes anywhere
+our code expects a <code>Pet</code>, such as arguments for the <code>a</code> and <code>b</code> parameters of
+<code>haveConversation</code>.</p>
+<p>If Java did not support polymorphism, then we would have to write multiple
+versions of our <code>haveConversation</code> method to allow each of the calls shown
+above:</p>
+<pre><code class="language-java">public static void haveConversation(Dog a, Dog b) {
+    a.speak();
+    b.speak();
+}
+public static void haveConversation(Dog a, Cat b) {
+    a.speak();
+    b.speak();
+}
+public static void haveConversation(Cat a, Dog b) {
+    a.speak();
+    b.speak();
+}
+public static void haveConversation(Cat a, Cat b) {
+    a.speak();
+    b.speak();
+}
+</code></pre>
+<p>We can also change the previous example to use an interface:</p>
+<pre><code class="language-java">public interface Speaker {
+    public void speak();
+}
+
+public class Dog implements Speaker {
+    // Dog implementation elided
+}
+
+public class Cat implements Speaker {
+    // Cat implementation elided
+}
+
+public class Main {
+    // both parameters have declared type Speaker
+    public static void haveConversation(Speaker a, Speaker b) {
+        // we can call speak() because it's in the declared type Speaker
+        a.speak();
+        b.speak();
+    }
+
+    // the same main method from the first example would also work here
+}
+</code></pre>
+<p>This is where interfaces are superior to inheritance: a class can implement any
+number of interfaces, but it can only extend one other class. We can opt into
+whatever interfaces we want without committing our class to a specific part of
+an inheritance hierarchy, and this makes instances of our class compatible with
+any code that requires one of those interfaces.</p>
+<p>Polymorphism does come with a significant restriction: a variable can only be
+used to call the methods present in its declared type, even if it contains an
+object with other methods.</p>
+<h2 id="encapsulation"><a class="header" href="#encapsulation">Encapsulation</a></h2>
+<p>During our next lecture, we will discuss how we encapsulate data within a class.
+Before then, answer the following questions and be prepared to share your
+answers during class:</p>
+<ol>
+<li>What is a downside to making static or instance variables <strong>private</strong>? Can
+you think of any risks this adds to your code or a way in which it makes code
+harder to write?</li>
+<li>What is a downside to making static or instance variables <strong>public</strong>? Can you
+think of any risks this adds to your code or a way in which it makes code
+harder to write?</li>
+<li>Describe an example of when you think a variable should be public and when a
+variable should be private.</li>
+</ol>
+<h2 id="footnotes"><a class="header" href="#footnotes">Footnotes</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>Interfaces can include <code>default</code> implementations of methods, which starts to
+blur the line between interfaces and abstract classes. Right now we're more
+interested in the contract created by an interface and how it relates to
+polymorphism, so we won't be discussing default interface methods yet.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Implementing an interface is like extending a class, and we use the keyword
+<code>implements</code> to state this relationship. However, the term "implementation"
+can be used more generally to refer to the code inside of a class or method.
+The term "interface" can also be used more generally to refer to the public
+facing portion of a class or library that allows other code to interact with
+it.</p>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="week3.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="week3.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -165,36 +165,39 @@ us the order in which to follow those instructions.</p>
 input or output</li>
 <li><strong>Process Instructions</strong>: rectangtles represent most other instructions that
 do not involve input or output</li>
-<li><strong>Arrows</strong>: each part of a flowchart is connected to one or more
-others by arrows</li>
+<li><strong>Arrows</strong>: each part of a flowchart is connected to one or more others by
+arrows</li>
 <li><strong>Lines</strong>: if the flowchart reads left to right, top to bottom, then the
 arrows can be left off the connections</li>
 </ul>
 <p><img src="../dia/flowcharts/sequential_symbols.png" alt="Sequential Symbols" /></p>
 <h2 id="reading-a-flowchart"><a class="header" href="#reading-a-flowchart">Reading a Flowchart</a></h2>
 <p>Beginning with the start terminator, each instruction in the flowchart is
-performed in sequence. Below are several examples followed by equivalent jshell
-scripts.</p>
+performed in sequence. Below are several examples followed by equivalent Java
+programs.</p>
 <h3 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h3>
 <p><img src="../dia/flowcharts/hello_world.png" alt="Hello World" /></p>
-<pre><code class="language-java">println("Hello, world!")
+<pre><code class="language-java">void main() {
+    println("Hello, world!");
+}
 </code></pre>
 <h3 id="repeat-it"><a class="header" href="#repeat-it">Repeat It</a></h3>
 <p><img src="../dia/flowcharts/repeat_it.png" alt="Repeat It" /></p>
-<pre><code class="language-java">println("Please enter some text.")
-String text = nextLine()
-println("Now I'll repeat what you just typed.")
-println(text)
+<pre><code class="language-java">void main() {
+    String text = readln("Please enter some text. ");
+    println("Now I'll repeat what you just typed.");
+    println(text);
+}
 </code></pre>
 <h3 id="simple-age"><a class="header" href="#simple-age">Simple Age</a></h3>
 <p><img src="../dia/flowcharts/simple_age.png" alt="Simple Age" /></p>
-<pre><code class="language-java">println("Please enter the year you were born.")
-int birthYear = nextInt()
-println("Please enter the current year.")
-int currentYear = nextInt()
-int maxAge = currentYear - birthYear
-int minAge = maxAge - 1
-println("You are either " + minAge + " or " + maxAge + " years old.")
+<pre><code class="language-java">void main() {
+    int birthYear = Integer.parseInt(readln("Please enter the year you were born. "));
+    int currentYear = Integer.parseInt(readln("Please enter the current year. "));
+    int maxAge = currentYear - birthYear;
+    int minAge = maxAge - 1;
+    println("You are either " + minAge + " or " + maxAge + " years old.");
+}
 </code></pre>
 <p>Note that this last flowchart left out the details of what text the program
 should print. Instead, the output instructions focused on the purpose of the
