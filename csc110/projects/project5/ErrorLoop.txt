@@ -1,0 +1,5 @@
+ask user for input
+read input
+while input isn't valid
+    tell user input wasn't valid and ask them to retry
+    read input

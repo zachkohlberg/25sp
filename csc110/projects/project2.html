@@ -1,0 +1,586 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Project 2: Character Sheet Part 2 - CSC110 Projects</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CSC110 Projects</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="project-2-character-sheet-part-2"><a class="header" href="#project-2-character-sheet-part-2">Project 2: Character Sheet Part 2</a></h1>
+<p>This program will prompt for additional information, perform calculations closer
+to the real D&amp;D rules, check whether user input is valid, and print a
+nicer-looking character sheet.</p>
+<h2 id="primary-topics"><a class="header" href="#primary-topics">Primary Topics</a></h2>
+<ul>
+<li>Input</li>
+<li>Output</li>
+<li>Variables</li>
+<li>Mathematical expressions</li>
+<li>Conditional expressions</li>
+</ul>
+<h2 id="prerequisites-and-setup"><a class="header" href="#prerequisites-and-setup">Prerequisites and Setup</a></h2>
+<ul>
+<li>You should have already completed Project 1. If the test program isn't yet
+available, then you can hold off on the final testing/debugging step and begin
+this project as long as you're confident that your Project 1 output is
+correct.</li>
+<li>Create a file named <code>CharacterSheet2.java</code> in your projects folder. Copy your
+code from <code>CharacterSheet1.java</code> into this new file.</li>
+</ul>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="task-1-guided-coding"><a class="header" href="#task-1-guided-coding">Task 1: Guided Coding</a></h3>
+<p>Follow the steps below and write the program as directed. Test your code
+frequently, <strong>at the bare minimum performing every test given in the steps.</strong></p>
+<p>If your code is not working as expected, do not move on to the next step until
+you have fixed it. Moving on without finishing a step correctly will make the
+problem significantly harder to fix and likely add new problems as you continue
+working. If you disregard this advice, then you may get to the end of the steps
+and find it would actually be less work to start over from step 1 than to debug
+the code you just finished writing.</p>
+<ol>
+<li>
+<p>This program requires two additional pieces of input. Prompt the player for
+their character's ancestry and class after the character name and before the
+level. Note that <code>class</code> is a
+<a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html">reserved word</a>
+in Java, which means you won't be able to use it as a variable name. A common
+substitute is "clazz", although "characterClass" and "charClass" also make
+good names for this variable.</p>
+</li>
+<li>
+<p>If the user enters invalid input, then our program must print an error
+message and exit. You should modify your prompts to tell the user what input
+is allowed for the ancestry, class, level, and ability scores. This will also
+be a helpful reminder when you test the program.</p>
+</li>
+<li>
+<p>We can check whether the user's input is valid or invalid with an <code>if</code>
+statement. You should check each input value immediately after the prompt to
+avoid wasting extra time after receiving invalid input. Here are some hints
+to get you started validating the level:</p>
+<ul>
+<li>A <em>valid</em> level is an integer between 1 and 20 (inclusive).</li>
+<li>Our if statement should trigger on an <em>invalid</em> level, so we want to ask
+whether it is outside this range. An invalid level is <strong>either</strong> less than
+1 <strong>or</strong> greater than 20.</li>
+<li>There are two parts to our condition, so we need to join them with an AND
+(<code>&amp;&amp;</code>) or an OR (<code>||</code>). In this case, only one condition needs to be true
+for the level to fall outside of the valid range, so we should use OR.</li>
+<li>In the body of our if statement, we need to print an error message and exit
+our program. The exact error message is <code>ERROR: INVALID INPUT</code>, and we can
+skip the rest of our <code>main</code> function with an empty <code>return</code> statement. All
+together, it looks like this:</li>
+</ul>
+</li>
+</ol>
+<pre><code class="language-java">// prompt for input
+int variableName = Integer.parseInt(readln("level prompt message"));
+
+// check for invalid input
+if (/*TODO: condition*/) {
+    println("ERROR: INVALID INPUT");
+    // exit main function early
+    return;
+}
+</code></pre>
+<ol start="5">
+<li>
+<p>You can use a similar prompt to check each ability score, which must be an
+integer between 8 and 15 inclusive. After you add the error-checking for the
+level and abilities, you should test each of them a few times. Try values
+both inside and outside the range, and make sure the program exits with the
+error message if and only if you enter a value outside the range. In
+particular, you should check the boundaries of the range. One of the most
+common mistakes in this type of code is to make a range inclusive when it
+should have been exclusive, or to make it exclusive when it should have been
+inclusive. If you make that mistake, then your code will work correctly for
+all but one or two numbers. You should check 0, 1, 20, and 21 for the level,
+as well as 7, 8, 15, and 16 for the ability scores.</p>
+</li>
+<li>
+<p>Once your error-checking code works for the numbers, you also need to check
+the ancestry and class. Each of these have three options, and the user's
+input is invalid if it is not equal to one of these options. This means we
+have three parts to our condition, and they must be joined with AND or OR.
+Which is appropriate? Let's try describing invalid input more closely to how
+we would code it (checking each possibility separately) and see whether AND
+or OR is more natural: an invalid ancestry is <strong>not</strong> an elf <strong>and</strong> it is
+<strong>not</strong> a dwarf <strong>and</strong> it is <strong>not</strong> a human. Therefore we should use AND
+(<code>&amp;&amp;</code>).</p>
+<p>However, this can be tricky. There's another way to phrase our condition that
+sounds natural and uses OR instead of AND: "an invalid ancestry is not an elf
+<strong>or</strong> a dwarf <strong>or</strong> a human". Does this mean it doesn't matter whether we
+use AND or OR? The trick with this phrase is how it looks when structured
+like code: "it is <strong>not</strong> true that (an invalid ancestry is an elf <strong>or</strong> it
+is a dwarf <strong>or</strong> it is a human)." We are using <strong>or</strong> to join several
+equality checks (instead of inequality checks), then applying the NOT (<code>!</code>)
+to the entire expression, which I've indicated by wrapping most of the
+expression in parenthesis.</p>
+<p>You'll develop an intuition for boolean logic with practice, so don't worry
+if you had a hard time with this part. I'll summarize everything you need to
+know for the AND solution to this error check:</p>
+<ul>
+<li>Check whether the ancestry/class is NOT equal to each option.</li>
+<li>Join each of these comparisons with AND (<code>&amp;&amp;</code>).</li>
+<li>Never compare strings with <code>s1 == s2</code> or <code>s1 != s2</code>. This will not work as
+you want it to. Instead, compare them using the <code>.equals</code> function:
+<code>s1.equals(s2)</code> for equality and <code>!s1.equals(s2)</code> for inequality.</li>
+<li>Valid ancestries are "elf", "human", and "dwarf".</li>
+<li>Valid classes are "fighter", "rogue", and "ranger".</li>
+<li>Use the lowercase versions of these names. I will only use lowercase input
+for these traits when testing your code, so you can assume that all input
+is lowercase.</li>
+</ul>
+<p>Remember to test your new error-checking code. You should now get an error
+message if you don't enter a valid ancestry or class, but the program should
+still work if you enter valid input for everything.</p>
+</li>
+<li>
+<p>Now we need to update the calculations. We can break this into three phases:
+adjust ability scores, calculate ability modifiers, and calculate other
+values. We'll start with adjusting the ability scores. Each ancestry changes
+one or more ability scores. Humans increase all of their scores by 1, elves
+increase their dexterity by 2, and dwarves increase their constitution by 2.
+You can structure this part as an else-if chain:</p>
+</li>
+</ol>
+<pre><code class="language-java">if (variableName.equals("ancestry1")) {
+    // TODO: adjust ability scores for ancestry 1
+} else if (variableName.equals("ancestry2")) {
+    // TODO: adjust ability scores for ancestry 2
+} else {
+    // NOTE: we've already checked for invalid input, so the only remaining
+    // option is the third ancestry. This is why we can just use an else and
+    // skip the variableName.equals("ancestry3") condition.
+    // TODO: adjust ability scores for ancestry 3
+}
+</code></pre>
+<ol start="7">
+<li>
+<p>After you adjust ability scores for the character's ancestry, you need to
+calculate each ability's modifier. This is a separate number from the score,
+and it's used in most calculations that care about the ability instead of the
+raw score. The <a href="./background/character_sheet.html">Character Sheet Background</a>
+section explains the difference between ability scores and modifiers in more
+detail.</p>
+<p>The SRD has a table showing the modifier for each ability score. However, we
+can more easily calculate this with a short formula:
+<code>abilityModifier = (abilityScore / 2) - 5</code>. The parenthesis aren't necessary,
+but they emphasize the order of operations. Dividing after subtraction
+(<code>(abilityScore - 10) / 2</code>) would not give us the correct modifier for some
+scores below ten.</p>
+</li>
+<li>
+<p>The <a href="#calculations">Calculations</a> section covers the remaining calculations
+you need to perform. You can find the relevant formulas and other information
+there. Some of these calculations change depending on the class, so you
+should use an else-if chain similar to what you wrote for the ancestry
+adjustments. However, make sure you declare any variables <em>before</em> the start
+of the if-else chain. If you declare a variable inside an if or else body,
+then that variable will only exist inside that code block, and it won't be
+available later when you perform other calculations or print your output.
+Here's an outline to get started:</p>
+</li>
+</ol>
+<pre><code class="language-java">// Declare all new variables here
+int hp = 0;
+// TODO: other variables
+
+if (variableName.equals("class1")) {
+    hp = /*TODO: class 1 hp calculations*/;
+    // TODO: other class 1 calculations
+} else if (variableName.equals("class2")) {
+    // TODO: class 2 calculations
+} else {
+    // TODO: class 3 calculations
+}
+</code></pre>
+<ol start="9">
+<li>Test your code. We haven't updated the output yet, but you can run the
+program and check the value of each variable from the calculations section to
+make sure it's what you were expecting.</li>
+<li>Finally, you can adjust the output to follow the <a href="#io-format">new format</a>
+for Project 2 and show all of the new information you've calculated. Two of
+the formatting requirements can be tricky to figure out: adding a plus to
+any nonnegative modifiers and right-aligning the ability scores. You can use
+if statements to handle this, but the <code>String.format</code> function solves this
+problem much more easily than an if statement. The formatting specifiers
+you'll need are <code>%2d</code> to right-align an ability score and <code>%+d</code> to force a
+plus or minus sign in front of an ability modifier.</li>
+</ol>
+<h3 id="task-2-run-tests"><a class="header" href="#task-2-run-tests">Task 2: Run Tests</a></h3>
+<p>Run the tests for your project and look at the feedback. If your code passed
+every test, then this project is finished. The test program can also pack all of
+your projects for upload to Blackboard.</p>
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<ul>
+<li>Your <code>CharacterSheet2.java</code> file</li>
+</ul>
+<p>In order for this project to count as complete, it must:</p>
+<ul>
+<li>be submitted on Blackboard before the deadline</li>
+<li>be packaged and named correctly (use the test program's pack command)</li>
+<li>pass all of the tests I gave you</li>
+</ul>
+<p>It should be easy to tell whether your project is complete as long as you run
+the tests. If it's not passing and you can't figure out why, then ask for help
+rather than submitting an incomplete assignment.</p>
+<h2 id="additional-details"><a class="header" href="#additional-details">Additional Details</a></h2>
+<h3 id="io-format"><a class="header" href="#io-format">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the following user input:</p>
+<ul>
+<li>The player's name (String)</li>
+<li>The character's name (String)</li>
+<li>The character's ancestry (String)</li>
+<li>The character's class (String)</li>
+<li>The character's level (int)</li>
+<li>The character's ability scores
+<ul>
+<li>Strength (int)</li>
+<li>Dexterity (int)</li>
+<li>Constitution (int)</li>
+</ul>
+</li>
+</ul>
+<p>If all user input is valid, then your program must print the following output:</p>
+<ul>
+<li><code>Player: &lt;NAME&gt;</code></li>
+<li><code>Character: &lt;NAME&gt;, level &lt;LEVEL&gt; &lt;ANCESTRY&gt; &lt;CLASS&gt;</code></li>
+<li><code>HP: &lt;HP&gt;, AC: &lt;AC&gt;</code></li>
+<li><code>Ability Scores:</code></li>
+<li><code>Str &lt;STRENGTH SCORE&gt; &lt;STRENGTH MODIFIER&gt;</code></li>
+<li><code>Dex &lt;DEXTERITY SCORE&gt; &lt;DEXTERITY MODIFIER&gt;</code></li>
+<li><code>Con &lt;CONSTITUTION SCORE&gt; &lt;CONSTITUTION MODIFIER&gt;</code></li>
+<li><code>Attacks:</code></li>
+<li><code>&lt;ATTACK1 NAME&gt; &lt;ATTACK1 MODIFIER&gt;</code></li>
+<li><code>&lt;ATTACK2 NAME&gt; &lt;ATTACK2 MODIFIER&gt;</code> (note: some characters only have one
+attack)</li>
+</ul>
+<p>Two additional requirements:</p>
+<ul>
+<li>If a score (strength, dexterity, and constitution) is a single-digit number,
+then it must be padded with an extra space so that all scores are
+right-aligned in their column.</li>
+<li>Each modifier (strength, dexterity, constitution, and attack) must be preceded
+by a plus or minus sign. Negative modifiers have a minus sign, and nonnegative
+(which includes zero) modifiers have a plus sign. This reinforces how these
+numbers are meant to be used: they are usually added to dice rolls and other
+values rather than used on their own.</li>
+</ul>
+<p>The ability scores and attacks should also be indented for readability, but
+indentation will not be checked by the tests.</p>
+<p>Here is an example of possible user input and the resulting character sheet:</p>
+<p>Input:</p>
+<pre><code>Alice
+Bob
+elf
+ranger
+4
+15
+14
+9
+</code></pre>
+<p>Output:</p>
+<pre><code>Player: Alice
+Character: Bob, level 4 elf ranger
+HP: 28, AC: 17
+Ability Scores:
+    Str 15 (+2)
+    Dex 16 (+3)
+    Con  9 (-1)
+Attacks:
+    Longsword +4
+    Longbow +5
+</code></pre>
+<h3 id="valid-input"><a class="header" href="#valid-input">Valid Input</a></h3>
+<p>There are two ways for the user to enter invalid input:</p>
+<ol>
+<li>The user can enter a string or double when you were expecting an integer. If
+the user entered the word "nine" or the number 12.4 when asked for their
+level, then this would be the wrong <em>type</em> of input.</li>
+<li>The user can enter the correct <em>type</em> of input, but not one of the values
+they were allowed to enter. If the user entered -2 or 50 when asked for their
+level, then this would be the correct type of input (an integer), but not one
+of the integers they were allowed to choose for their level (a number from 1
+to 20).</li>
+</ol>
+<p>The first kind of error is more complicated to deal with, and you won't learn
+how to handle those errors until later in the semester. You only need to worry
+about the second kind of error in this assignment. You can assume that the user
+will always enter the correct type of value, but your code must check whether it
+was one of the values they were allowed to choose. If the user enters an invalid
+value of the correct type, then your program must print the message
+<code>ERROR: INVALID INPUT</code> and exit.</p>
+<p>Here are all of the rules you must enforce when checking the user's input:</p>
+<ul>
+<li>The level must be an integer from 1 to 20.</li>
+<li>Each ability score must be an integer from 8 to 15.</li>
+<li>The ancestry must be either "human", "elf", or "dwarf".</li>
+<li>The class must be either "fighter", "ranger", or "rogue".</li>
+</ul>
+<p>You can assume that the user's input for class and ancestry are always
+lowercase. Your code <em>must</em> correctly handle the lowercase versions of these
+strings, but it doesn't matter what you do when given other capitalizations
+(such as "Human", "RANGER", or "DwARf"). The ancestry and class must also appear
+as all lowercase in the program's <em>output</em>.</p>
+<h3 id="calculations"><a class="header" href="#calculations">Calculations</a></h3>
+<p>This program involves more calculations and variables than the previous program.
+This section will serve as a reference for all values that are calculated by the
+program.</p>
+<ol>
+<li>Before any other calculations, some of the ability <strong>scores</strong> must be
+adjusted by the player's ancestry:
+<ul>
+<li>If the character is a human, increase each ability score by one.</li>
+<li>If the character is an elf, increase their dexterity score by two.</li>
+<li>If the character is a dwarf, increase their constitution score by two.</li>
+</ul>
+</li>
+<li>Each ability score has an associated number called its
+<a href="https://www.5esrd.com/using-ability-scores">modifier</a>. The modifier <em>does
+not alter the score</em>, it is derived <em>from</em> the score. The srd link has a
+table showing the modifier associated with each score from 1 to 30, but we
+can calculate the modifier with a formula.
+<ul>
+<li>Each ability modifier is calculated by dividing the score by 2 and
+subtracting 5. The formula should look like this:
+<code>modifier = score / 2 - 5</code>.</li>
+<li>It's important that you divide <em>before</em> subtracting because integer
+division will round towards zero, not down. We could perform a similar
+calculation by subtracting 10 and then dividing by 2, but this would give
+the wrong value for odd ability scores below 10. For example, a score of 9
+would produce a modifier of 0 when it should have a modifier of -1.</li>
+</ul>
+</li>
+<li>The character's HP equals their level multiplied by the sum of their
+constitution modifier and their "hit die". The hit die is determined by the
+character's class. A fighter has a hit die of 10, and the other two classes
+have a hit die of 8. The formula should look like this:
+<code>hp = level * (conModifier + hitDie)</code>.</li>
+<li>The character's AC (armor class) uses a different formula depending on their
+class:
+<ul>
+<li>A fighter's AC is equal to 18</li>
+<li>A ranger's AC is equal to 15 plus their dexterity modifier, but their AC
+cannot be higher than 17</li>
+<li>A rogue's AC is equal to 12 plus their dexterity modifier</li>
+</ul>
+</li>
+<li>The character's proficiency is not displayed, but it is used to determine
+their attack bonus. You can calculate proficiency with the formula
+<code>proficiency = 1 + (level + 3) / 4</code>.</li>
+<li>Depending on their class, the character has one or two attacks. Each attack
+has a name and a bonus. The bonus is equal to the character's proficiency
+bonus plus one of their ability modifiers.
+<ul>
+<li>A fighter has one attack called <code>Greatsword</code>, which uses their strength
+modifier</li>
+<li>A rogue has two attacks: <code>Dagger</code> and <code>Crossbow</code>, which both use their
+dexterity modifier</li>
+<li>A ranger has two attacks: <code>Longsword</code>, which uses their strength modifier,
+and <code>Longbow</code>, which uses their dexterity modifier</li>
+</ul>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="project1.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="project1.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Project 1: Character Sheet Part 1 - CSC110 Projects</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CSC110 Projects</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="project-1-character-sheet-part-1"><a class="header" href="#project-1-character-sheet-part-1">Project 1: Character Sheet Part 1</a></h1>
+<p>This program will prompt the user for a few pieces of information about their
+character, calculate some additional stats, and then print a character sheet.</p>
+<h2 id="primary-topics"><a class="header" href="#primary-topics">Primary Topics</a></h2>
+<ul>
+<li>Input</li>
+<li>Output</li>
+<li>Variables</li>
+<li>Mathematical expressions</li>
+</ul>
+<h2 id="prerequisites-and-setup"><a class="header" href="#prerequisites-and-setup">Prerequisites and Setup</a></h2>
+<ul>
+<li>Create a file named <code>CharacterSheet1.java</code> in your projects folder.</li>
+</ul>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="task-1-guided-coding"><a class="header" href="#task-1-guided-coding">Task 1: Guided Coding</a></h3>
+<p>Follow the steps below and write the program as directed. Test your code
+frequently, <strong>at the bare minimum performing every test given in the steps.</strong></p>
+<p>If your code is not working as expected, do not move on to the next step until
+you have fixed it. Moving on without finishing a step correctly will make the
+problem significantly harder to fix and likely add new problems as you continue
+working. If you disregard this advice, then you may get to the end of the steps
+and find it would actually be less work to start over from step 1 than to debug
+the code you just finished writing.</p>
+<ol>
+<li>I recommend using comments to divide your program into sections so that it's
+easier to stay organized. I'll be referring to three different parts of the
+program in these steps: input, calculations, and output. Before the input
+section, add comments with a title for the program and the author's name
+(that's you). Feel free to copy the template below and fill in the missing
+information.</li>
+</ol>
+<pre><code class="language-java">// Project 1: Character Sheet Part 1
+// Author: your name here
+
+void main() {
+    ///////////
+    // Input //
+    ///////////
+
+    // TODO: prompt for user input
+
+    //////////////////
+    // Calculations //
+    //////////////////
+
+    // TODO: calculations
+
+    ////////////
+    // Output //
+    ////////////
+
+    // TODO: print character sheet
+}
+</code></pre>
+<ol start="2">
+<li>In the input section, prompt the user for the following information in order:
+their name, their character's name, their character's level, and their
+character's ability scores (strength, dexterity, and constitution). Prompting
+for input takes 1-2 lines of code and involves several steps:
+<ul>
+<li>Declare a new variable to hold the input value. Give the variable a
+meaningful and descriptive name.</li>
+<li>Call <code>readln</code> and include a prompt telling the user what information you
+expect them to type. You can word the prompt however you want; the test
+program will ignore your prompts when checking your program's output.</li>
+<li>If you need your input as a number, remember to call <code>Integer.parseInt</code> or
+<code>Double.parseDouble</code> <em>before</em> <code>readln</code>, and place the <code>readln</code> call inside
+of the parenthesis after the parse function.</li>
+</ul>
+</li>
+<li>Add some temporary print statements to the output section. Print the value of
+each variable you read during the input section. This will help with early
+testing. I recommend including the variable's name in its print statement:
+<code>println("x = " + x);</code> instead of <code>println(x);</code>.</li>
+<li>Test your program. You should see the first input prompt, and then the
+program should pause until you enter your input before moving to the next
+prompt. The program should repeat all of your input after you complete the
+final prompt.</li>
+<li>In the calculations section, calculate the character's HP (hit points), AC
+(armor class), and attack bonus. Each of these properties should be a new
+variable. Use the following formulas to calculate these properties:
+<ul>
+<li>The character's HP is equal to their level multiplied by their constitution
+score.</li>
+<li>The character's AC is equal to ten plus their dexterity score.</li>
+<li>The character's attack bonus is equal to their level plus their strength
+score.</li>
+</ul>
+</li>
+<li>Add print statements for the new variables and test your program again. Pay
+attention to the values printed for the hp, ac, and attack bonus variables,
+and check the calculations yourself to confirm these are correct. If
+everything looks right, then this is a good time to delete or comment out the
+test print statements. We'll to write the actual output section next, so we
+shouldn't need the test output anymore.</li>
+<li>Print all of the information shown in the I/O Format section. Pay careful
+attention to spelling, capitalization, and the order in which this output
+appears. In order to pass the tests, it will have to match exactly with the
+expected output.</li>
+<li>Before you run my test program, try running your program yourself and make
+sure the output looks correct. It will be nice to see the whole program
+working, and it'll be faster to fix any obvious mistakes on your own than
+using the test program.</li>
+</ol>
+<h3 id="task-2-run-tests"><a class="header" href="#task-2-run-tests">Task 2: Run Tests</a></h3>
+<p>Run the tests for your project and look at the feedback. If your code passed
+every test, then this project is finished. The test program can also pack all of
+your projects for upload to Blackboard.</p>
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<ul>
+<li>Your <code>CharacterSheet1.java</code> file</li>
+</ul>
+<p>In order for this project to count as complete, it must:</p>
+<ul>
+<li>be submitted on Blackboard before the deadline</li>
+<li>be packaged and named correctly (use the test program's pack command)</li>
+<li>pass all of the tests I gave you</li>
+</ul>
+<p>It should be easy to tell whether your project is complete as long as you run
+the tests. If it's not passing and you can't figure out why, then ask for help
+rather than submitting an incomplete assignment.</p>
+<h2 id="additional-details"><a class="header" href="#additional-details">Additional Details</a></h2>
+<h3 id="io-format"><a class="header" href="#io-format">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the following user input:</p>
+<ul>
+<li>The player's name (String)</li>
+<li>The character's name (String)</li>
+<li>The character's level (int)</li>
+<li>The character's strength score (int)</li>
+<li>The character's dexterity score (int)</li>
+<li>The character's constitution score (int)</li>
+</ul>
+<p>Your program must print the following output:</p>
+<ul>
+<li><code>Player: &lt;NAME&gt;</code></li>
+<li><code>Character: &lt;NAME&gt;</code></li>
+<li><code>Level: &lt;LEVEL&gt;</code></li>
+<li><code>HP: &lt;HP&gt;</code></li>
+<li><code>AC: &lt;AC&gt;</code></li>
+<li><code>Attack: +&lt;ATTACK BONUS&gt;</code> (note the <code>+</code> before the attack bonus)</li>
+<li><code>Str &lt;STRENGTH SCORE&gt;</code></li>
+<li><code>Dex &lt;DEXTERITY SCORE&gt;</code></li>
+<li><code>Con &lt;CONSTITUTION SCORE&gt;</code></li>
+</ul>
+<p>Here is an example of possible user input and the resulting character sheet:</p>
+<p>Input:</p>
+<pre><code>Alice
+Bob
+10
+18
+13
+15
+</code></pre>
+<p>Output:</p>
+<pre><code>Player: Alice
+Character: Bob
+Level: 10
+HP: 150
+AC: 23
+Attack: +28
+Str 18
+Dex 13
+Con 15
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="background/dice_game.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="project2.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="background/dice_game.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="project2.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
