@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>SER120 Projects</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">SER120 Projects</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="projects-overview"><a class="header" href="#projects-overview">Projects Overview</a></h1>
+<p>This website contains all of the projects for SER120. Check Blackboard and the
+syllabus if you have questions about which projects are required and how they
+affect your grade.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-1-wheels-scene"><a class="header" href="#project-1-wheels-scene">Project 1: Wheels Scene</a></h1>
+<p>Using the wheels library, create a scene involving several objects. The scene
+can be whatever you want as long as it's appropriate for a classroom setting.</p>
+<p>The wheels library provides several classes to display simple shapes. You can
+use these to construct all of the objects in your scene. You can see a list of
+these shape classes in the wheels documentation on Blackboard.</p>
+<h2 id="primary-topics"><a class="header" href="#primary-topics">Primary Topics</a></h2>
+<ul>
+<li>Wheels graphics library</li>
+<li>Composition</li>
+<li>Relative positioning</li>
+</ul>
+<h2 id="setup-and-prerequisites"><a class="header" href="#setup-and-prerequisites">Setup and Prerequisites</a></h2>
+<p>Download the wheels library and documentation from Blackboard and learn how to
+import it into a project. Make sure you can run the following wheels program:</p>
+<pre><code class="language-java">public class Main extends wheels.users.Frame {
+    public static void main(String[] args) {
+        new Main();
+    }
+}
+</code></pre>
+<p>This program should display a mostly empty window with a quit button.</p>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="task-1-design"><a class="header" href="#task-1-design">Task 1: Design</a></h3>
+<p>To start, design a scene with at least three different types of objects. For
+example, your scene might be a bird flying through the sky with the sun and some
+clouds in the background. The bird, sun, and clouds would be our three types of
+object. Once you have an idea, think about how you could create these objects
+using wheels shapes (rectangles, ellipses, lines, and rounded rectangles). Our
+sun, for example, might be an ellipse with several lines radiating from it. I
+recommend drawing a quick sketch of the objects using those shapes. This will
+help you figure out how to create the objects using code.</p>
+<p>Once you've designed your scene, you need to design an object that functions as
+a component of another object in your scene. This component must appear multiple
+times in your code: either multiple times within the same object or in multiple
+types of object. Using our example, a single wing could be used as a component
+because our bird needs two of them. If we were going to include two different
+types of birds in our scene, then we might make a beak component and use it once
+in each bird class.</p>
+<p>In a separate document, answer the following questions about your design. This
+is your <strong>design writeup</strong>, and it must be submitted with the project.</p>
+<ol>
+<li>Summarize the entire scene.</li>
+<li>Describe three types of objects in your scene. What does each object
+represent, and how will you construct it out of wheels shapes? Your scene can
+include more types beyond these three, but the three you describe must meet
+the following requirements:
+<ul>
+<li>The object is composed of at least three other objects (wheels shapes or
+component objects)</li>
+<li>The object is represented by its own class in your program</li>
+<li>The scene must include multiple instances of at least one object, so note
+an object that appears more than once in the scene</li>
+</ul>
+</li>
+<li>Describe a component object that appears in the scene. What does this
+component object represent, how will you construct it out of wheels shapes,
+and what other object(s) will use it as a component? This component object
+must meet the following requirements:
+<ul>
+<li>The component is composed of at least three wheels shapes</li>
+<li>The component is part of at least one type of object described in the
+previous question</li>
+<li>The component is either used multiple times in one object (for example, a
+bird with two instances of a wing component) or in different objects (for
+example, an eagle and an owl that each have a beak component)</li>
+</ul>
+</li>
+</ol>
+<p>Finally, note that I expect you to design your own scene and write these
+descriptions yourself. Your scene should not be based on a classmate's scene or
+the example given in this section, and you are not allowed to use ChatGPT or
+another LLM to assist with this writeup.</p>
+<h3 id="task-2-program"><a class="header" href="#task-2-program">Task 2: Program</a></h3>
+<p>Write a wheels program that displays your scene. It must include the following
+classes:</p>
+<ol>
+<li>A <code>Main</code> class that extends <code>wheels.users.Frame</code> and includes a <code>main</code> method
+that launches the program. Make sure you name this class correctly and leave
+it in the default package so that my script can run your program.</li>
+<li>One class for each type of object described in your design writeup. The
+classes should be named appropriately (upper camel case names that identify
+what type of object they represent).</li>
+<li>A class that defines the component described in your design writeup.</li>
+</ol>
+<p>Feel free to include more than the five required classes if you want to add more
+to your scene.</p>
+<p>Your three object types and your component must include the following
+constructors and methods:</p>
+<ul>
+<li>A <code>setLocation</code> method that moves the entire object to the given location</li>
+<li>A <code>setColor</code> method that changes at least one of the object's colors</li>
+<li>A default constructor that initializes all of the object's components and
+calls the above setter methods</li>
+<li>A parameterized constructor that accepts x, y coordinates for the object's
+location and at least one color; these parameters must be used to call the
+above setter methods</li>
+</ul>
+<h4 id="group-work"><a class="header" href="#group-work">Group Work</a></h4>
+<p>During one practice activity we worked on a component class for this project. If
+you worked with a group on that component, emailed the <em>finished</em> code to me by
+2/17, and received a confirmation from me that all group members may use this
+code in their projects, then you can use that code in your project with proper
+credit to the rest of your from class group. Otherwise, all code in the project
+must be your own work.</p>
+<h3 id="task-3-reflection"><a class="header" href="#task-3-reflection">Task 3: Reflection</a></h3>
+<p>Answer the following questions after completing your program. This reflection
+can be in the same document as your design writeup as long as long as it is
+clearly separated from your answers to the design questions.</p>
+<ol>
+<li>Did you include any other setter methods in one of your classes to change its
+other properties (such as rotation or size)?
+<ul>
+<li>If yes, then describe that method and why you included it.</li>
+<li>If no, then what additional property would you want to add a setter for?
+How would this help you improve your scene?</li>
+</ul>
+</li>
+<li>Review your program and find a piece of code that was either challenging to
+write or that you think is an example of particularly good code (it's up to you
+what "good code" means, but you should be able to justify your opinion). Explain
+why you chose this code: why is it an example of good code or what was
+challenging about writing it? Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+<li>Review your program and find a piece of code that you think could be improved.
+What do you dislike or want to change about this code? If you were to spend more
+time on the project, how might you improve this code? To be clear, I'm not
+asking you how the <em>program</em> could be better. I don't want to know what feature
+you'd add or how you'd make it easier to use. I'm asking how part of the <em>code</em>
+could be better. This might mean shorter, easier to read, less repetitive, or
+something else that you value and think you could improve with additional time
+and/or programming knowledge. Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+</ol>
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<ul>
+<li>Your design writeup</li>
+<li>Your <code>Main.java</code> file</li>
+<li>All java files for objects displayed in your scene</li>
+<li>Your reflection</li>
+</ul>
+<h2 id="submission"><a class="header" href="#submission">Submission</a></h2>
+<p><strong>Before submitting this assignment, make sure you understand and abide by the
+Academic Integrity policy in our syllabus. This is particularly important if you
+received any assistance, made use of an LLM, or used resources that were not
+provided in class.</strong></p>
+<p>When uploading your code, package it in one of the following ways:</p>
+<ol>
+<li>If you're using Eclipse, then right-click on your project and choose
+"Export". Under "General", select "Archive File" and click "Next &gt;". Ensure
+that all code for the project is checked, select a destination, and click
+"Finish". Note: the "Save in zip format" and "Create directory structure for
+files" options should be checked, and if you've linked to files outside the
+project you'll also need to check "Resolve and export linked resources".</li>
+<li>If all of your classes are in the default package, then you can directly
+attach each of the .java files to the Blackboard submission or zip them in a
+folder named "src".</li>
+<li>If some of your classes are not in the default package and you don't want to
+use Eclipse's export function, then you must place them in a folder named
+"src" with a directory structure matching the packages, zip that src folder,
+and upload the zipped folder with your submission.</li>
+</ol>
+<p>In order for this project to count as complete:</p>
+<ul>
+<li>upload all deliverables in a single Blackboard submission before the deadline
+(don't split it up between multiple submissions)</li>
+<li>your code must not contain any syntax errors</li>
+<li>the design writeup and reflection must be in PDF, ODT, DOC, DOCX, or plaintext
+files</li>
+<li>your work must demonstrate completion of each task in the assignment</li>
+</ul>
+<p>If you appear to have ignored portions of a task, did not submit the project as
+directed, or otherwise demonstrate negligence in your submission, then it will
+be marked "incomplete". If there are issues with your submission, but you appear
+to have made an honest effort to complete every task as directed, then your
+submission will be marked "revise" with comments requesting changes or
+additional work to complete the assignment.</p>
+<p>A submission marked "revise" can be resubmitted without the usual limit on
+weekly submissions, and it can be resubmitted up to one week after the deadline
+for that project. A revised project will be marked "complete" if it addresses
+all of the original feedback.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
