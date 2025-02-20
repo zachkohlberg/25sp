@@ -1078,6 +1078,10 @@ The term "interface" can also be used more generally to refer to the public
 facing portion of a class or library that allows other code to interact with
 it.</p>
 </div>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-5"><a class="header" href="#week-5">Week 5</a></h1>
+<p>No reading assigned for this week.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-6"><a class="header" href="#week-6">Week 6</a></h1>
+<p>No reading assigned for this week.</p>
 
                     </main>
 
@@ -1096,6 +1100,22 @@ it.</p>
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 

@@ -1046,6 +1046,111 @@ also shown after each flowchart.</p>
     }
 }
 </code></pre>
+<h1 id="week-5"><a class="header" href="#week-5">Week 5</a></h1>
+<h2 id="string-formatting"><a class="header" href="#string-formatting">String Formatting</a></h2>
+<h3 id="escape-sequences"><a class="header" href="#escape-sequences">Escape Sequences</a></h3>
+<p>You can add special characters to string literals with
+<a href="https://docs.oracle.com/javase/tutorial/java/data/characters.html">escape sequences</a>.
+The table below shows some of the sequences from the linked article.</p>
+<div class="table-wrapper"><table><thead><tr><th>Escape Sequences</th><th>Displays</th></tr></thead><tbody>
+<tr><td><code>\n</code></td><td>line break</td></tr>
+<tr><td><code>\t</code></td><td>tab</td></tr>
+<tr><td><code>\'</code></td><td>single-quote</td></tr>
+<tr><td><code>\"</code></td><td>double-quote</td></tr>
+<tr><td><code>\\</code></td><td>backslash</td></tr>
+</tbody></table>
+</div>
+<h3 id="concatenation-versus-stringformat"><a class="header" href="#concatenation-versus-stringformat">Concatenation Versus <code>String.format</code></a></h3>
+<p>So far we've been formatting our output strings by concatenating string literals
+and variables. This can lead to some verbose expressions that are difficult to
+read:</p>
+<pre><code class="language-java">void main() {
+    int x = Integer.parseInt(readln("Please enter an integer. "));
+    int y = Integer.parseInt(readln("Please enter a second integer. "));
+    println(x + " + " + y + " = " + (x + y));
+    // if user enters 2 and 3, then the program will print "2 + 3 = 5"
+}
+</code></pre>
+<p>Another way to format output is with the <code>String.format</code> function:</p>
+<pre><code class="language-java">void main() {
+    int x = Integer.parseInt(readln("Please enter an integer. "));
+    int y = Integer.parseInt(readln("Please enter a second integer. "));
+    println(String.format("%d + %d = %d", x, y, x + y);
+    // if user enters 2 and 3, then the program will print "2 + 3 = 5"
+}
+</code></pre>
+<p>This function takes a <strong>format string</strong> (<code>"%d + %d = %d"</code>) and a list of
+expressions (<code>x, y, x + y</code>). This separates the structure (the format string)
+from the values we're inserting (the list of expressions), which can make your
+code more readable. The <code>%d</code> is a <strong>formatting specifier</strong>, which tells the
+function where to insert a value in the format string and what type of value to
+expect. A formatting specifier begins with a <code>%</code> and ends with <strong>conversion</strong>, a
+letter that indicates the type of value you want to display.</p>
+<p>You can also include symbols between the <code>%</code> and the conversion to modify how it
+formats the value. For example, you can pad a number with leading zeroes or
+spaces, add a plus sign in front of nonnegative numbers, or limit the number of
+digits to include after a decimal place.</p>
+<p>Finally, note that the percent sign has a special meaning inside of a format
+string. If you want to display a percent sign in the result, then you'll need to
+escape it with an additional percent sign.</p>
+<p>The
+<a href="https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/util/Formatter.html">Formatter</a>
+page of the Java API goes into detail about format strings and formatting
+specifiers. I'll include a few formatting specifiers below that you may find
+useful this semester along with some examples of how to use them. Jshell is a
+great tools for testing a format string to make sure it works the way you want
+it to. Try running the examples in jshell and modifying them to get a better
+feel for how they work.</p>
+<p>Formatting specifiers:</p>
+<ul>
+<li><code>%d</code>: display a base-10 integer</li>
+<li><code>%f</code>: display a base-10 real number</li>
+<li><code>%s</code>: works with any value</li>
+<li><code>%5d</code>: a decimal number padded with leading spaces to occupy at least 5
+characters; you can use any positive integer instead of 5, and this also works
+with other conversion types</li>
+<li><code>%05d</code>: same as the previous specifier, but pads with leading zeroes instead
+of spaces</li>
+<li><code>%.2f</code>: a real number rounded to exactly 2 digits after the decimal place; you
+can use any nonnegative integer instead of 2, and you can combine this with
+the previous two specifiers (for example, <code>%07.3f</code>)</li>
+<li><code>%+d</code>: adds a plus sign to zero and positive numbers (negative numbers still
+start with a minus sign); this can be used with <code>%f</code> and combined with any of
+the previous three specifiers (for example, <code>%+5d</code>)</li>
+</ul>
+<p>Examples:</p>
+<pre><code class="language-java">void main() {
+    int x = -1, y = 0, z = 1;
+    println(String.format("%+5d\n%+5d\n%+5d", x, y, z));
+    double percentage = 0.7381867;
+    println(String.format("%.2f%%", percentage * 100));
+    int cents = 12345;
+    println(String.format("$%d.%d", cents / 100, cents % 100));
+    int first = 50000, second = 25000, third = 5000;
+    println(String.format(
+        "High Scores:\n\t1. %09d\n\t2. %09d\n\t3. %09d",
+        first,
+        second,
+        third));
+}
+</code></pre>
+<h2 id="binary--number-bases"><a class="header" href="#binary--number-bases">Binary &amp; Number Bases</a></h2>
+<p>Our main topic for next week is number bases, primarily binary. Instead of the
+usual notes, I'd like you to watch a short video and read from one of our
+textbooks (don't worry, it's free and available online).</p>
+<ul>
+<li>A brief introduction to binary (~2 minutes):
+<a href="https://www.youtube.com/watch?v=zDNaUi2cjv4">https://www.youtube.com/watch?v=zDNaUi2cjv4</a></li>
+<li>A section from one of our textbooks explaining binary (you can skip the last
+section about masking and flags):
+<a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Computer_Science_from_the_Bottom_Up_(Wienand)/02%3A_Binary_and_Number_Representation/2.01%3A_Binary__the_basis_of_computing">https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Computer_Science_from_the_Bottom_Up_(Wienand)/02%3A_Binary_and_Number_Representation/2.01%3A_Binary__the_basis_of_computing</a></li>
+</ul>
+<p>I'd also like to recommend this video about base-6:
+<a href="https://www.youtube.com/watch?v=qID2B4MK7Y0">https://www.youtube.com/watch?v=qID2B4MK7Y0</a>. We're not going to be learning
+about base-6, but the video has some discussion of how several number bases
+work. One challenge when learning about binary is that we tend to take base-10
+for granted, and it can be hard to separate the properties of base-10 from how
+numbers work more generally.</p>
 <h1 id="flowcharts-1"><a class="header" href="#flowcharts-1">Flowcharts</a></h1>
 <p>The flowcharts in this book will follow a similar style to those shown in the
 <a href="https://eng.libretexts.org/Bookshelves/Computer_Science/Programming_and_Computation_Fundamentals/Programming_Fundamentals_(Busbee_and_Braunschweig)/01%3A_Introduction_to_Programming/1.05%3A_Flowcharts">flowcharts section</a>
@@ -1381,7 +1486,7 @@ The <code>print</code> function does not, which even leads to the terminal promp
 being on the same line as the second program's output!</p>
 <p>Usually you'll want to use <code>println</code>, but <code>print</code> can be helpful if you want to
 create a line of output into multiple print statements.</p>
-<h2 id="escape-sequences"><a class="header" href="#escape-sequences">Escape Sequences</a></h2>
+<h2 id="escape-sequences-1"><a class="header" href="#escape-sequences-1">Escape Sequences</a></h2>
 <p>If you've experimented with printing, then you may have noticed that you cannot
 print a double-quote (<code>"</code>).
 This is because double-quotes are used to mark the beginning and end of a
@@ -2361,7 +2466,7 @@ the uppercase letters A to Z are sequential. <code>'a'</code> is 97, <code>'b'</
 can use this fact to determine a letter's place in the alphabet, whether a
 <code>char</code> is a letter, digit, uppercase, or lowercase, and what letters come before
 or after another letter.</p>
-<h2 id="escape-sequences-1"><a class="header" href="#escape-sequences-1">Escape Sequences</a></h2>
+<h2 id="escape-sequences-2"><a class="header" href="#escape-sequences-2">Escape Sequences</a></h2>
 <p>Some characters have a special meaning inside <code>String</code> and <code>char</code> literals, and
 some characters cannot be displayed or easily typed into a program. To include
 these characters in a <code>String</code> or <code>char</code> literal, we need to escape them with a
