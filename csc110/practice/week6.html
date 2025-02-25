@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Week 5 - SER120 Practice Exercises</title>
+        <title>Week 6 - CSC110 Practice Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -120,7 +120,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">SER120 Practice Exercises</h1>
+                    <h1 class="menu-title">CSC110 Practice Exercises</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -152,95 +152,60 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="week-5"><a class="header" href="#week-5">Week 5</a></h1>
-<h2 id="part-1-setup"><a class="header" href="#part-1-setup">Part 1: Setup</a></h2>
-<p>The code below is for a wheels program that displays a window with two buttons
-and a rectangle. The green button on the right moves the rectangle southeast,
-and the red button on the left moves the rectangle northwest. Add this code to a
-project, run the program, and make sure it works before you continue.</p>
-<pre><code class="language-java">import java.awt.Color;
-
-public class Main extends wheels.users.Frame {
-  public Main() {
-    MovingRectangle rectangle = new MovingRectangle(Color.CYAN, 200, 100, 30, 30);
-
-    Button forward = new Button(rectangle, 5, Color.GREEN);
-    forward.setLocation(150, 50);
-    Button backward = new Button(rectangle, -5, Color.RED);
-    backward.setLocation(50, 50);
-  }
-
-  public static void main(String[] args) {
-    new Main();
-  }
-}
-</code></pre>
-<pre><code class="language-java">public interface Mover {
-  void move(int distance);
-}
-</code></pre>
-<pre><code class="language-java">import java.awt.Color;
-import java.awt.event.MouseEvent;
-
-public class Button extends wheels.users.Ellipse {
-  private Mover target;
-  private int distance;
-
-  public Button(Mover target, int distance, Color color) {
-    super(color);
-
-    this.setFrameColor(Color.BLACK);
-    this.target = target;
-    this.distance = distance;
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    target.move(distance);
-  }
-}
-</code></pre>
-<pre><code class="language-java">import java.awt.Color;
-
-public class MovingRectangle extends wheels.users.Rectangle implements Mover {
-  public MovingRectangle(Color color, int x, int y, int width, int height) {
-    super(color);
-
-    this.setLocation(x, y);
-    this.setSize(width, height);
-  }
-
-  @Override
-  public void move(int distance) {
-    this.setLocation(this.getXLocation() + distance, this.getYLocation() + distance);
-  }
-}
-</code></pre>
-<h2 id="part-2-modify-program"><a class="header" href="#part-2-modify-program">Part 2: Modify Program</a></h2>
-<p>Make the following changes to this program:</p>
+                        <h1 id="week-6"><a class="header" href="#week-6">Week 6</a></h1>
+<h2 id="part-1-conversions"><a class="header" href="#part-1-conversions">Part 1: Conversions</a></h2>
+<p>Complete the table below, performing any conversions by hand. You can use a
+calculator to assist and jshell to check your work, but you must write down the
+work used to convert the numbers.</p>
+<div class="table-wrapper"><table><thead><tr><th>Binary</th><th>Decimal</th><th>Hex</th></tr></thead><tbody>
+<tr><td>10110111</td><td></td><td></td></tr>
+<tr><td></td><td>184</td><td></td></tr>
+<tr><td></td><td></td><td>8AE2</td></tr>
+</tbody></table>
+</div>
+<h2 id="part-2-arithmetic"><a class="header" href="#part-2-arithmetic">Part 2: Arithmetic</a></h2>
+<p>Calculate the following by hand, converting numbers to base-10 if necessary, but
+converting back to the original base for your answer.</p>
 <ol>
-<li>Add two more buttons that move the rectangle farther in each direction.</li>
-<li>Write your own class that implements the <code>Mover</code> interface, and replace the
-rectangle in <code>Main</code> with an instance of your new class. This object should be
-composed of multiple shapes and follow a more interesting movement pattern
-than the rectangle. It's up to you to make up a new pattern.</li>
-<li>Add a second parameter to the <code>move</code> method in the <code>Mover</code> interface and
-update all other classes accordingly. The rectangle should treat these
-parameters as horizontal and vertical distances, but the object you designed
-can interpret them however you'd like.</li>
+<li>In base-2:
+<ul>
+<li>10111010 * 10</li>
+<li>110110 / 11</li>
+</ul>
+</li>
+<li>In base-10:
+<ul>
+<li>10111010 * 10</li>
+<li>110110 / 11</li>
+</ul>
+</li>
+<li>In base-16:
+<ul>
+<li>10111010 * 10</li>
+<li>110110 / 11</li>
+</ul>
+</li>
+</ol>
+<p>There's a trick to these problems that makes them <em>very</em> easy to solve. Can you
+find the trick?</p>
+<h2 id="part-3-discussion"><a class="header" href="#part-3-discussion">Part 3: Discussion</a></h2>
+<p>Discuss Part 2 and any patterns you noticed in the answers with your classmates.
+Answer the following questions as a group:</p>
+<ol>
+<li>What pattern(s) did you notice, if any?</li>
+<li>Propose an explanation for the answers to those problems.</li>
+<li>Create a new multiplication or division problem that displays the same
+pattern when solved in different bases.</li>
 </ol>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="week4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="week5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="week6.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -248,13 +213,10 @@ can interpret them however you'd like.</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="week4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="week5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="week6.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

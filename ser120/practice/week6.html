@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Week 5 - SER120 Practice Exercises</title>
+        <title>Week 6 - SER120 Practice Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -152,95 +152,46 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="week-5"><a class="header" href="#week-5">Week 5</a></h1>
-<h2 id="part-1-setup"><a class="header" href="#part-1-setup">Part 1: Setup</a></h2>
-<p>The code below is for a wheels program that displays a window with two buttons
-and a rectangle. The green button on the right moves the rectangle southeast,
-and the red button on the left moves the rectangle northwest. Add this code to a
-project, run the program, and make sure it works before you continue.</p>
-<pre><code class="language-java">import java.awt.Color;
-
-public class Main extends wheels.users.Frame {
-  public Main() {
-    MovingRectangle rectangle = new MovingRectangle(Color.CYAN, 200, 100, 30, 30);
-
-    Button forward = new Button(rectangle, 5, Color.GREEN);
-    forward.setLocation(150, 50);
-    Button backward = new Button(rectangle, -5, Color.RED);
-    backward.setLocation(50, 50);
-  }
-
-  public static void main(String[] args) {
-    new Main();
-  }
-}
+                        <h1 id="week-6"><a class="header" href="#week-6">Week 6</a></h1>
+<p>Work in a group on these practice exercises. <strong>If you finish Part 1-3 and email
+your code to me by the end of class</strong> (cc all group members), then everyone who
+contributed may use this work in their programming projects.</p>
+<h2 id="part-1-design-a-ui-element"><a class="header" href="#part-1-design-a-ui-element">Part 1: Design a UI Element</a></h2>
+<p>On the whiteboard, design an object the user can interact with by dragging some
+part of it with the mouse. For example, the resizable rectangle from the
+previous class.</p>
+<h2 id="part-2-create-a-draggablerectangle-class"><a class="header" href="#part-2-create-a-draggablerectangle-class">Part 2: Create a DraggableRectangle Class</a></h2>
+<p>Convert the <code>DraggableEllipse</code> class from our previous example into a
+<code>DraggableRectangle</code>. You can use either draggable shape for part 3.</p>
+<h2 id="part-3-code-a-ui-element"><a class="header" href="#part-3-code-a-ui-element">Part 3: Code a UI Element</a></h2>
+<p>Write a class for the UI element that you designed in Part 1. It must implement
+the <code>Draggable</code> interface from last class, and it must contain a draggable
+rectangle or ellipse as a component, as shown in the UML diagram below. Create a
+demo program to show the UI element in action.</p>
+<p><img src="./images/week6/uml.drawio.png" alt="image" /></p>
+<h2 id="credit"><a class="header" href="#credit">Credit</a></h2>
+<p>To credit everyone who contributed, you can include a comment like the following
+at the top of any code created during this activity:</p>
+<pre><code class="language-java">/**
+ * Designed and written on 2025/02/26 during class
+ *
+ * Original authors: (list the names of everyone who contributed)
+ *
+ * (if you make further changes/additions later, feel free to note these as
+ * well, but this is optional)
+ */
 </code></pre>
-<pre><code class="language-java">public interface Mover {
-  void move(int distance);
-}
-</code></pre>
-<pre><code class="language-java">import java.awt.Color;
-import java.awt.event.MouseEvent;
-
-public class Button extends wheels.users.Ellipse {
-  private Mover target;
-  private int distance;
-
-  public Button(Mover target, int distance, Color color) {
-    super(color);
-
-    this.setFrameColor(Color.BLACK);
-    this.target = target;
-    this.distance = distance;
-  }
-
-  @Override
-  public void mousePressed(MouseEvent e) {
-    target.move(distance);
-  }
-}
-</code></pre>
-<pre><code class="language-java">import java.awt.Color;
-
-public class MovingRectangle extends wheels.users.Rectangle implements Mover {
-  public MovingRectangle(Color color, int x, int y, int width, int height) {
-    super(color);
-
-    this.setLocation(x, y);
-    this.setSize(width, height);
-  }
-
-  @Override
-  public void move(int distance) {
-    this.setLocation(this.getXLocation() + distance, this.getYLocation() + distance);
-  }
-}
-</code></pre>
-<h2 id="part-2-modify-program"><a class="header" href="#part-2-modify-program">Part 2: Modify Program</a></h2>
-<p>Make the following changes to this program:</p>
-<ol>
-<li>Add two more buttons that move the rectangle farther in each direction.</li>
-<li>Write your own class that implements the <code>Mover</code> interface, and replace the
-rectangle in <code>Main</code> with an instance of your new class. This object should be
-composed of multiple shapes and follow a more interesting movement pattern
-than the rectangle. It's up to you to make up a new pattern.</li>
-<li>Add a second parameter to the <code>move</code> method in the <code>Mover</code> interface and
-update all other classes accordingly. The rectangle should treat these
-parameters as horizontal and vertical distances, but the object you designed
-can interpret them however you'd like.</li>
-</ol>
+<p>Again, make sure your group emails the code to me by the end of class if you
+would like to use it in a project.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="week4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="week5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="week6.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -248,13 +199,10 @@ can interpret them however you'd like.</li>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="week4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="week5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="week6.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>
