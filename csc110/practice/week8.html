@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Week 6 - SER120 Practice Exercises</title>
+        <title>Week 8 - CSC110 Practice Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -120,7 +120,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">SER120 Practice Exercises</h1>
+                    <h1 class="menu-title">CSC110 Practice Exercises</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -152,49 +152,56 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="week-6"><a class="header" href="#week-6">Week 6</a></h1>
-<p>Work in a group on these practice exercises. <strong>If you finish Part 1-3 and email
-your code to me by the end of class</strong> (cc all group members), then everyone who
-contributed may use this work in their programming projects.</p>
-<h2 id="part-1-design-a-ui-element"><a class="header" href="#part-1-design-a-ui-element">Part 1: Design a UI Element</a></h2>
-<p>On the whiteboard, design an object the user can interact with by dragging some
-part of it with the mouse. For example, the resizable rectangle from the
-previous class.</p>
-<h2 id="part-2-create-a-draggablerectangle-class"><a class="header" href="#part-2-create-a-draggablerectangle-class">Part 2: Create a DraggableRectangle Class</a></h2>
-<p>Convert the <code>DraggableEllipse</code> class from our previous example into a
-<code>DraggableRectangle</code>. You can use either draggable shape for part 3.</p>
-<h2 id="part-3-code-a-ui-element"><a class="header" href="#part-3-code-a-ui-element">Part 3: Code a UI Element</a></h2>
-<p>Write a class for the UI element that you designed in Part 1. It must implement
-the <code>Draggable</code> interface from last class, and it must contain a draggable
-rectangle or ellipse as a component, as shown in the UML diagram below. Create a
-demo program to show the UI element in action.</p>
-<p><img src="./images/week6/uml.drawio.png" alt="image" /></p>
-<h2 id="credit"><a class="header" href="#credit">Credit</a></h2>
-<p>To credit everyone who contributed, you can include a comment like the following
-at the top of any code created during this activity:</p>
-<pre><code class="language-java">/**
- * Designed and written on 2025/02/26 during class
- *
- * Original authors: (list the names of everyone who contributed)
- *
- * (if you make further changes/additions later, feel free to note these as
- * well, but this is optional)
- */
+                        <h1 id="week-8"><a class="header" href="#week-8">Week 8</a></h1>
+<h2 id="part-1-binary-conversion-algorithm"><a class="header" href="#part-1-binary-conversion-algorithm">Part 1: Binary Conversion Algorithm</a></h2>
+<p>Recall the division algorithm for converting from decimal to binary:</p>
+<ol>
+<li>Divide the decimal number by 2 and note both the quotient and remainder</li>
+<li>Add the remainder to the <em>beginning</em> of the binary string</li>
+<li>If the quotient is greater than zero, set the decimal number equal to the
+quotient and return to step 1</li>
+</ol>
+<p>Write a program that prompts the user for a decimal number and uses the above
+algorithm to convert the number into binary.</p>
+<p>Once you get this program working, try moving the conversion code into the
+function shown below and rewriting your program to call this conversion
+function.</p>
+<pre><code class="language-java">String convertToBinary(String decimal) {
+    int number = // TODO: parse decimal as an integer
+    String binary = "";
+
+    // TODO: conversion algorithm
+
+    return binary;
+}
 </code></pre>
-<p>Again, make sure your group emails the code to me by the end of class if you
-would like to use it in a project.</p>
+<h2 id="part-2-array-practice"><a class="header" href="#part-2-array-practice">Part 2: Array Practice</a></h2>
+<p>Write a program that performs each of the following steps:</p>
+<ol>
+<li>Create an array of five strings.</li>
+<li>Set each element of the array to a different string that represents a decimal
+integer.</li>
+<li>Create a second array of five strings.</li>
+<li>Call your <code>convertToBinary</code> function on each element of the first array and
+assign the result to a different element of the second array.</li>
+<li>Print each decimal string from the first array followed by its binary
+equivalent from the second array.</li>
+</ol>
+<h2 id="part-3-arrays-and-loops"><a class="header" href="#part-3-arrays-and-loops">Part 3: Arrays and Loops</a></h2>
+<p>Modify the program from part 2 so that it asks the user how many numbers they
+would like to convert, then reads that many decimal numbers and stores them in
+the first array. It should then convert every number to binary, store those
+numbers in the second array, and print all decimal strings followed by their
+binary equivalents, retrieving these strings from the appropriate array.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="week5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="week6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="week8.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -202,13 +209,10 @@ would like to use it in a project.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="week5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="week6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="week8.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

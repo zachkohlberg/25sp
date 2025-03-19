@@ -418,6 +418,47 @@ Answer the following questions as a group:</p>
 <li>Create a new multiplication or division problem that displays the same
 pattern when solved in different bases.</li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-8"><a class="header" href="#week-8">Week 8</a></h1>
+<h2 id="part-1-binary-conversion-algorithm"><a class="header" href="#part-1-binary-conversion-algorithm">Part 1: Binary Conversion Algorithm</a></h2>
+<p>Recall the division algorithm for converting from decimal to binary:</p>
+<ol>
+<li>Divide the decimal number by 2 and note both the quotient and remainder</li>
+<li>Add the remainder to the <em>beginning</em> of the binary string</li>
+<li>If the quotient is greater than zero, set the decimal number equal to the
+quotient and return to step 1</li>
+</ol>
+<p>Write a program that prompts the user for a decimal number and uses the above
+algorithm to convert the number into binary.</p>
+<p>Once you get this program working, try moving the conversion code into the
+function shown below and rewriting your program to call this conversion
+function.</p>
+<pre><code class="language-java">String convertToBinary(String decimal) {
+    int number = // TODO: parse decimal as an integer
+    String binary = "";
+
+    // TODO: conversion algorithm
+
+    return binary;
+}
+</code></pre>
+<h2 id="part-2-array-practice"><a class="header" href="#part-2-array-practice">Part 2: Array Practice</a></h2>
+<p>Write a program that performs each of the following steps:</p>
+<ol>
+<li>Create an array of five strings.</li>
+<li>Set each element of the array to a different string that represents a decimal
+integer.</li>
+<li>Create a second array of five strings.</li>
+<li>Call your <code>convertToBinary</code> function on each element of the first array and
+assign the result to a different element of the second array.</li>
+<li>Print each decimal string from the first array followed by its binary
+equivalent from the second array.</li>
+</ol>
+<h2 id="part-3-arrays-and-loops"><a class="header" href="#part-3-arrays-and-loops">Part 3: Arrays and Loops</a></h2>
+<p>Modify the program from part 2 so that it asks the user how many numbers they
+would like to convert, then reads that many decimal numbers and stores them in
+the first array. It should then convert every number to binary, store those
+numbers in the second array, and print all decimal strings followed by their
+binary equivalents, retrieving these strings from the appropriate array.</p>
 
                     </main>
 
