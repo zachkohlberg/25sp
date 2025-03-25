@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Week 8 - SER120 Practice Exercises</title>
+        <title>Week 9 - SER120 Practice Exercises</title>
 
 
         <!-- Custom HTML head -->
@@ -152,42 +152,65 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="week-8"><a class="header" href="#week-8">Week 8</a></h1>
-<h2 id="part-1-swing-app"><a class="header" href="#part-1-swing-app">Part 1: Swing App</a></h2>
-<p>Write a swing application that displays a window with the following properties:</p>
-<ol>
-<li>The window's title is your name.</li>
-<li>The <code>JFrame</code> includes a <code>JPanel</code> with its background color set to your
-favorite color. Don't use one of the built-in color constants. Use a color
-picker to find a specific shade of the color that you like and create the
-color using its hex code.</li>
-<li>The window's size is set by giving the panel a preferred size and calling the
-<code>JFrame</code>'s <code>pack</code> method.</li>
-</ol>
-<h2 id="part-2-layout-vs-drawing-panel"><a class="header" href="#part-2-layout-vs-drawing-panel">Part 2: Layout vs Drawing Panel</a></h2>
-<p>Write two versions of a swing application that display three horizontal bars,
-each a different color. Each bar must be 600 pixels wide and 200 pixels tall.
-The jframe must fully show each bar when packed.</p>
-<p>The first version of this application must include a subclass of <code>JPanel</code> that
-creates the bars by drawing three rectangles.</p>
-<p>The second version of this application must use regular <code>JPanel</code> instances with
-different background colors and a <code>BorderLayout</code> to create the desired result.</p>
-<h2 id="part-3-drawing-panel"><a class="header" href="#part-3-drawing-panel">Part 3: Drawing Panel</a></h2>
-<p>Create a swing application with a drawing panel that displays a planet, moon, or
-other object from our solar system. You must draw the object out of shapes and
-lines, not by using one of the <code>drawImage</code> methods.</p>
+                        <h1 id="week-9"><a class="header" href="#week-9">Week 9</a></h1>
+<p>Create a Java application that displays the window shown below. Its layout must
+behave the same when resized as what you see in the video.</p>
+<p>The two areas in the center of the application are instances of the
+<code>DrawingPanel</code> class provided below. Each one displays a shape that moves to the
+position of the mouse cursor when any mouse button is pressed in that panel.</p>
+<p>You should create a class for each of the shapes shown in the program. Your
+class will need to implement the <code>MouseListener</code> interface so it can receive
+mouse events from its panel, and it will need to implement the <code>Drawable</code>
+interface (provided below) so it can be displayed by the panel.</p>
+<p>The buttons do not have to do anything when clicked. They're only there to give
+you a reason to use several different layout managers.</p>
+<p><img src="./images/week9/image1.png" alt="Image 1" /></p>
+<p><img src="./images/week9/image2.png" alt="Image 2" /></p>
+<pre><code class="language-java">import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+public class DrawingPanel extends JPanel {
+    // Collection of drawables that can dynamically grow as we add to it
+    private ArrayList&lt;Drawable&gt; drawables;
+
+    public DrawingPanel() {
+        setPreferredSize(new Dimension(400, 600));
+        drawables = new ArrayList&lt;&gt;();
+    }
+
+    public void addDrawable(Drawable d) {
+        drawables.add(d);
+        repaint();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Call the draw method of each drawable in our list
+        for (Drawable d : drawables) {
+            d.draw(g);
+        }
+    }
+}
+
+public interface Drawable {
+    void draw(java.awt.Graphics g);
+}
+</code></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="week6.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="week8.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="week9.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -195,13 +218,10 @@ lines, not by using one of the <code>drawImage</code> methods.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="week6.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="week8.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="week9.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
             </nav>
 
         </div>

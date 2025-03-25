@@ -525,6 +525,56 @@ different background colors and a <code>BorderLayout</code> to create the desire
 <p>Create a swing application with a drawing panel that displays a planet, moon, or
 other object from our solar system. You must draw the object out of shapes and
 lines, not by using one of the <code>drawImage</code> methods.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-9"><a class="header" href="#week-9">Week 9</a></h1>
+<p>Create a Java application that displays the window shown below. Its layout must
+behave the same when resized as what you see in the video.</p>
+<p>The two areas in the center of the application are instances of the
+<code>DrawingPanel</code> class provided below. Each one displays a shape that moves to the
+position of the mouse cursor when any mouse button is pressed in that panel.</p>
+<p>You should create a class for each of the shapes shown in the program. Your
+class will need to implement the <code>MouseListener</code> interface so it can receive
+mouse events from its panel, and it will need to implement the <code>Drawable</code>
+interface (provided below) so it can be displayed by the panel.</p>
+<p>The buttons do not have to do anything when clicked. They're only there to give
+you a reason to use several different layout managers.</p>
+<p><img src="./images/week9/image1.png" alt="Image 1" /></p>
+<p><img src="./images/week9/image2.png" alt="Image 2" /></p>
+<pre><code class="language-java">import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
+public class DrawingPanel extends JPanel {
+    // Collection of drawables that can dynamically grow as we add to it
+    private ArrayList&lt;Drawable&gt; drawables;
+
+    public DrawingPanel() {
+        setPreferredSize(new Dimension(400, 600));
+        drawables = new ArrayList&lt;&gt;();
+    }
+
+    public void addDrawable(Drawable d) {
+        drawables.add(d);
+        repaint();
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Call the draw method of each drawable in our list
+        for (Drawable d : drawables) {
+            d.draw(g);
+        }
+    }
+}
+
+public interface Drawable {
+    void draw(java.awt.Graphics g);
+}
+</code></pre>
 
                     </main>
 
