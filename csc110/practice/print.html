@@ -459,6 +459,58 @@ would like to convert, then reads that many decimal numbers and stores them in
 the first array. It should then convert every number to binary, store those
 numbers in the second array, and print all decimal strings followed by their
 binary equivalents, retrieving these strings from the appropriate array.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-9"><a class="header" href="#week-9">Week 9</a></h1>
+<h2 id="part-1"><a class="header" href="#part-1">Part 1</a></h2>
+<p>Write a program that prompts the user for a comma-separated list of numbers and
+prints the average of those numbers. This program should allow real numbers, so
+use <code>double</code> instead of <code>int</code> for the type.</p>
+<h2 id="part-2"><a class="header" href="#part-2">Part 2</a></h2>
+<p>Write a program that acts as a basic calculator with the following features:</p>
+<ul>
+<li>The calculator remembers the result of the previous calculation. This value
+defaults to zero when the program starts because it has yet to perform any
+calculations.</li>
+<li>If the user types two numbers and an arithmetic operator (<code>+</code>, <code>-</code>, <code>*</code>, or
+<code>/</code>) between the numbers, such as "5 + 3" or "3.14 * 2", then the calculator
+will display the result of that calculation. Assume the user always includes a
+space between each number and the operator.</li>
+<li>If the user types a single arithmetic operator followed by a number, then the
+calculator will use the result of the previous calculation as the left operand
+and print the result of this new calculation. Assume the user always includes
+a space between the operator and number.</li>
+<li>If the user types a single number, then the calculator will display that
+number and store it as the result of the previous operation.</li>
+<li>If the user types the word "quit", then the program will exit.</li>
+</ul>
+<p>You can use the following code to get started with the program. It breaks the
+code into two functions and includes comments to suggest a structure for the
+program.</p>
+<pre><code class="language-java">void main() {
+    // result of last calculation
+    double result = 0.0;
+
+    // TODO: create a flag-controlled loop to repeat the prompt/calculation part
+    // of the program
+    // TODO: begin loop
+        // TODO: prompt for input
+        // TODO: if input is "quit", then set flag to false and skip the rest
+        // TODO: split input
+        // TODO: determine which type of command was performed based on length
+        // of split input array
+        //     - 3 elements means &lt;number&gt; &lt;operator&gt; &lt;number&gt;
+        //     - 2 elements means &lt;operator&gt; &lt;number&gt;
+        //     - 1 element means &lt;number&gt; because we already checked for "quit"
+    // TODO: end loop
+
+    // TODO: maybe print a message when the program exits
+}
+
+double performOperation(double left, double right, String operator) {
+    // TODO: determine whether operator is "+", "-", "*", or "/"
+    // TODO: perform appropriate calculation once you know which operator was
+    // used and return the result
+}
+</code></pre>
 
                     </main>
 
