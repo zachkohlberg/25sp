@@ -25,9 +25,9 @@
         <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -784,6 +784,316 @@ and <code>Longbow</code>, which uses their dexterity modifier</li>
 </ul>
 </li>
 </ol>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-3-dice-game-part-1"><a class="header" href="#project-3-dice-game-part-1">Project 3: Dice Game Part 1</a></h1>
+<p>This program will simulate dice rolls and allow the user to reroll some of those
+dice.</p>
+<h2 id="primary-topics-2"><a class="header" href="#primary-topics-2">Primary Topics</a></h2>
+<ul>
+<li>Simple conditional expressions</li>
+<li>Simple iterative expressions</li>
+<li>Simple functions</li>
+<li>Simple data structures (arrays, strings)</li>
+</ul>
+<h2 id="prerequisites-and-setup-2"><a class="header" href="#prerequisites-and-setup-2">Prerequisites and Setup</a></h2>
+<ul>
+<li>Create a file named <code>DiceGame1.java</code> in your projects folder.</li>
+<li>Create a file named <code>Dice.java</code> in your projects folder and copy the code
+below into this file. You are required to use the functions in <code>Dice.java</code> to
+generate all random numbers in your program.</li>
+</ul>
+<pre><code class="language-java">/**
+ * Simulates dice rolls with Math.random(). Includes convenience methods for
+ * polyhedral dice (d4, d6, d8, d10, d12, d20).
+ *
+ * This class is included as starter code so that my tests can replace it with a
+ * fake random number generator that supplies a predetermined series of numbers
+ * instead of simulating dice rolls. This makes it easier to write test cases,
+ * but it means you MUST use these functions to generate your random numbers.
+ *
+ * @author Zach Kohlberg
+ */
+public class Dice {
+    public static int roll(int sides) {
+        return (int) (Math.random() * sides) + 1;
+    }
+
+    public static int d4() {
+        return roll(4);
+    }
+
+    public static int d6() {
+        return roll(6);
+    }
+
+    public static int d8() {
+        return roll(8);
+    }
+
+    public static int d10() {
+        return roll(10);
+    }
+
+    public static int d12() {
+        return roll(12);
+    }
+
+    public static int d20() {
+        return roll(20);
+    }
+}
+</code></pre>
+<h2 id="tasks-2"><a class="header" href="#tasks-2">Tasks</a></h2>
+<h3 id="task-1-guided-coding-2"><a class="header" href="#task-1-guided-coding-2">Task 1: Guided Coding</a></h3>
+<p>Follow the steps below and write the program as directed. Test your code
+frequently, <strong>at the bare minimum performing every test given in the steps.</strong></p>
+<p>If your code is not working as expected, do not move on to the next step until
+you have fixed it. Moving on without finishing a step correctly will make the
+problem significantly harder to fix and likely add new problems as you continue
+working. If you disregard this advice, then you may get to the end of the steps
+and find it would actually be less work to start over from step 1 than to debug
+the code you just finished writing.</p>
+<ol>
+<li>
+<p>This program is broken into several functions. We'll write each function
+separately, test it in <code>main</code>, and then write the real <code>main</code> function once
+we've finished all of our separate functions. Take a look at the
+<a href="project3.html#sample-run">Sample Run</a> section to see what the program looks like when
+running before you continue.</p>
+</li>
+<li>
+<p>Our first function, <code>printDice</code>, will display the dice as shown in the sample
+run. This involves two steps:</p>
+<ul>
+<li>Print the labels above the dice, and remember to include two spaces between
+each letter</li>
+<li>Loop over the dice array and print each element followed by two spaces</li>
+</ul>
+<p>Remember that we can process an array with a for loop like this:</p>
+<pre><code class="language-java">for (int i = 0; i &lt; array.length; i++) {
+    // here we would do something with array[i]
+}
+</code></pre>
+<p>To test <code>printDice</code>, try calling it in your <code>main</code> function. You can
+hard-code a couple of arrays and check whether the correct numbers appear in
+your output. For example:</p>
+<pre><code class="language-java">void main() {
+    printDice(new int[] { 1, 2, 4, 2, 3 });
+    printDice(new int[] { 6, 5, 5, 6, 5 });
+}
+</code></pre>
+<p>You can remove this test code from <code>main</code> once you're confident that
+<code>printDice</code> produces the correct output.</p>
+</li>
+<li>
+<p>Next we'll write the <code>rollAllDice</code> function. This function should set each
+element of an <code>int</code> array equal to a random number from 1 to 6. You already
+have two methods you can call from the <code>Dice</code> class to generate these numbers
+(<code>Dice.roll(6)</code> and <code>Dice.d6()</code>), and the previous step covered iterating
+over an array.</p>
+<p>To test this function, you'll want to print an array before and after calling
+<code>rollAllDice</code>. For example:</p>
+<pre><code class="language-java">void main() {
+    int[] array = new int[5];
+    printDice(array);
+    rollAllDice(array);
+    printDice(array);
+}
+</code></pre>
+<p>We should see zeroes when we first print the array (elements of a
+newly-created <code>int</code> array default to zero), and we should see different
+numbers from one to six the second time we print the array. Running the
+program multiple times should produce different results.</p>
+</li>
+<li>
+<p>The <code>rollSomeDice</code> function is similar to the <code>rollAllDice</code> function, but we
+need to choose which dice to roll based on the <code>String</code> parameter. See the
+<a href="project3.html#rollsomedice"><code>rollSomeDice</code></a> section for details.</p>
+<p>You can copy your <code>rollAllDice</code> function to get started, but don't forget to
+add the second parameter. You also need to add an <code>if</code> statement inside the
+loop to decide whether to reroll the die at that index.</p>
+<p>There are a few ways you could check whether a die needs to be rerolled. One
+approach you can try:</p>
+<ul>
+<li>Convert the index to a letter by adding it to <code>'a'</code> and converting the
+result back to a <code>char</code>. For example, <code>(char)('a' + 2)</code> would give you the
+letter <code>'c'</code>.</li>
+<li>Use the <code>String</code> parameter's <code>.contains(...)</code> method to check whether it
+contains this character. For example, <code>"abc".contains('b')</code> would return
+<code>true</code> and <code>"abc".contains('e')</code> would return <code>false</code>.</li>
+</ul>
+<p>You'll want to test this function more thoroughly than the previous two. Try
+calling it with several different strings, and run the program multiple
+times. Remember that randomizing a number won't always changes it! You might
+reroll a die whose value was three and end up rolling another three. If a
+number you rerolled stays the same, that doesn't necessarily mean your code
+isn't working. This makes it important to run the program multiple times when
+testing.</p>
+</li>
+<li>
+<p>Now it's time to finish the program by writing your <code>main</code> function. Your
+<code>main</code> should perform the following steps:</p>
+<ul>
+<li>Print a welcome message</li>
+<li>Create a dice array and roll all of the dice</li>
+<li>Repeat until the user enters the command "quit":
+<ul>
+<li>Print the dice</li>
+<li>Prompt the user for a command</li>
+<li>Unless the user enters "quit", assume their command is "r" (abbreviating
+"roll") followed by a space and one or more letters from a to e. For
+example, "r abcde" or "r ebc".</li>
+<li>Use your <code>rollSomeDice</code> to reroll the dice listed in the input</li>
+</ul>
+</li>
+<li>Print a goodbye message</li>
+</ul>
+</li>
+</ol>
+<h3 id="task-2-run-tests-2"><a class="header" href="#task-2-run-tests-2">Task 2: Run Tests</a></h3>
+<p>Run the tests for your project and look at the feedback. If your code passed
+every test, then this project is finished. The test program can also pack all of
+your projects for upload to Blackboard.</p>
+<h2 id="deliverables-2"><a class="header" href="#deliverables-2">Deliverables</a></h2>
+<ul>
+<li>Your <code>DiceGame1.java</code> file</li>
+</ul>
+<p>In order for this project to count as complete, it must:</p>
+<ul>
+<li>be submitted on Blackboard before the deadline</li>
+<li>be packaged and named correctly (use the test program's pack command)</li>
+<li>pass all of the tests I gave you</li>
+</ul>
+<p>It should be easy to tell whether your project is complete as long as you run
+the tests. If it's not passing and you can't figure out why, then ask for help
+rather than submitting an incomplete assignment.</p>
+<h2 id="additional-details-2"><a class="header" href="#additional-details-2">Additional Details</a></h2>
+<h3 id="io-format-2"><a class="header" href="#io-format-2">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Required input:</p>
+<ul>
+<li>After each prompt, either of the following:
+<ul>
+<li>The letter "r" followed by a space and one or more letters from "a" to "e"</li>
+<li>The word "quit"</li>
+</ul>
+</li>
+</ul>
+<p>Required output:</p>
+<ul>
+<li>Before each prompt: the value of each die as formatted by the <code>printDice</code>
+function</li>
+</ul>
+<p>Additional recommended output:</p>
+<ul>
+<li>A welcome message at the start of the program</li>
+<li>A prompt for user input</li>
+<li>"Dice:" or another reasonable label before printing the dice</li>
+<li>A goodbye message</li>
+</ul>
+<h4 id="sample-run"><a class="header" href="#sample-run">Sample Run</a></h4>
+<p>Below is a sample run of the program:</p>
+<pre><code>##introduction to the game##
+
+Dice:
+A  B  C  D  E
+5  1  3  3  4
+
+##prompt for command##
+r bcd
+
+Dice:
+A  B  C  D  E
+5  6  2  1  4
+
+##prompt for command##
+r abc
+
+Dice:
+A  B  C  D  E
+1  2  2  1  4
+
+##prompt for command##
+r e
+
+Dice:
+A  B  C  D  E
+1  2  2  1  6
+
+##prompt for command##
+quit
+
+##goodbye message##
+</code></pre>
+<h3 id="random-numbers"><a class="header" href="#random-numbers">Random Numbers</a></h3>
+<p>To ensure compatibility with my tests, there are a few additional requirements
+whenever you have to generate a random number:</p>
+<ul>
+<li>Each random number is generated by either the <code>roll</code> function or the <code>d6</code>
+function of the <code>Dice</code> class.</li>
+<li>Your program "rolls" the dice in the order they appear in the array.</li>
+<li>Your program does not roll extra dice. For example, calling one of the Dice
+class's functions to generate a random number when you don't need to roll a
+die, or rolling each die twice instead of once.</li>
+</ul>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Your program must include all of the functions described below.</p>
+<h4 id="printdice"><a class="header" href="#printdice"><code>printDice</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+</ul>
+</li>
+</ul>
+<p>Print the dice with their labels as shown below. The numbers used below are an
+example and would only be correct if the array contained the numbers 1, 3, 2, 2,
+and 6 in that order.</p>
+<pre><code>A  B  C  D  E
+1  3  2  2  6
+</code></pre>
+<h4 id="rollalldice"><a class="header" href="#rollalldice"><code>rollAllDice</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+</ul>
+</li>
+</ul>
+<p>Each element of the array parameter must be set to a random number from 1 to 6.</p>
+<h4 id="rollsomedice"><a class="header" href="#rollsomedice"><code>rollSomeDice</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>A <code>String</code> containing one or more letters from a to e, representing the
+labels of all dice that will be rerolled</li>
+</ul>
+</li>
+</ul>
+<p>Each element of the array parameter whose label appears in the string parameter
+must be set to a random number from 1 to 6. Each element of the array parameter
+whose label does <strong>not</strong> appear in the string parameter must be left as is.</p>
+<p>Labels are not case-sensitive, but your code will only be tested with lowercase
+letters. An element's label is determined by its index:</p>
+<ul>
+<li>index 0 -&gt; a</li>
+<li>index 1 -&gt; b</li>
+<li>index 2 -&gt; c</li>
+<li>index 3 -&gt; d</li>
+<li>index 4 -&gt; e</li>
+</ul>
 
                     </main>
 
