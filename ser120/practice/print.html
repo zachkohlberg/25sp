@@ -575,6 +575,138 @@ public interface Drawable {
     void draw(java.awt.Graphics g);
 }
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="week-10"><a class="header" href="#week-10">Week 10</a></h1>
+<h2 id="part-1-panelholder"><a class="header" href="#part-1-panelholder">Part 1: PanelHolder</a></h2>
+<p>Create a holder class that stores a single <code>JPanel</code>.</p>
+<h2 id="part-2-panel-color-program"><a class="header" href="#part-2-panel-color-program">Part 2: Panel Color Program</a></h2>
+<p>In our previous class, we saw a program that lets you select a color and
+then click a panel to change the panel's background to the selected color. Now,
+I want you to reverse the order: select a panel, and then click a button to
+change the selected panel's color. This is why you just wrote a <code>PanelHolder</code> class.</p>
+<p>To summarize how this will change the program:</p>
+<ul>
+<li>Instead of a <code>ColorHolder</code>, all of the listener classes will need a <code>PanelHolder</code>.
+You can delete <code>ColorHolder</code> from the program entirely.</li>
+<li>Clicking on a panel should store the panel in the holder by calling the holder's <code>setValue()</code>
+method.</li>
+<li>Clicking on a button should retrieve the selected panel from the holder by calling the holder's
+<code>getValue()</code> method and set the panel's background color.</li>
+</ul>
+<p>Below are cleaned up versions of the classes from the in-class example.</p>
+<pre><code class="language-java">import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Holder Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+
+        ColorHolder holder = new ColorHolder(Color.RED);
+
+        JPanel center = new JPanel();
+        center.setLayout(new GridLayout(2, 2));
+
+        center.add(makeColorPanel(holder));
+        center.add(makeColorPanel(holder));
+        center.add(makeColorPanel(holder));
+        center.add(makeColorPanel(holder));
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 4));
+
+        Font font = new Font("Arial", Font.PLAIN, 24);
+
+        buttonPanel.add(makeColorButton("Red", font, Color.RED, holder));
+        buttonPanel.add(makeColorButton("Green", font, Color.GREEN, holder));
+        buttonPanel.add(makeColorButton("Blue", font, Color.BLUE, holder));
+        buttonPanel.add(makeColorButton("Yellow", font, Color.YELLOW, holder));
+
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.add(center, BorderLayout.CENTER);
+
+        frame.setSize(800, 800);
+    }
+
+    static JButton makeColorButton(String text, Font font, Color color, ColorHolder holder) {
+        JButton button = new JButton(text);
+        button.setFont(font);
+        button.addActionListener(new ButtonListener(color, holder));
+        return button;
+    }
+
+    static JPanel makeColorPanel(ColorHolder holder) {
+        JPanel panel = new JPanel();
+        panel.addMouseListener(new PanelListener(panel, holder));
+        return panel;
+    }
+}
+</code></pre>
+<pre><code class="language-java">import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class ButtonListener implements ActionListener {
+    private Color color;
+    private ColorHolder holder;
+
+    public ButtonListener(Color color, ColorHolder holder) {
+        this.color = color;
+        this.holder = holder;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        holder.setValue(color);
+    }
+}
+</code></pre>
+<pre><code class="language-java">import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JPanel;
+
+public class PanelListener extends MouseAdapter {
+    private JPanel panel;
+    private ColorHolder holder;
+
+    public PanelListener(JPanel panel, ColorHolder holder) {
+        this.panel = panel;
+        this.holder = holder;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        panel.setBackground(holder.getValue());
+    }
+}
+</code></pre>
+<pre><code class="language-java">import java.awt.Color;
+
+public class ColorHolder {
+    private Color color;
+
+    public ColorHolder(Color color) {
+        this.color = color;
+    }
+
+    public Color getValue() {
+        return color;
+    }
+
+    public void setValue(Color color) {
+        this.color = color;
+    }
+}
+</code></pre>
 
                     </main>
 
