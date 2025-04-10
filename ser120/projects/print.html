@@ -495,9 +495,13 @@ additional work to complete the assignment.</p>
 most classes up until the deadline, and you should review your work with me
 during class before submitting it on Blackboard.</p>
 <h3 id="group-work-2"><a class="header" href="#group-work-2">Group Work</a></h3>
-<p>You may work on this project with a partner, provided both you and your partner
-complete the majority of your work on the project during class and show me your
-completed work in class or office hours before submitting.</p>
+<p>You may work on this project with a partner under the following conditions:</p>
+<ol>
+<li>You inform me that you are working together by <strong>Thursday, 4/10</strong>.</li>
+<li>Both you and your partner complete the majority of your work on the project
+together during class.</li>
+<li>You show me your completed work in class or office hours before submitting.</li>
+</ol>
 <h2 id="primary-topics-2"><a class="header" href="#primary-topics-2">Primary Topics</a></h2>
 <ul>
 <li>Interfaces</li>
@@ -521,14 +525,20 @@ Blackboard <strong>by 11:59 PM on Monday, April 14th</strong>.</p>
 <li>A sketch or mockup of your program</li>
 <li>An illustration of how layout managers will be used to create the program</li>
 <li>A sketch of mockup of what the drawing panel will display</li>
-<li>A description of how two interactive UI elements will affect the drawing panel</li>
-<li>A description of two mouse interactions that will affect the drawing panel</li>
+<li>A description of how at least one swing UI element (JButton, JSlider, etc.)
+will affect the drawing panel</li>
+<li>A description of at least one mouse interaction that will affect the drawing
+panel</li>
+<li>The descriptions above must include a total of four interactions, divided as
+you wish between UI elements and mouse</li>
 <li>You may list additional mouse and UI element interactions separately, but you
 will not be required to implement them in Part 2</li>
 </ul>
-<p>If you do not show me your design during class, then you will not receive
-feedback until after the deadline or be allowed to resubmit if the design is
-incomplete.</p>
+<p>I may allow compromises when reviewing designs in class as long as they're not
+meant to trivialize the project (for example, using several regular jpanels
+instead of a single drawing panel). If you do not show me your design during
+class, then you will not receive feedback until after the deadline or be allowed
+to resubmit if the design is incomplete.</p>
 <p>Finally, note that I expect you to design your own program and draw/write the
 design yourself. Your design must not be based on a classmate's design, and you
 are not allowed to use ChatGPT or another AI/LLM to assist with the design.</p>
@@ -566,6 +576,461 @@ managers</li>
 </ul>
 </li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-4-game-gui"><a class="header" href="#project-4-game-gui">Project 4: Game GUI</a></h1>
+<p>Use Swing to create a graphical user interface (GUI) for the provided
+<code>SnakeGame</code> class. The game code will be uploaded to OneDrive and linked at the
+bottom of this page.</p>
+<h2 id="in-class-project-1"><a class="header" href="#in-class-project-1">In-Class Project</a></h2>
+<p>This is intended as an in-class project. We will have time to work on it during
+most classes up until the deadline, and you should review your work with me
+during class before submitting it on Blackboard.</p>
+<h3 id="group-work-3"><a class="header" href="#group-work-3">Group Work</a></h3>
+<p>You may work on this project with a partner under the following conditions:</p>
+<ol>
+<li>You inform me that you are working together during class or office hours by
+<strong>Wednesday, 4/16</strong>.</li>
+<li>Both you and your partner complete the majority of your work on the project
+together during class.</li>
+<li>You show me your completed work in class or office hours before submitting.</li>
+</ol>
+<h2 id="primary-topics-3"><a class="header" href="#primary-topics-3">Primary Topics</a></h2>
+<ul>
+<li>Swing/AWT
+<ul>
+<li>Timer</li>
+<li>KeyListener</li>
+<li>Graphics</li>
+</ul>
+</li>
+<li>APIs</li>
+<li>Design patterns</li>
+</ul>
+<h2 id="tasks-3"><a class="header" href="#tasks-3">Tasks</a></h2>
+<h3 id="task-1-program-a-gui"><a class="header" href="#task-1-program-a-gui">Task 1: Program a GUI</a></h3>
+<p>Your only task for this project is to create a swing app that serves as a
+graphical user interface for the provided <code>SnakeGame</code> class. Your program must
+include the following features:</p>
+<ol>
+<li>Buttons or keyboard shortcuts for the following functions:
+<ul>
+<li>Start a new game</li>
+<li>Pause/resume the game</li>
+<li>Show help text (a popup or terminal output) with all keyboard controls</li>
+</ul>
+</li>
+<li>Playable with either WASD or the arrow keys</li>
+<li>Displays the score</li>
+<li>Uses the included interfaces to customize how the game awards points and
+spawns food for the snake (strategy pattern)</li>
+</ol>
+<h2 id="deliverables-3"><a class="header" href="#deliverables-3">Deliverables</a></h2>
+<ul>
+<li>All java files required for the GUI to run</li>
+</ul>
+<h2 id="submission-3"><a class="header" href="#submission-3">Submission</a></h2>
+<p><strong>Before submitting this assignment, make sure you understand and abide by the
+Academic Integrity policy in our syllabus. This is particularly important if you
+received any assistance, made use of an LLM, or used resources that were not
+provided in class.</strong></p>
+<p>In order for the assignment to count as complete:</p>
+<ul>
+<li>Your program includes all of the features described in
+<a href="project4.html#task-1-program-a-gui">Task 1</a></li>
+<li>Your program is compatible with the starter code; you should not make any
+changes to <code>SnakeGame</code> or any other classes I give you</li>
+</ul>
+<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
+<p>The starter code includes javadoc style comments which can be used by the
+<code>javadoc</code> program to generate an API website. You can view the API
+<a href="./project4/docs/index.html">here</a>.</p>
+<h2 id="starter-code"><a class="header" href="#starter-code">Starter Code</a></h2>
+<p>Below is all of the starter code for the assignment.</p>
+<pre><code class="language-java">/**
+ * Immutable point class.
+ *
+ * @author Zach Kohlberg
+ */
+public final record Point(int x, int y) {
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Point p) {
+            return p.x() == x() &amp;&amp; p.y() == y();
+        }
+        return false;
+    }
+}
+</code></pre>
+<pre><code class="language-java">/**
+ * Defines a spawning algorithm for creating food pieces at set intervals.
+ *
+ * @author Zach Kohlberg
+ */
+
+public interface SpawningAlgorithm {
+    /**
+     * This method will be called every game tick. The game will use the return
+     * value to determine where to spawn new food.
+     *
+     * @param empty     all unoccupied points at which the game could spawn food
+     * @param timeAlive number of updates since the game began
+     * @return an array of points at which the game will attempt to spawn food
+     */
+    Point[] update(Point[] empty, int timeAlive);
+}
+</code></pre>
+<pre><code class="language-java">/**
+ * Defines a scoring algorithm for awarding points at set intervals.
+ *
+ * @author Zach Kohlberg
+ */
+
+public interface ScoringAlgorithm {
+    /**
+     * This method will be called every game update and can add points to the
+     * player's score.
+     *
+     * @param snakeSize current size of the snake
+     * @param timeAlive number of updates since the game began
+     * @return points to add to the score
+     */
+    int update(int snakeSize, int timeAlive);
+
+    /**
+     * This method will be called at the end of the game and can add points to
+     * the player's score.
+     *
+     * @param snakeSize current size of the snake
+     * @param timeAlive number of updates since the game began
+     * @return points to add to the score
+     */
+    int gameOver(int snakeSize, int timeAlive);
+}
+</code></pre>
+<pre><code class="language-java">import java.util.ArrayList;
+
+/**
+ * Logic for a simple snake game. Needs a GUI to be playable, but that's your
+ * job!
+ *
+ * Note that this class is declared {@code final}, which prevents you from
+ * extending it. If you want to modify its behavior, then you'll need to use
+ * provided interfaces and the strategy pattern discussed in class.
+ *
+ * @author Zach Kohlberg
+ */
+public final class SnakeGame {
+    /**
+     * Minimum width for the game grid.
+     */
+    public static final int MIN_WIDTH = 5;
+    /**
+     * Minimum height for the game grid.
+     */
+    public static final int MIN_HEIGHT = 5;
+    /**
+     * Constant representing the direction north (-y).
+     */
+    public static final int DIR_NORTH = 0;
+    /**
+     * Constant representing the direction east (+x).
+     */
+    public static final int DIR_EAST = 1;
+    /**
+     * Constant representing the direction south (+y).
+     */
+    public static final int DIR_SOUTH = 2;
+    /**
+     * Constant representing the direction west (-x).
+     */
+    public static final int DIR_WEST = 3;
+
+    private int width, height;
+
+    private ArrayList&lt;Point&gt; snake, food, empty;
+    private int score, timeAlive;
+    private boolean gameOver;
+
+    private int direction;
+    private SpawningAlgorithm spawningAlgorithm;
+    private ScoringAlgorithm scoringAlgorithm;
+
+    /**
+     * Creates a game instance with the given width, height, and default algorithms.
+     * 
+     * @param width
+     * @param height
+     * @throws IllegalArgumentException if {@code width} or {@code height} are below
+     *                                  the minimum
+     */
+    public SnakeGame(int width, int height) {
+        this(
+                width,
+                height,
+                new SpawningAlgorithm() {
+                    @Override
+                    public Point[] update(Point[] empty, int timeAlive) {
+                        // returning an empty array spawns no food
+                        return new Point[0];
+                    }
+                },
+                new ScoringAlgorithm() {
+                    @Override
+                    public int update(int snakeSize, int timeAlive) {
+                        // returning zero doesn't change the score
+                        return 0;
+                    }
+
+                    @Override
+                    public int gameOver(int snakeSize, int timeAlive) {
+                        // returning zero doesn't change the score
+                        return 0;
+                    }
+                });
+    }
+
+    /**
+     * Creates a game instance with the given width, height, and algorithms.
+     * 
+     * @param width
+     * @param height
+     * @param spawningAlgorithm
+     * @param scoringAlgorithm
+     * @throws IllegalArgumentException if {@code width} or {@code height} are below
+     *                                  the minimum
+     * @throws NullPointerException     if either algorithm is {@code null}
+     */
+    public SnakeGame(int width, int height, SpawningAlgorithm spawningAlgorithm, ScoringAlgorithm scoringAlgorithm) {
+        if (width &lt; MIN_WIDTH) {
+            throw new IllegalArgumentException(
+                    String.format("Width too small! Width: %s, Min Width: %s.", width, MIN_WIDTH));
+        }
+
+        if (height &lt; MIN_HEIGHT) {
+            throw new IllegalArgumentException(
+                    String.format("Height too small! Height: %s, Min Height: %s.", height, MIN_HEIGHT));
+        }
+
+        this.width = width;
+        this.height = height;
+
+        this.snake = new ArrayList&lt;&gt;();
+        this.food = new ArrayList&lt;&gt;();
+        this.empty = new ArrayList&lt;&gt;();
+
+        // all spaces are initially empty
+        for (int x = 0; x &lt; width; ++x) {
+            for (int y = 0; y &lt; height; ++y) {
+                empty.add(new Point(x, y));
+            }
+        }
+
+        // snake begins with lengt 3, facing north, with its head in the center of the
+        // grid
+        int cx = width / 2;
+        int cy = height / 2;
+        snake.add(new Point(cx, cy));
+        snake.add(new Point(cx, cy + 1));
+        snake.add(new Point(cx, cy + 2));
+
+        // the points occupied by the snake are no longer empty
+        for (Point p : snake) {
+            empty.remove(p);
+        }
+
+        this.score = 0;
+        this.timeAlive = 0;
+        this.gameOver = false;
+
+        this.setDirection(DIR_NORTH);
+        this.setSpawningAlgorithm(spawningAlgorithm);
+        this.setScoringAlgorithm(scoringAlgorithm);
+    }
+
+    /**
+     * Calling this method will move the snake. Depending on the scoring and
+     * spawning algorithms, it may also spawn food and/or increase the score.
+     *
+     * How often you call this method determines the speed of the game. If you don't
+     * know how often to call it, then try four times per second and adjust as
+     * needed. You can also change the frequency over time to gradually speed up the
+     * game and increase the difficulty.
+     */
+    public void update() {
+        // does nothing if the game has ended
+        if (gameOver) {
+            return;
+        }
+
+        ++timeAlive;
+
+        score += scoringAlgorithm.update(snake.size(), timeAlive);
+
+        for (Point p : spawningAlgorithm.update(getEmpty(), timeAlive)) {
+            spawnFood(p);
+        }
+
+        advanceSnake();
+    }
+
+    private Point nextPoint(Point p, int direction) {
+        switch (direction) {
+            case DIR_NORTH:
+                // north = -y to be consistent with screen coordinates and make drawing easier
+                return new Point(p.x(), p.y() - 1);
+            case DIR_EAST:
+                return new Point(p.x() + 1, p.y());
+            case DIR_SOUTH:
+                // south = +y to be consistent with screen coordinates and make drawing easier
+                return new Point(p.x(), p.y() + 1);
+            case DIR_WEST:
+                return new Point(p.x() - 1, p.y());
+            default:
+                throw new IllegalArgumentException("Direction must be DIR_NORTH, DIR_EAST, DIR_SOUTH, or DIR_WEST.");
+        }
+    }
+
+    private void spawnFood(Point p) {
+        if (empty.contains(p)) {
+            empty.remove(p);
+            food.add(p);
+        }
+    }
+
+    private void advanceSnake() {
+        Point next = nextPoint(snake.get(0), direction);
+        if (snake.contains(next) || !inBounds(next)) {
+            // we lose if we run into the snake or the edge of the screen
+            gameOver = true;
+            score += scoringAlgorithm.gameOver(snake.size(), timeAlive);
+        } else {
+            if (food.contains(next)) {
+                // eat food and snake grows to occupy the next point
+                food.remove(next);
+                snake.add(0, next);
+            } else {
+                // snake moves into the next point
+                empty.remove(next);
+                snake.add(0, next);
+                // delete end of snake because it moved forward
+                Point endOfSnake = snake.removeLast();
+                empty.add(endOfSnake);
+            }
+        }
+    }
+
+    /**
+     * @return whether the point is in the game's area
+     */
+    public boolean inBounds(Point p) {
+        return p.x() &gt;= 0 &amp;&amp; p.x() &lt; width &amp;&amp; p.y() &gt;= 0 &amp;&amp; p.y() &lt; height;
+    }
+
+    /**
+     * @return the width of the game's grid
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * @return the height of the game's grid
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * @return an array of points occupied by the snake
+     */
+    public Point[] getSnake() {
+        return snake.toArray(new Point[0]);
+    }
+
+    /**
+     * @return an array of points occupied by food
+     */
+    public Point[] getFood() {
+        return food.toArray(new Point[0]);
+    }
+
+    /**
+     * @return an array of points occupied by nothing
+     */
+    public Point[] getEmpty() {
+        return empty.toArray(new Point[0]);
+    }
+
+    /**
+     * @return the player's current score
+     */
+    public int getScore() {
+        return score;
+    }
+
+    /**
+     * @return whether the game has ended
+     */
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    /**
+     * @return direction the snake is moving
+     */
+    public int getDirection() {
+        return direction;
+    }
+
+    /**
+     * Changes which direction the snake is moving. Use the DIR_* constants to
+     * specify a direction.
+     *
+     * @param direction the snake's new direction
+     * @throws IllegalArgumentException if {@code direction} is not a valid number
+     */
+    public void setDirection(int direction) {
+        if (direction &lt; 0 || direction &gt; 3) {
+            throw new IllegalArgumentException("Direction must be DIR_NORTH, DIR_EAST, DIR_SOUTH, or DIR_WEST.");
+        }
+
+        // The snake can't turn to face into its own neck
+        Point head = snake.get(0);
+        Point neck = snake.get(1);
+        Point next = nextPoint(head, direction);
+        if (next.equals(neck)) {
+            return;
+        }
+
+        this.direction = direction;
+    }
+
+    /**
+     * Changes the scoring algorithm used by the game.
+     *
+     * @param scoringAlgorithm
+     * @throws NullPointerException if {@code scoringAlgorithm} is {@code null}
+     */
+    public void setScoringAlgorithm(ScoringAlgorithm scoringAlgorithm) {
+        if (scoringAlgorithm == null) {
+            throw new NullPointerException("Scoring algorithm cannot be null!");
+        }
+        this.scoringAlgorithm = scoringAlgorithm;
+    }
+
+    /**
+     * Changes the spawning algorithm used by the game.
+     *
+     * @param spawningAlgorithm
+     * @throws NullPointerException if {@code spawningAlgorithm} is {@code null}
+     */
+    public void setSpawningAlgorithm(SpawningAlgorithm spawningAlgorithm) {
+        if (spawningAlgorithm == null) {
+            throw new NullPointerException("Spawning algorithm cannot be null!");
+        }
+        this.spawningAlgorithm = spawningAlgorithm;
+    }
+}
+</code></pre>
 
                     </main>
 
