@@ -489,6 +489,8 @@ public final class SnakeGame {
                 snake.add(0, next);
                 // delete end of snake because it moved forward
                 Point endOfSnake = snake.removeLast();
+                // Use this instead if you're running Java 20 or earlier
+                // Point endOfSnake = snake.remove(snake.size() - 1);
                 empty.add(endOfSnake);
             }
         }
