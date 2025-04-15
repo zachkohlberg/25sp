@@ -481,7 +481,9 @@ labels of all dice that will be rerolled</li>
 must be set to a random number from 1 to 6. Each element of the array parameter
 whose label does <strong>not</strong> appear in the string parameter must be left as is.</p>
 <p>Labels are not case-sensitive, but your code will only be tested with lowercase
-letters. An element's label is determined by its index:</p>
+letters in alphabetical order without repeats (for example, the tests might give
+you the command "r ace" but they won't give you the commands "r ABC", "r aab",
+or "r eca". An element's label is determined by its index:</p>
 <ul>
 <li>index 0 -&gt; a</li>
 <li>index 1 -&gt; b</li>

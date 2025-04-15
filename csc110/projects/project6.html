@@ -1,0 +1,530 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Project 6: Complete Dice Game - CSC110 Projects</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CSC110 Projects</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="project-6-complete-dice-game"><a class="header" href="#project-6-complete-dice-game">Project 6: Complete Dice Game</a></h1>
+<p>After completing this part, you should have a fully functioning dice game that
+you can play on your terminal.</p>
+<h2 id="primary-topics"><a class="header" href="#primary-topics">Primary Topics</a></h2>
+<ul>
+<li>Simple conditional expressions</li>
+<li>Simple iterative expressions</li>
+<li>Simple functions</li>
+<li>Simple data structures (arrays, strings)</li>
+</ul>
+<h2 id="prerequisites-and-setup"><a class="header" href="#prerequisites-and-setup">Prerequisites and Setup</a></h2>
+<ul>
+<li>Complete projects 3 and 4. This assignment builds directly on the program
+created for those projects.</li>
+<li>Make sure you have <code>Dice.java</code> from projects 3 and 4.</li>
+<li>Create a file named <code>DiceGame3.java</code> in your projects folder. You can either
+start from scratch or copy your code from <code>DiceGame2.java</code>.</li>
+</ul>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="task-1-determine-your-rules"><a class="header" href="#task-1-determine-your-rules">Task 1: Determine Your Rules</a></h3>
+<p>Choose one of the options below.</p>
+<h4 id="option-1-default-yahtzee"><a class="header" href="#option-1-default-yahtzee">Option 1: (Default) Yahtzee</a></h4>
+<p>If you choose this option, then you must complete the program by implementing
+the remaining parts of Yahtzee. Your program must follow all of the standard
+rules except for the "Yahtzee Bonus" rules in the official rules. In your
+program, a Yahtzee should be treated like any other scoring category with no
+special cases.</p>
+<p>Program summary:</p>
+<ul>
+<li>A single user will play a full thirteen rounds of Yahtzee.</li>
+<li>Each round will consist of a reroll phase and a score phase.
+<ul>
+<li>During the reroll phase the user can reroll their dice up to two times, and
+they can choose which dice to reroll each time.</li>
+<li>During the score phase the user must choose one unused score category to
+determine how many points they receive for their dice.</li>
+</ul>
+</li>
+<li>After thirteen rounds, the game will end and the user will see a final
+scorecard showing their points in each category, as well as their total score.</li>
+</ul>
+<p>This option also requires your program to pass a set of tests. The
+<a href="#additional-details">additional details</a> section has a list of requirements
+that will be checked by the tests, and the structure provided by these
+requirements may be helpful if you're having trouble writing this program
+without the usual guided coding steps.</p>
+<h4 id="option-2-custom-other-dice-game"><a class="header" href="#option-2-custom-other-dice-game">Option 2: (Custom) Other Dice Game</a></h4>
+<p>If you're interested in designing an alternative program for this project, then
+talk to me during class or office hours. It would require you to write a
+detailed proposal for your version of the project, which would take the place of
+the normal requirements in this project.</p>
+<!-- If you choose this option, then you can implement a different dice game instead -->
+<!-- of finishing Yahtzee. This can be a game you designed or an existing game. I -->
+<!-- expect the game you implement to be similar in complexity to Yahtzee. A simple -->
+<!-- game that takes little effort to code is not appropriate for this project. Feel -->
+<!-- free to ask me about your game before submitting a proposal if you're not sure -->
+<!-- whether I will allow you to use it. -->
+<!---->
+<!-- This option exempts you from the I/O requirements, the function requirements, -->
+<!-- and the tests for this project. It requires an approved proposal before you -->
+<!-- start working on or submit the project. -->
+<!---->
+<!-- Your proposal must answer the following questions: -->
+<!---->
+<!-- 1. Explain the rules of your game in enough detail that I or another person -->
+<!--    could play your game using real dice. If you are using an existing game, then -->
+<!--    you can summarize the rules (in your own words), state any changes you are -->
+<!--    making to the rules, and link to the official rules or another source that -->
+<!--    explains them in detail. I expect you to play your game a few times to ensure -->
+<!--    you understand the rules and that any rules you changed or designed yourself -->
+<!--    work in practice. -->
+<!-- 2. Explain how the user would interact with your program. Describe any commands -->
+<!--    or input the user would be expected to type while using the program and how -->
+<!--    the program should respond. -->
+<!-- 3. Describe three new functions you expect to create while implementing this -->
+<!--    program. What do these functions do, what parameters do they require, and -->
+<!--    what (if anything) do they return? These must be new functions that did not -->
+<!--    already exist in 2.1 or 2.2, not modified versions of functions you wrote for -->
+<!--    those programs. -->
+<!---->
+<!-- Your answers to questions 2 and 3 may change as you write your program, and -->
+<!-- that's okay! As long as your game's rules remain the same, you do not need to -->
+<!-- submit a new proposal. You will address changes to the functions and user input -->
+<!-- in the writeup task. -->
+<h3 id="task-2-implement-your-program"><a class="header" href="#task-2-implement-your-program">Task 2: Implement Your Program</a></h3>
+<p>If you chose the default option, then refer to the
+<a href="#additional-details">additional details</a> section for specific requirements.</p>
+<p>If you chose the custom option, then you should refer to your accepted proposal
+for specific requirements and ignore the additional details section of this
+assignment.</p>
+<h4 id="updating-main"><a class="header" href="#updating-main">Updating <code>main</code></a></h4>
+<p>To help you get started, here's an outline of the <code>main</code> function for the
+default version of the program:</p>
+<ul>
+<li>Create the following arrays, which will be passed to and used by other
+functions in your program:
+<ul>
+<li>an array of thirteen strings for the category names</li>
+<li>an array of thirteen ints for the category scores</li>
+<li>an array of thirteen booleans for the availability of these categories and
+set each element to <code>true</code></li>
+<li>an array of five ints for the dice</li>
+</ul>
+</li>
+<li>Create a loop to play thirteen rounds of the game, which should:
+<ul>
+<li>Print the round number</li>
+<li>Roll the dice</li>
+<li>Call <code>rerollPhase</code></li>
+<li>Call <code>scorePhase</code></li>
+</ul>
+</li>
+<li>Print the final score card after the loop terminates.</li>
+</ul>
+<h3 id="task-3-run-tests"><a class="header" href="#task-3-run-tests">Task 3: Run Tests</a></h3>
+<p>If you chose the default version of this assignment, then run the tests for your
+project and look at the feedback. If your code passed every test, then this step
+is finished.</p>
+<p>If you chose the custom version, then you should not attempt to test it with my
+test program. Instead, you should run your program enough to be confident that
+it works correctly under normal circumstances. If it is difficult for me to use
+your program without encountering significant bugs or errors, then you will have
+to revise and resubmit the project.</p>
+<h3 id="task-4-write-up"><a class="header" href="#task-4-write-up">Task 4: Write-Up</a></h3>
+<p>After completing the program, answer the questions below in a separate document.
+<strong>This is not an essay: do NOT double-space, and keep your answers to each
+question separate</strong>. Your answers should be reasonably detailed and address each
+question in full. I expect you to be accurate when describing your project, but
+I'm otherwise not concerned with whether you provide the "correct" answer to a
+question. Much of what I'm asking you for is your opinion or analysis of your
+work. I want to know what <em>you</em> think so that I can assess your understanding
+and provide useful feedback. If I disagree with you, then I will explain why and
+offer suggestions without penalizing your grade.</p>
+<p>Also, an important reminder: <strong>do not use ChatGPT or another LLM to assist with
+or complete the write-up for you</strong>. The whole point is for you to think
+critically about and explain your code. I do not care what ChatGPT "thinks"
+about your work. Form your own opinions and justify them as best you can.</p>
+<ol>
+<li>Review your program and find a piece of code that was either challenging to
+write or that you think is an example of particularly good code (it's up to you
+what "good code" means, but you should be able to justify your opinion). Explain
+why you chose this code: why is it an example of good code or what was
+challenging about writing it? Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+<li>Review your program and find a piece of code that you think could be improved.
+What do you dislike or want to change about this code? If you were to spend more
+time on the project, how might you improve this code? To be clear, I'm not
+asking you how the <em>program</em> could be better. I don't want to know what feature
+you'd add or how you'd make it easier to use. I'm asking how part of the <em>code</em>
+could be better. This might mean shorter, easier to read, less repetitive, or
+something else that you value and think you could improve with additional time
+and/or programming knowledge. Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+</ol>
+<!-- Additionally, answer the following questions if you designed your own program: -->
+<!---->
+<!-- 3. Explain how to use your program. You can assume the user has read the rules -->
+<!--    of your dice game, but don't assume they know anything about how to use your -->
+<!--    program yet. These directions and your program's prompts must be sufficient -->
+<!--    for someone to learn how to use your program without reading any of the code. -->
+<!--    If your prompts are good, then you may not need to write much for this -->
+<!--    question! -->
+<!-- 4. What changes, if any, did you make to the user input you described in your -->
+<!--    proposal? Why did you make these changes? -->
+<!-- 5. What changes, if any, did you make to the functions you described in your -->
+<!--    proposal? Why did you make these changes? -->
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<ul>
+<li>Your <code>DiceGame3.java</code> file</li>
+<li>Your writeup</li>
+<li>Any other material you created for this project (only relevant if you chose
+the custom option in part 1)</li>
+</ul>
+<h2 id="additional-details"><a class="header" href="#additional-details">Additional Details</a></h2>
+<p>This section covers the requirements for anyone who chose the default option. If
+you went with the custom option, then you can ignore this part of the
+assignment.</p>
+<h3 id="io-format"><a class="header" href="#io-format">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the same user input as in Project 4 for every round of
+the game. There will be 13 rounds in a full game.</p>
+<p>Your program must print the same output as in Project 4, but with the following
+changes:</p>
+<ul>
+<li>At the beginning of each round print "Round X", where X is the round number
+(starting at 1)</li>
+<li>During the score phase:
+<ul>
+<li>A list of options produced by this project's version of the <code>printScore</code>
+function</li>
+<li>The message "ERROR: INVALID CATEGORY" when user chooses a category that
+isn't a number from 1 to 13</li>
+<li>The message "ERROR: CATEGORY UNAVAILABLE" when the user chooses a category
+that was already taken</li>
+<li>The number of points received for the chosen category and that category's
+name formatted as "You receive X points for Y."</li>
+</ul>
+</li>
+<li>After the final round:
+<ul>
+<li>The line "Final Score Card:"</li>
+<li>The output of the <code>printScore</code> function</li>
+</ul>
+</li>
+</ul>
+<p>Additionally, your program should include reasonable prompts for information and
+any additional text that you think would make it easier for the user to interact
+with the program. It's up to you how much of this to include, what exactly to
+say, and how to format it. The tests will not check these prompts.</p>
+<h3 id="random-numbers"><a class="header" href="#random-numbers">Random Numbers</a></h3>
+<p>See <a href="./project3.html#random-numbers">Project 3</a>.</p>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Your program must include all of the functions described below <strong>in addition to
+the functions required in <a href="./project3.html#functions">Project 3</a> and
+<a href="./project4.html#functions">Project 4</a></strong>. If a function from Project 3 or 4
+appears below, then the version in this project replaces the version from the
+earlier project.</p>
+<h4 id="scorephase"><a class="header" href="#scorephase"><code>scorePhase</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> array containing the score for each category</li>
+<li>A <code>boolean</code> array representing whether each category is available</li>
+<li>A <code>String</code> array containing the name of each category</li>
+</ul>
+</li>
+</ul>
+<p>Must perform the following process:</p>
+<ul>
+<li>Display the score options, their availability, and how many points each option
+is worth (call <code>printScores</code>)</li>
+<li>Read integers from the user until they enter a number from one to thirteen
+that corresponds to an available category, displaying an error message for
+each invalid input</li>
+<li>Calculate and print the score for the category chosen by the user</li>
+<li>Store the score in the scores array</li>
+<li>Mark the category as unavailable</li>
+</ul>
+<h4 id="calculatedicescore"><a class="header" href="#calculatedicescore"><code>calculateDiceScore</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> representing a score category (assume a number from 1 to 13)</li>
+</ul>
+</li>
+</ul>
+<p>The numbers 1 to 13 correspond to the following score categories:</p>
+<ul>
+<li>1 -&gt; Aces</li>
+<li>2 -&gt; Twos</li>
+<li>3 -&gt; Threes</li>
+<li>4 -&gt; Fours</li>
+<li>5 -&gt; Fives</li>
+<li>6 -&gt; Sixes</li>
+<li>7 -&gt; Three of a Kind</li>
+<li>8 -&gt; Four of a Kind</li>
+<li>9 -&gt; Full House</li>
+<li>10 -&gt; Small Straight</li>
+<li>11 -&gt; Large Straight</li>
+<li>12 -&gt; Yahtzee</li>
+<li>13 -&gt; Chance</li>
+</ul>
+<p>The score is calculated using the given set of dice.</p>
+<p>You may wish to break this function into separate functions for each score
+category, but it's not required.</p>
+<h4 id="printscores"><a class="header" href="#printscores"><code>printScores</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> array containing the score for each category</li>
+<li>A <code>boolean</code> array representing whether each category is available</li>
+<li>A <code>String</code> array containing the name of each category</li>
+</ul>
+</li>
+</ul>
+<p>For each score category, print:</p>
+<ul>
+<li>The category's number (1 to 13)</li>
+<li>The category's name</li>
+<li>If the category is available, then the word "available", followed by the score
+the user will receive from their dice if they choose that category</li>
+<li>If the category is unavailable, then the score previously assigned to that
+category</li>
+</ul>
+<p>The Upper Section's Bonus is 35 points if categories 1-6 add up to 63 or more
+points; otherwise, it is 0 points. The Upper Section Total must include the
+Bonus. The bonus and totals should only be based on the numbers in the scores
+array, not the numbers calculated for available categories.</p>
+<pre><code>Upper Section
+
+1. Aces: X
+2. Twos: X
+3. Threes: X
+4. Fours: X
+5. Fives: X
+6. Sixes: X
+
+Bonus: X
+
+Lower Section
+
+7. Three of a Kind: X
+8. Four of a Kind: X
+9. Full House: X
+10. Small Straight: X
+11. Large Straight: X
+12. Yahtzee: X
+13. Chance: X
+
+Upper Section Total: X
+Lower Section Total: X
+
+Total Points: X
+</code></pre>
+<p>The blank lines are optional but recommended for readability.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="project5.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="project5.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

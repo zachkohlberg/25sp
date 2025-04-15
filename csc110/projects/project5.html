@@ -1,0 +1,752 @@
+<!DOCTYPE HTML>
+<html lang="en" class="navy sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Project 5: Complete Character Sheet - CSC110 Projects</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('navy')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CSC110 Projects</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="project-5-complete-character-sheet"><a class="header" href="#project-5-complete-character-sheet">Project 5: Complete Character Sheet</a></h1>
+<p>You will modify the character creation rules and implement more interesting
+methods of generating a character's stats. This will be a compiled Java program,
+not a Jshell script.</p>
+<h2 id="primary-topics"><a class="header" href="#primary-topics">Primary Topics</a></h2>
+<ul>
+<li>Mathematical expressions</li>
+<li>Conditional expressions</li>
+<li>Simple iterative statements</li>
+<li>Simple functions</li>
+<li>Simple data structures (arrays, strings)</li>
+</ul>
+<h2 id="prerequisites-and-setup"><a class="header" href="#prerequisites-and-setup">Prerequisites and Setup</a></h2>
+<ul>
+<li>Complete projects 1 and 2. I also recommend completing projects 3 and 4
+because this program makes frequent use of both functions and arrays, which
+are the focus of those projects.</li>
+<li>Make sure you have <code>Dice.java</code> from projects 3 and 4.</li>
+<li>Create a file named <code>CharacterSheet3.java</code> in your projects folder. You can
+either start from scratch or copy your code from <code>CharacterSheet2.java</code>.</li>
+</ul>
+<h2 id="tasks"><a class="header" href="#tasks">Tasks</a></h2>
+<h3 id="task-1-program-design"><a class="header" href="#task-1-program-design">Task 1: Program Design</a></h3>
+<p>Choose one of the options below.</p>
+<h4 id="option-1-default-dd-5e-rules"><a class="header" href="#option-1-default-dd-5e-rules">Option 1: (Default) D&amp;D 5e Rules</a></h4>
+<p>If you choose this option, then you must make the changes summarized below:</p>
+<ul>
+<li>You will split your program into separate <a href="#functions">functions</a>.</li>
+<li>The user will have six options for their class and ancestry:
+<ul>
+<li>Ancestries: Dragonborn, Dwarf, Elf, Gnome, Halfling, or Human</li>
+<li>Classes: Barbarian, Bard, Cleric, Fighter, Rogue, or Wizard</li>
+</ul>
+</li>
+<li>The character will have six ability scores: Strength, Dexterity, Constitution,
+Intelligence, Wisdom, and Charisma.</li>
+<li>The user can choose to either roll their ability scores or use 5e's point buy
+system.
+<ul>
+<li>Roll: the program will simulate rolling four six-sided dice for each ability
+score, dropping the lowest die and summing the remaining three.</li>
+<li>Point Buy: the user spends points to purchase ability scores. They can
+select any score from 8 to 15 as long as they have enough points left to buy
+that score.</li>
+</ul>
+</li>
+</ul>
+<p>This option also requires your program to pass a set of tests. The
+<a href="#additional-details">additional details</a> section has a list of requirements
+that will be checked by the tests, and the structure provided by these
+requirements may be helpful if you're having trouble writing this program
+without the usual guided coding steps.</p>
+<h4 id="option-2-custom-new-rules"><a class="header" href="#option-2-custom-new-rules">Option 2: (Custom) New Rules</a></h4>
+<p>If you're interested in designing an alternative program for this project, then
+talk to me during class or office hours. It would require you to write a
+detailed proposal for your version of the project, which would take the place of
+the normal requirements in this project.</p>
+<!---->
+<!-- If you choose this option, then you will design a new set of character creation -->
+<!-- rules. This doesn't have to be related to D&D, and the rules don't even have to -->
+<!-- be for a game. You could create a user account for a fictional social media app, -->
+<!-- a profile for a professional athlete, or anything else you can think of. -->
+<!---->
+<!-- Your new design must meet the following requirements: -->
+<!---->
+<!-- - Your program generates additional information from the user's input. We want -->
+<!--   our program to make creating this character (or account, profile, whatever) -->
+<!--   more convenient for the user than if they did it by hand, so it should do a -->
+<!--   reasonable amount of work for them. For example, the default program applies -->
+<!--   adjustments to the character's ability scores and calculates their ability -->
+<!--   modifiers. The user doesn't have to perform or understand these calculations -->
+<!--   to create a character with that program. -->
+<!-- - Your program includes one or two "advanced" features that either implement -->
+<!--   more complex rules than the formulas and error-checking from 1.2 or allow the -->
+<!--   user to do something with their character after it's finished. Some examples: -->
+<!--   - the point-buy calculator in the default version of this project -->
+<!--   - a quiz that determines some of your character's stats, like you might see in -->
+<!--     older RPGs -->
+<!--   - the ability to simulate skill checks, attacks, and other rolls you'd -->
+<!--     commonly make while playing the game -->
+<!---->
+<!-- This program doesn't need to be realistic or practical. It only needs to make -->
+<!-- sense in whatever scenario you have imagined for it. For example, the default -->
+<!-- program doesn't come close to making a complete D&D character, but it still -->
+<!-- accurately implements most of the character creation rules it does use. You -->
+<!-- could use a character created with that program as a starting point for a real -->
+<!-- D&D character. -->
+<!---->
+<!-- I expect this program to be similar in complexity to the default version of the -->
+<!-- assignment. You shouldn't need to go out of your way to make it complicated, but -->
+<!-- don't try to use this option to trivialize the assignment. If your proposed -->
+<!-- rules are too simple, then I will provide feedback and ask you to revise your -->
+<!-- proposal. -->
+<!---->
+<!-- This option exempts you from the I/O requirements, the function requirements, -->
+<!-- and the tests for this project. It requires an approved proposal before you -->
+<!-- start working on or submit the project. -->
+<!---->
+<!-- Your proposal must answer the following questions: -->
+<!---->
+<!-- 1. Explain the premise of this program. What kind of character (or profile, -->
+<!--    etc.) are we creating, and how would we use it? If it's related to something -->
+<!--    that already exists (such as another game or intellectual property), then -->
+<!--    feel free to link to some sources that explain it in more detail. -->
+<!-- 2. Explain the advanced feature(s) you will include in the program. Be specific -->
+<!--    and provide enough detail for me to replicate the process by hand. -->
+<!-- 3. What information will the user provide to your program? What does this -->
+<!--    information tell the program about the user? Include _all_ information you -->
+<!--    expect the user to provide. -->
+<!-- 4. What information will the program generate from the user's input? How will it -->
+<!--    generate this information? Be specific and provide enough detail for me to -->
+<!--    replicate this process by hand. -->
+<h3 id="task-2-implement-your-program"><a class="header" href="#task-2-implement-your-program">Task 2: Implement Your Program</a></h3>
+<p>If you chose the default option, then refer to the
+<a href="#additional-details">additional details</a> section for specific requirements.</p>
+<p>If you chose the custom option, then you should refer to your accepted proposal
+for specific requirements and ignore the additional details section of this
+assignment.</p>
+<h3 id="task-3-run-tests"><a class="header" href="#task-3-run-tests">Task 3: Run Tests</a></h3>
+<p>If you chose the default version of this assignment, then run the tests for your
+project and look at the feedback. If your code passed every test, then this step
+is finished.</p>
+<p>If you chose the custom version, then you should not attempt to test it with my
+test program. Instead, you should run your program enough to be confident that
+it works correctly under normal circumstances. If it is difficult for me to use
+your program without encountering significant bugs or errors, then you will have
+to revise and resubmit the project.</p>
+<h3 id="task-4-write-up"><a class="header" href="#task-4-write-up">Task 4: Write-Up</a></h3>
+<p>After completing the program, answer the questions below in a separate document.
+<strong>This is not an essay: do NOT double-space, and keep your answers to each
+question separate</strong>. Your answers should be reasonably detailed and address each
+question in full. I expect you to be accurate when describing your project, but
+I'm otherwise not concerned with whether you provide the "correct" answer to a
+question. Much of what I'm asking you for is your opinion or analysis of your
+work. I want to know what <em>you</em> think so that I can assess your understanding
+and provide useful feedback. If I disagree with you, then I will explain why and
+offer suggestions without penalizing your grade.</p>
+<p>Also, an important reminder: <strong>do not use ChatGPT or another LLM to assist with
+or complete the write-up for you</strong>. The whole point is for you to think
+critically about and explain your code. I do not care what ChatGPT "thinks"
+about your work. Form your own opinions and justify them as best you can.</p>
+<ol>
+<li>Review your program and find a piece of code that was either challenging to
+write or that you think is an example of particularly good code (it's up to you
+what "good code" means, but you should be able to justify your opinion). Explain
+why you chose this code: why is it an example of good code or what was
+challenging about writing it? Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+<li>Review your program and find a piece of code that you think could be improved.
+What do you dislike or want to change about this code? If you were to spend more
+time on the project, how might you improve this code? To be clear, I'm not
+asking you how the <em>program</em> could be better. I don't want to know what feature
+you'd add or how you'd make it easier to use. I'm asking how part of the <em>code</em>
+could be better. This might mean shorter, easier to read, less repetitive, or
+something else that you value and think you could improve with additional time
+and/or programming knowledge. Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+</ol>
+<!-- Additionally, answer the following question if you designed your own program: -->
+<!---->
+<!-- 3. Explain how to use your program. These directions and your program's prompts -->
+<!--    must be sufficient for someone to learn how to use your program without -->
+<!--    reading any of the code. If your prompts are good, then you may not need to -->
+<!--    write much for this question! -->
+<h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
+<ul>
+<li>Your <code>CharacterSheet3.java</code> file</li>
+<li>Your writeup</li>
+<li>Any other material you created for this project (only relevant if you chose
+the custom option in part 1)</li>
+</ul>
+<h2 id="additional-details"><a class="header" href="#additional-details">Additional Details</a></h2>
+<p>This section covers the requirements for anyone who chose the default option. If
+you went with the custom option, then you can ignore this part of the
+assignment.</p>
+<h3 id="rulescalculations"><a class="header" href="#rulescalculations">Rules/Calculations</a></h3>
+<p>This section covers all of the D&amp;D rules and calculations that your program must
+implement. Other sections may refer to these requirements.</p>
+<h4 id="ability-scores-rolling"><a class="header" href="#ability-scores-rolling">Ability Scores: Rolling</a></h4>
+<p>The user can choose to roll their ability scores. Rolling each score uses the
+following steps:</p>
+<ul>
+<li>Roll four six-sided dice</li>
+<li>Remove the die with the lowest value (in case of a tie, only remove one die)</li>
+<li>Sum the remaining three dice to determine the ability score</li>
+</ul>
+<p>This method produces scores between 3 and 18 (inclusive). This allows for lower
+and higher scores than a player could normally get through point buy, but the
+player has less control over their scores. Our program is also assigning the
+scores in the order they were rolled rather than letting the player assign them.</p>
+<h4 id="ability-scores-point-buy"><a class="header" href="#ability-scores-point-buy">Ability Scores: Point Buy</a></h4>
+<p>The user can choose to use D&amp;D 5e's point buy system to determine their ability
+scores. The point buy system has the following rules:</p>
+<ul>
+<li>The user has a budget of 27 points to spend on their ability scores.</li>
+<li>Each ability score defaults to 8 until the user changes it.</li>
+<li>The user can choose any integer from 8 to 15 (inclusive) for an ability score,
+provided they have enough points remaining to purchase that score. The score
+costs are as follows:</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Score</th><th>Point Cost</th></tr></thead><tbody>
+<tr><td>8</td><td>0</td></tr>
+<tr><td>9</td><td>1</td></tr>
+<tr><td>10</td><td>2</td></tr>
+<tr><td>11</td><td>3</td></tr>
+<tr><td>12</td><td>4</td></tr>
+<tr><td>13</td><td>5</td></tr>
+<tr><td>14</td><td>7</td></tr>
+<tr><td>15</td><td>9</td></tr>
+</tbody></table>
+</div>
+<h4 id="ancestry-adjustments"><a class="header" href="#ancestry-adjustments">Ancestry Adjustments</a></h4>
+<p>The following table shows the ability score adjustments for each ancestry.</p>
+<div class="table-wrapper"><table><thead><tr><th>Ancestry</th><th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th></tr></thead><tbody>
+<tr><td>Dragonborn</td><td>+2</td><td></td><td></td><td></td><td></td><td>+1</td></tr>
+<tr><td>Dwarf</td><td></td><td></td><td>+2</td><td></td><td>+1</td><td></td></tr>
+<tr><td>Elf</td><td></td><td>+2</td><td></td><td>+1</td><td></td><td></td></tr>
+<tr><td>Gnome</td><td></td><td>+2</td><td></td><td></td><td></td><td>+1</td></tr>
+<tr><td>Halfling</td><td></td><td>+2</td><td></td><td></td><td>+1</td><td></td></tr>
+<tr><td>Human</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td></tr>
+</tbody></table>
+</div>
+<h4 id="ability-modifiers"><a class="header" href="#ability-modifiers">Ability Modifiers</a></h4>
+<p>After adjusting a character's ability scores for their ancestry, we calculate
+each ability's modifier. The score's main purpose is to determine this modifier,
+whereas the modifier is the number we use for all of our calculations (hp, ac,
+etc.). The table below shows the modifier for each possible ability score a
+character can have in this program, but you can also calculate an ability's
+modifier with the formula <code>modifier = score / 2 - 5</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Score</th><th>Modifier</th></tr></thead><tbody>
+<tr><td>3</td><td>-4</td></tr>
+<tr><td>4-5</td><td>-3</td></tr>
+<tr><td>6-7</td><td>-2</td></tr>
+<tr><td>8-9</td><td>-1</td></tr>
+<tr><td>10-11</td><td>+0</td></tr>
+<tr><td>12-13</td><td>+1</td></tr>
+<tr><td>14-15</td><td>+2</td></tr>
+<tr><td>16-17</td><td>+3</td></tr>
+<tr><td>18-19</td><td>+4</td></tr>
+<tr><td>20</td><td>+5</td></tr>
+</tbody></table>
+</div>
+<h4 id="classes"><a class="header" href="#classes">Classes</a></h4>
+<p>The following table shows the properties of each class.</p>
+<div class="table-wrapper"><table><thead><tr><th>Class</th><th>Hit Die</th><th>AC Formula</th></tr></thead><tbody>
+<tr><td>Barbarian</td><td>d12</td><td>10 + Dex + Con</td></tr>
+<tr><td>Bard</td><td>d8</td><td>12 + Dex</td></tr>
+<tr><td>Cleric</td><td>d8</td><td>15 + min(Dex, 2)</td></tr>
+<tr><td>Fighter</td><td>d10</td><td>18</td></tr>
+<tr><td>Rogue</td><td>d8</td><td>12 + Dex</td></tr>
+<tr><td>Wizard</td><td>d6</td><td>10 + Dex</td></tr>
+</tbody></table>
+</div>
+<p>All ability names in the AC formula refer to that ability's <em>modifier</em>, not its
+score.</p>
+<p>A note about the cleric's AC: we add 15 to either the cleric's dexterity
+modifier or 2, whichever is less. This limits the cleric's dexterity modifier to
++2 or less for the purpose of calculating their armor class. You can use the
+<code>Math.min</code> function to take the lower of two numbers.</p>
+<h4 id="hit-points"><a class="header" href="#hit-points">Hit Points</a></h4>
+<p>A character's hit points can be calculated by rolling their hit die or taking an
+average value for each level. A hit die is written as "d" followed by the number
+of sides on the die. For example, "d12" refers to a twelve-sided die. To
+calculate a character's hit points:</p>
+<ul>
+<li>Use the maximum value (the number of sides on the die) for first level,
+regardless of whether you are rolling or taking the average.</li>
+<li>For each level after first:
+<ul>
+<li>If rolling, then roll the hit die and add the character's constitution
+modifier to the result</li>
+<li>If taking the average, then use 1 + half the die size + the character's
+constitution modifier</li>
+<li>A character gains a minimum of 1 hit point per level. If the constitution
+modifier is negative, then you need to make sure the result for any given
+level is not less than 1. One way to do this is to use <code>Math.max</code> to take
+the larger value between 1 and the number you calculated in the previous
+step.</li>
+</ul>
+</li>
+</ul>
+<p>For example, let's calculate the hit points of a 3rd level fighter with a
+constitution modifier of -2. In the class table we can see that a fighter's hit
+die is d10.</p>
+<ul>
+<li>Rolling (let's assume I roll a 2 and a 7 on a d10)
+<ul>
+<li>The fighter gains 8 hp at first level: 10 (max hit die value) plus -2 (con)</li>
+<li>The fighter gains 1 hp at second level: 2 (number rolled on a d10) plus -2
+(con) is less than 1, but a character must gain a minimum of 1 hp per level</li>
+<li>The fighter gains 5 hp at second level: 7 (number rolled on a d10) plus -2
+(con)</li>
+<li>Total hp: 14</li>
+</ul>
+</li>
+<li>Average
+<ul>
+<li>The fighter gains 8 hp at first level: 10 (max hit die value) plus -2 (con)</li>
+<li>The fighter gains 4 hp at second and third level: 6 (half hit die plus one)
+plus -2 (con)</li>
+<li>Total hp: 16</li>
+</ul>
+</li>
+</ul>
+<h3 id="io-format"><a class="header" href="#io-format">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the following user input:</p>
+<ul>
+<li>(String) player's name</li>
+<li>(String) character's name</li>
+<li>(String) character's ancestry</li>
+<li>(String) character's class</li>
+<li>(int) character's level</li>
+<li>(int) either "1" or "2" to indicate whether the user wishes to (1) roll their
+hit points or (2) use average hit points</li>
+<li>(int) either "1" or "2" to indicate whether the user wishes to generate their
+scores with (1) point buy or (2) dice roll</li>
+</ul>
+<p>If the user chooses point buy, then your program must accept the following
+input, which will repeat until the user finishes purchasing ability scores:</p>
+<ul>
+<li>Either an ability (the three-letter abbreviation, all lowercase) or the word
+"done", which indicates that the user is finished with the point buy process.
+If the user types "done", then no more input will follow.</li>
+<li>A new score for the chosen ability (int)</li>
+</ul>
+<p>If the user enters invalid input of the correct type (for example, a level of -3
+or a class of "knight"), then the program must print "Invalid choice, try
+again." and make the user re-enter that piece of input. This message and reread
+must repeat until the user enters valid input. You <strong>do not</strong> have to do this
+for the wrong <em>type</em> of input, such as the user entering a level of "abc". That
+would require exception handling, which you aren't expected to know for this
+project.</p>
+<p>Your program must print the following output during each iteration of the
+point-buy process:</p>
+<ul>
+<li>The current value of each ability score formatted as the ability name's
+three-letter abbreviation followed by the score. There must be a space after
+the ability name, and the score must be right-aligned. These should also
+(optionally) be indented.</li>
+<li>The current budget, formatted as "Budget: X out of 27 points spent.". Replace
+X with the total cost of the current set of ability scores.</li>
+</ul>
+<p>Here's an example of the point-buy output:</p>
+<pre><code>Budget: 20 out of 27 points spent.
+    Str 15
+    Dex  8
+    Con 10
+    Int 11
+    Wis  9
+    Cha 13
+</code></pre>
+<p>Your program must also print a warning if the user tries to exceed their budget
+when setting a score. Here's an example:</p>
+<pre><code>You can't afford to change dex from 8 to 15.
+</code></pre>
+<p>Your program must print the following output when displaying the character
+sheet:</p>
+<ul>
+<li><code>Player: </code> followed by the player name</li>
+<li><code>Character: ___, level ___, ___ ___</code>, replacing the blanks with the
+character's name, level, ancestry (lowercase), and class (lowercase) in that
+order</li>
+<li><code>HP: ___, AC: ___</code>, replacing the blanks with the character's hit points and
+armor class</li>
+<li><code>Proficiency: +</code> followed by the character's proficiency bonus</li>
+<li><code>Abilities:</code></li>
+<li>Each ability's three-letter abbreviation, score, and modifier indented and
+formatted as they were in the previous project</li>
+</ul>
+<p>Here's an example of the character sheet output:</p>
+<pre><code>Player: Alice
+Character: Bob, level 15 elf bard
+HP: 73, AC: 15
+Proficiency: +5
+Abilities:
+    Str 15 (+2)
+    Dex 16 (+3)
+    Con 10 (+0)
+    Int 12 (+1)
+    Wis  9 (-1)
+    Cha 13 (+1)
+</code></pre>
+<p>Finally, you should include appropriate prompts throughout your program when
+expecting user input. These prompts are ignored by the tests and should not
+affect whether your program passes or fails any of them, so you can phrase these
+prompts however you wish.</p>
+<h3 id="random-numbers"><a class="header" href="#random-numbers">Random Numbers</a></h3>
+<p>To ensure compatibility with my tests, there are a few additional requirements
+whenever you have to generate a random number:</p>
+<ul>
+<li>Each random number is generated by a function from the <code>Dice</code> class.</li>
+<li>Your program "rolls" dice in the order implied by the rest of these
+directions. For example, when you are rolling ability scores you should roll
+them in the listed order: first strength, then dexterity, then constitution,
+and so on.</li>
+<li>Your program does not roll extra dice. For example, calling one of the Dice
+class's functions to generate a random number when you don't need to roll a
+die, or rolling each die twice instead of once.</li>
+</ul>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Your program must include all of the functions described below.</p>
+<p>Unless they are required to handle specific errors, your functions can assume
+that all of their parameters contain valid input.</p>
+<h4 id="rollabilityscores"><a class="header" href="#rollabilityscores"><code>rollAbilityScores</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters: none</li>
+</ul>
+<p>Must create and return an array of six integers representing a character's
+ability scores. Must generate each score by simulating four six-sided dice rolls
+and summing the three highest rolls.</p>
+<h4 id="purchaseabilityscores"><a class="header" href="#purchaseabilityscores"><code>purchaseAbilityScores</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters: <strong>none</strong></li>
+</ul>
+<p>Must create and return an array of six integers representing a character's
+ability scores. The user will set the scores following the standard point buy
+rules for D&amp;D 5th edition.</p>
+<p>Must repeat the following process until the user is finished:</p>
+<ul>
+<li>Display the current ability scores and point budget.</li>
+<li>Prompt the user for either an ability (the three-letter abbreviation) or the
+word "done", which will end the process and return the current set of ability
+scores.</li>
+<li>Prompt the user to enter a new score for the chosen ability. This must be an
+integer between 8 and 15 (inclusive).</li>
+<li>If the user has enough points left in their budget to set the chosen ability
+to the chosen score, then the ability score and point budget must update.</li>
+<li>If the user does not have enough points, then the program will print "You
+can't afford to change ABILITY from OLD to NEW." before continuing. <code>ABILITY</code>
+must be replaced with the abbreviated name of the ability, <code>OLD</code> must be
+replaced with the current score, and <code>NEW</code> must be replaced with the new score
+entered by the user.</li>
+</ul>
+<h4 id="applyancestryadjustments"><a class="header" href="#applyancestryadjustments"><code>applyAncestryAdjustments</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's ancestry</li>
+<li>An <code>int</code> array containing the ability scores</li>
+</ul>
+</li>
+</ul>
+<p>Must adjust the ability scores based on the given ancestry. This method changes
+elements in its array parameter and does not create or return a new array.</p>
+<p>If your function receives an invalid ancestry, then it doesn't have to do
+anything.</p>
+<h4 id="calculateabilitymodifiers"><a class="header" href="#calculateabilitymodifiers"><code>calculateAbilityModifiers</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array containing the character's ability scores</li>
+</ul>
+</li>
+</ul>
+<p>Must return an array containing the modifier derived from each ability score.
+The modifiers must be in the same order as the scores.</p>
+<h4 id="gethitdie"><a class="header" href="#gethitdie"><code>getHitDie</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+</ul>
+</li>
+</ul>
+<p>Must return the size of the hit die for the given class.</p>
+<p>If your function receives an invalid class, then it can return 4.</p>
+<h4 id="rollhitpoints"><a class="header" href="#rollhitpoints"><code>rollHitPoints</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Must calculate and return the character's hit points using the rolling method
+described for hit points.</p>
+<p>Remember that your program must simulate random dice rolls by calling the
+appropriate method from the <code>Dice</code> class, and it must not simulate more dice
+rolls than necessary. This is required to keep your code compatible with the
+test program.</p>
+<h4 id="averagehitpoints"><a class="header" href="#averagehitpoints"><code>averageHitPoints</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Must calculate and return the character's hit points using the average method
+described for hit points.</p>
+<h4 id="calculatearmorclass"><a class="header" href="#calculatearmorclass"><code>calculateArmorClass</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Calculate and return the character's armor class.</p>
+<p>If your function receives an invalid class, then it can return whichever number
+you want. 10 is a good default value, but the tests will only provide valid
+class names.</p>
+<h4 id="createcharactersheet"><a class="header" href="#createcharactersheet"><code>createCharacterSheet</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the player's name</li>
+<li>A <code>String</code> representing the character's name</li>
+<li>A <code>String</code> representing the character's ancestry</li>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>A <code>boolean</code> representing whether the user chose to roll their hit points
+(<code>true</code>) or take the average (<code>false</code>)</li>
+<li>An <code>int</code> array containing the character's ability scores before ancestry
+adjustments</li>
+</ul>
+</li>
+</ul>
+<p>Must perform all calculations necessary to create the character sheet and then
+print the character sheet. The parameters represent input provided by the user
+in response to the program's initial prompts and the ability scores generated by
+either the point buy or the dice roll method.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="project4.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="project6.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="project4.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="project6.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1158,7 +1158,9 @@ labels of all dice that will be rerolled</li>
 must be set to a random number from 1 to 6. Each element of the array parameter
 whose label does <strong>not</strong> appear in the string parameter must be left as is.</p>
 <p>Labels are not case-sensitive, but your code will only be tested with lowercase
-letters. An element's label is determined by its index:</p>
+letters in alphabetical order without repeats (for example, the tests might give
+you the command "r ace" but they won't give you the commands "r ABC", "r aab",
+or "r eca". An element's label is determined by its index:</p>
 <ul>
 <li>index 0 -&gt; a</li>
 <li>index 1 -&gt; b</li>
@@ -1426,6 +1428,882 @@ example scores with scores calculated from your dice parameter.</p>
 5. Fives: X
 6. Sixes: X
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-5-complete-character-sheet"><a class="header" href="#project-5-complete-character-sheet">Project 5: Complete Character Sheet</a></h1>
+<p>You will modify the character creation rules and implement more interesting
+methods of generating a character's stats. This will be a compiled Java program,
+not a Jshell script.</p>
+<h2 id="primary-topics-4"><a class="header" href="#primary-topics-4">Primary Topics</a></h2>
+<ul>
+<li>Mathematical expressions</li>
+<li>Conditional expressions</li>
+<li>Simple iterative statements</li>
+<li>Simple functions</li>
+<li>Simple data structures (arrays, strings)</li>
+</ul>
+<h2 id="prerequisites-and-setup-4"><a class="header" href="#prerequisites-and-setup-4">Prerequisites and Setup</a></h2>
+<ul>
+<li>Complete projects 1 and 2. I also recommend completing projects 3 and 4
+because this program makes frequent use of both functions and arrays, which
+are the focus of those projects.</li>
+<li>Make sure you have <code>Dice.java</code> from projects 3 and 4.</li>
+<li>Create a file named <code>CharacterSheet3.java</code> in your projects folder. You can
+either start from scratch or copy your code from <code>CharacterSheet2.java</code>.</li>
+</ul>
+<h2 id="tasks-4"><a class="header" href="#tasks-4">Tasks</a></h2>
+<h3 id="task-1-program-design"><a class="header" href="#task-1-program-design">Task 1: Program Design</a></h3>
+<p>Choose one of the options below.</p>
+<h4 id="option-1-default-dd-5e-rules"><a class="header" href="#option-1-default-dd-5e-rules">Option 1: (Default) D&amp;D 5e Rules</a></h4>
+<p>If you choose this option, then you must make the changes summarized below:</p>
+<ul>
+<li>You will split your program into separate <a href="project5.html#functions">functions</a>.</li>
+<li>The user will have six options for their class and ancestry:
+<ul>
+<li>Ancestries: Dragonborn, Dwarf, Elf, Gnome, Halfling, or Human</li>
+<li>Classes: Barbarian, Bard, Cleric, Fighter, Rogue, or Wizard</li>
+</ul>
+</li>
+<li>The character will have six ability scores: Strength, Dexterity, Constitution,
+Intelligence, Wisdom, and Charisma.</li>
+<li>The user can choose to either roll their ability scores or use 5e's point buy
+system.
+<ul>
+<li>Roll: the program will simulate rolling four six-sided dice for each ability
+score, dropping the lowest die and summing the remaining three.</li>
+<li>Point Buy: the user spends points to purchase ability scores. They can
+select any score from 8 to 15 as long as they have enough points left to buy
+that score.</li>
+</ul>
+</li>
+</ul>
+<p>This option also requires your program to pass a set of tests. The
+<a href="project5.html#additional-details">additional details</a> section has a list of requirements
+that will be checked by the tests, and the structure provided by these
+requirements may be helpful if you're having trouble writing this program
+without the usual guided coding steps.</p>
+<h4 id="option-2-custom-new-rules"><a class="header" href="#option-2-custom-new-rules">Option 2: (Custom) New Rules</a></h4>
+<p>If you're interested in designing an alternative program for this project, then
+talk to me during class or office hours. It would require you to write a
+detailed proposal for your version of the project, which would take the place of
+the normal requirements in this project.</p>
+<!---->
+<!-- If you choose this option, then you will design a new set of character creation -->
+<!-- rules. This doesn't have to be related to D&D, and the rules don't even have to -->
+<!-- be for a game. You could create a user account for a fictional social media app, -->
+<!-- a profile for a professional athlete, or anything else you can think of. -->
+<!---->
+<!-- Your new design must meet the following requirements: -->
+<!---->
+<!-- - Your program generates additional information from the user's input. We want -->
+<!--   our program to make creating this character (or account, profile, whatever) -->
+<!--   more convenient for the user than if they did it by hand, so it should do a -->
+<!--   reasonable amount of work for them. For example, the default program applies -->
+<!--   adjustments to the character's ability scores and calculates their ability -->
+<!--   modifiers. The user doesn't have to perform or understand these calculations -->
+<!--   to create a character with that program. -->
+<!-- - Your program includes one or two "advanced" features that either implement -->
+<!--   more complex rules than the formulas and error-checking from 1.2 or allow the -->
+<!--   user to do something with their character after it's finished. Some examples: -->
+<!--   - the point-buy calculator in the default version of this project -->
+<!--   - a quiz that determines some of your character's stats, like you might see in -->
+<!--     older RPGs -->
+<!--   - the ability to simulate skill checks, attacks, and other rolls you'd -->
+<!--     commonly make while playing the game -->
+<!---->
+<!-- This program doesn't need to be realistic or practical. It only needs to make -->
+<!-- sense in whatever scenario you have imagined for it. For example, the default -->
+<!-- program doesn't come close to making a complete D&D character, but it still -->
+<!-- accurately implements most of the character creation rules it does use. You -->
+<!-- could use a character created with that program as a starting point for a real -->
+<!-- D&D character. -->
+<!---->
+<!-- I expect this program to be similar in complexity to the default version of the -->
+<!-- assignment. You shouldn't need to go out of your way to make it complicated, but -->
+<!-- don't try to use this option to trivialize the assignment. If your proposed -->
+<!-- rules are too simple, then I will provide feedback and ask you to revise your -->
+<!-- proposal. -->
+<!---->
+<!-- This option exempts you from the I/O requirements, the function requirements, -->
+<!-- and the tests for this project. It requires an approved proposal before you -->
+<!-- start working on or submit the project. -->
+<!---->
+<!-- Your proposal must answer the following questions: -->
+<!---->
+<!-- 1. Explain the premise of this program. What kind of character (or profile, -->
+<!--    etc.) are we creating, and how would we use it? If it's related to something -->
+<!--    that already exists (such as another game or intellectual property), then -->
+<!--    feel free to link to some sources that explain it in more detail. -->
+<!-- 2. Explain the advanced feature(s) you will include in the program. Be specific -->
+<!--    and provide enough detail for me to replicate the process by hand. -->
+<!-- 3. What information will the user provide to your program? What does this -->
+<!--    information tell the program about the user? Include _all_ information you -->
+<!--    expect the user to provide. -->
+<!-- 4. What information will the program generate from the user's input? How will it -->
+<!--    generate this information? Be specific and provide enough detail for me to -->
+<!--    replicate this process by hand. -->
+<h3 id="task-2-implement-your-program"><a class="header" href="#task-2-implement-your-program">Task 2: Implement Your Program</a></h3>
+<p>If you chose the default option, then refer to the
+<a href="project5.html#additional-details">additional details</a> section for specific requirements.</p>
+<p>If you chose the custom option, then you should refer to your accepted proposal
+for specific requirements and ignore the additional details section of this
+assignment.</p>
+<h3 id="task-3-run-tests"><a class="header" href="#task-3-run-tests">Task 3: Run Tests</a></h3>
+<p>If you chose the default version of this assignment, then run the tests for your
+project and look at the feedback. If your code passed every test, then this step
+is finished.</p>
+<p>If you chose the custom version, then you should not attempt to test it with my
+test program. Instead, you should run your program enough to be confident that
+it works correctly under normal circumstances. If it is difficult for me to use
+your program without encountering significant bugs or errors, then you will have
+to revise and resubmit the project.</p>
+<h3 id="task-4-write-up"><a class="header" href="#task-4-write-up">Task 4: Write-Up</a></h3>
+<p>After completing the program, answer the questions below in a separate document.
+<strong>This is not an essay: do NOT double-space, and keep your answers to each
+question separate</strong>. Your answers should be reasonably detailed and address each
+question in full. I expect you to be accurate when describing your project, but
+I'm otherwise not concerned with whether you provide the "correct" answer to a
+question. Much of what I'm asking you for is your opinion or analysis of your
+work. I want to know what <em>you</em> think so that I can assess your understanding
+and provide useful feedback. If I disagree with you, then I will explain why and
+offer suggestions without penalizing your grade.</p>
+<p>Also, an important reminder: <strong>do not use ChatGPT or another LLM to assist with
+or complete the write-up for you</strong>. The whole point is for you to think
+critically about and explain your code. I do not care what ChatGPT "thinks"
+about your work. Form your own opinions and justify them as best you can.</p>
+<ol>
+<li>Review your program and find a piece of code that was either challenging to
+write or that you think is an example of particularly good code (it's up to you
+what "good code" means, but you should be able to justify your opinion). Explain
+why you chose this code: why is it an example of good code or what was
+challenging about writing it? Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+<li>Review your program and find a piece of code that you think could be improved.
+What do you dislike or want to change about this code? If you were to spend more
+time on the project, how might you improve this code? To be clear, I'm not
+asking you how the <em>program</em> could be better. I don't want to know what feature
+you'd add or how you'd make it easier to use. I'm asking how part of the <em>code</em>
+could be better. This might mean shorter, easier to read, less repetitive, or
+something else that you value and think you could improve with additional time
+and/or programming knowledge. Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+</ol>
+<!-- Additionally, answer the following question if you designed your own program: -->
+<!---->
+<!-- 3. Explain how to use your program. These directions and your program's prompts -->
+<!--    must be sufficient for someone to learn how to use your program without -->
+<!--    reading any of the code. If your prompts are good, then you may not need to -->
+<!--    write much for this question! -->
+<h2 id="deliverables-4"><a class="header" href="#deliverables-4">Deliverables</a></h2>
+<ul>
+<li>Your <code>CharacterSheet3.java</code> file</li>
+<li>Your writeup</li>
+<li>Any other material you created for this project (only relevant if you chose
+the custom option in part 1)</li>
+</ul>
+<h2 id="additional-details-4"><a class="header" href="#additional-details-4">Additional Details</a></h2>
+<p>This section covers the requirements for anyone who chose the default option. If
+you went with the custom option, then you can ignore this part of the
+assignment.</p>
+<h3 id="rulescalculations"><a class="header" href="#rulescalculations">Rules/Calculations</a></h3>
+<p>This section covers all of the D&amp;D rules and calculations that your program must
+implement. Other sections may refer to these requirements.</p>
+<h4 id="ability-scores-rolling"><a class="header" href="#ability-scores-rolling">Ability Scores: Rolling</a></h4>
+<p>The user can choose to roll their ability scores. Rolling each score uses the
+following steps:</p>
+<ul>
+<li>Roll four six-sided dice</li>
+<li>Remove the die with the lowest value (in case of a tie, only remove one die)</li>
+<li>Sum the remaining three dice to determine the ability score</li>
+</ul>
+<p>This method produces scores between 3 and 18 (inclusive). This allows for lower
+and higher scores than a player could normally get through point buy, but the
+player has less control over their scores. Our program is also assigning the
+scores in the order they were rolled rather than letting the player assign them.</p>
+<h4 id="ability-scores-point-buy"><a class="header" href="#ability-scores-point-buy">Ability Scores: Point Buy</a></h4>
+<p>The user can choose to use D&amp;D 5e's point buy system to determine their ability
+scores. The point buy system has the following rules:</p>
+<ul>
+<li>The user has a budget of 27 points to spend on their ability scores.</li>
+<li>Each ability score defaults to 8 until the user changes it.</li>
+<li>The user can choose any integer from 8 to 15 (inclusive) for an ability score,
+provided they have enough points remaining to purchase that score. The score
+costs are as follows:</li>
+</ul>
+<div class="table-wrapper"><table><thead><tr><th>Score</th><th>Point Cost</th></tr></thead><tbody>
+<tr><td>8</td><td>0</td></tr>
+<tr><td>9</td><td>1</td></tr>
+<tr><td>10</td><td>2</td></tr>
+<tr><td>11</td><td>3</td></tr>
+<tr><td>12</td><td>4</td></tr>
+<tr><td>13</td><td>5</td></tr>
+<tr><td>14</td><td>7</td></tr>
+<tr><td>15</td><td>9</td></tr>
+</tbody></table>
+</div>
+<h4 id="ancestry-adjustments"><a class="header" href="#ancestry-adjustments">Ancestry Adjustments</a></h4>
+<p>The following table shows the ability score adjustments for each ancestry.</p>
+<div class="table-wrapper"><table><thead><tr><th>Ancestry</th><th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th></tr></thead><tbody>
+<tr><td>Dragonborn</td><td>+2</td><td></td><td></td><td></td><td></td><td>+1</td></tr>
+<tr><td>Dwarf</td><td></td><td></td><td>+2</td><td></td><td>+1</td><td></td></tr>
+<tr><td>Elf</td><td></td><td>+2</td><td></td><td>+1</td><td></td><td></td></tr>
+<tr><td>Gnome</td><td></td><td>+2</td><td></td><td></td><td></td><td>+1</td></tr>
+<tr><td>Halfling</td><td></td><td>+2</td><td></td><td></td><td>+1</td><td></td></tr>
+<tr><td>Human</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td><td>+1</td></tr>
+</tbody></table>
+</div>
+<h4 id="ability-modifiers"><a class="header" href="#ability-modifiers">Ability Modifiers</a></h4>
+<p>After adjusting a character's ability scores for their ancestry, we calculate
+each ability's modifier. The score's main purpose is to determine this modifier,
+whereas the modifier is the number we use for all of our calculations (hp, ac,
+etc.). The table below shows the modifier for each possible ability score a
+character can have in this program, but you can also calculate an ability's
+modifier with the formula <code>modifier = score / 2 - 5</code>.</p>
+<div class="table-wrapper"><table><thead><tr><th>Score</th><th>Modifier</th></tr></thead><tbody>
+<tr><td>3</td><td>-4</td></tr>
+<tr><td>4-5</td><td>-3</td></tr>
+<tr><td>6-7</td><td>-2</td></tr>
+<tr><td>8-9</td><td>-1</td></tr>
+<tr><td>10-11</td><td>+0</td></tr>
+<tr><td>12-13</td><td>+1</td></tr>
+<tr><td>14-15</td><td>+2</td></tr>
+<tr><td>16-17</td><td>+3</td></tr>
+<tr><td>18-19</td><td>+4</td></tr>
+<tr><td>20</td><td>+5</td></tr>
+</tbody></table>
+</div>
+<h4 id="classes"><a class="header" href="#classes">Classes</a></h4>
+<p>The following table shows the properties of each class.</p>
+<div class="table-wrapper"><table><thead><tr><th>Class</th><th>Hit Die</th><th>AC Formula</th></tr></thead><tbody>
+<tr><td>Barbarian</td><td>d12</td><td>10 + Dex + Con</td></tr>
+<tr><td>Bard</td><td>d8</td><td>12 + Dex</td></tr>
+<tr><td>Cleric</td><td>d8</td><td>15 + min(Dex, 2)</td></tr>
+<tr><td>Fighter</td><td>d10</td><td>18</td></tr>
+<tr><td>Rogue</td><td>d8</td><td>12 + Dex</td></tr>
+<tr><td>Wizard</td><td>d6</td><td>10 + Dex</td></tr>
+</tbody></table>
+</div>
+<p>All ability names in the AC formula refer to that ability's <em>modifier</em>, not its
+score.</p>
+<p>A note about the cleric's AC: we add 15 to either the cleric's dexterity
+modifier or 2, whichever is less. This limits the cleric's dexterity modifier to
++2 or less for the purpose of calculating their armor class. You can use the
+<code>Math.min</code> function to take the lower of two numbers.</p>
+<h4 id="hit-points"><a class="header" href="#hit-points">Hit Points</a></h4>
+<p>A character's hit points can be calculated by rolling their hit die or taking an
+average value for each level. A hit die is written as "d" followed by the number
+of sides on the die. For example, "d12" refers to a twelve-sided die. To
+calculate a character's hit points:</p>
+<ul>
+<li>Use the maximum value (the number of sides on the die) for first level,
+regardless of whether you are rolling or taking the average.</li>
+<li>For each level after first:
+<ul>
+<li>If rolling, then roll the hit die and add the character's constitution
+modifier to the result</li>
+<li>If taking the average, then use 1 + half the die size + the character's
+constitution modifier</li>
+<li>A character gains a minimum of 1 hit point per level. If the constitution
+modifier is negative, then you need to make sure the result for any given
+level is not less than 1. One way to do this is to use <code>Math.max</code> to take
+the larger value between 1 and the number you calculated in the previous
+step.</li>
+</ul>
+</li>
+</ul>
+<p>For example, let's calculate the hit points of a 3rd level fighter with a
+constitution modifier of -2. In the class table we can see that a fighter's hit
+die is d10.</p>
+<ul>
+<li>Rolling (let's assume I roll a 2 and a 7 on a d10)
+<ul>
+<li>The fighter gains 8 hp at first level: 10 (max hit die value) plus -2 (con)</li>
+<li>The fighter gains 1 hp at second level: 2 (number rolled on a d10) plus -2
+(con) is less than 1, but a character must gain a minimum of 1 hp per level</li>
+<li>The fighter gains 5 hp at second level: 7 (number rolled on a d10) plus -2
+(con)</li>
+<li>Total hp: 14</li>
+</ul>
+</li>
+<li>Average
+<ul>
+<li>The fighter gains 8 hp at first level: 10 (max hit die value) plus -2 (con)</li>
+<li>The fighter gains 4 hp at second and third level: 6 (half hit die plus one)
+plus -2 (con)</li>
+<li>Total hp: 16</li>
+</ul>
+</li>
+</ul>
+<h3 id="io-format-4"><a class="header" href="#io-format-4">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the following user input:</p>
+<ul>
+<li>(String) player's name</li>
+<li>(String) character's name</li>
+<li>(String) character's ancestry</li>
+<li>(String) character's class</li>
+<li>(int) character's level</li>
+<li>(int) either "1" or "2" to indicate whether the user wishes to (1) roll their
+hit points or (2) use average hit points</li>
+<li>(int) either "1" or "2" to indicate whether the user wishes to generate their
+scores with (1) point buy or (2) dice roll</li>
+</ul>
+<p>If the user chooses point buy, then your program must accept the following
+input, which will repeat until the user finishes purchasing ability scores:</p>
+<ul>
+<li>Either an ability (the three-letter abbreviation, all lowercase) or the word
+"done", which indicates that the user is finished with the point buy process.
+If the user types "done", then no more input will follow.</li>
+<li>A new score for the chosen ability (int)</li>
+</ul>
+<p>If the user enters invalid input of the correct type (for example, a level of -3
+or a class of "knight"), then the program must print "Invalid choice, try
+again." and make the user re-enter that piece of input. This message and reread
+must repeat until the user enters valid input. You <strong>do not</strong> have to do this
+for the wrong <em>type</em> of input, such as the user entering a level of "abc". That
+would require exception handling, which you aren't expected to know for this
+project.</p>
+<p>Your program must print the following output during each iteration of the
+point-buy process:</p>
+<ul>
+<li>The current value of each ability score formatted as the ability name's
+three-letter abbreviation followed by the score. There must be a space after
+the ability name, and the score must be right-aligned. These should also
+(optionally) be indented.</li>
+<li>The current budget, formatted as "Budget: X out of 27 points spent.". Replace
+X with the total cost of the current set of ability scores.</li>
+</ul>
+<p>Here's an example of the point-buy output:</p>
+<pre><code>Budget: 20 out of 27 points spent.
+    Str 15
+    Dex  8
+    Con 10
+    Int 11
+    Wis  9
+    Cha 13
+</code></pre>
+<p>Your program must also print a warning if the user tries to exceed their budget
+when setting a score. Here's an example:</p>
+<pre><code>You can't afford to change dex from 8 to 15.
+</code></pre>
+<p>Your program must print the following output when displaying the character
+sheet:</p>
+<ul>
+<li><code>Player: </code> followed by the player name</li>
+<li><code>Character: ___, level ___, ___ ___</code>, replacing the blanks with the
+character's name, level, ancestry (lowercase), and class (lowercase) in that
+order</li>
+<li><code>HP: ___, AC: ___</code>, replacing the blanks with the character's hit points and
+armor class</li>
+<li><code>Proficiency: +</code> followed by the character's proficiency bonus</li>
+<li><code>Abilities:</code></li>
+<li>Each ability's three-letter abbreviation, score, and modifier indented and
+formatted as they were in the previous project</li>
+</ul>
+<p>Here's an example of the character sheet output:</p>
+<pre><code>Player: Alice
+Character: Bob, level 15 elf bard
+HP: 73, AC: 15
+Proficiency: +5
+Abilities:
+    Str 15 (+2)
+    Dex 16 (+3)
+    Con 10 (+0)
+    Int 12 (+1)
+    Wis  9 (-1)
+    Cha 13 (+1)
+</code></pre>
+<p>Finally, you should include appropriate prompts throughout your program when
+expecting user input. These prompts are ignored by the tests and should not
+affect whether your program passes or fails any of them, so you can phrase these
+prompts however you wish.</p>
+<h3 id="random-numbers-2"><a class="header" href="#random-numbers-2">Random Numbers</a></h3>
+<p>To ensure compatibility with my tests, there are a few additional requirements
+whenever you have to generate a random number:</p>
+<ul>
+<li>Each random number is generated by a function from the <code>Dice</code> class.</li>
+<li>Your program "rolls" dice in the order implied by the rest of these
+directions. For example, when you are rolling ability scores you should roll
+them in the listed order: first strength, then dexterity, then constitution,
+and so on.</li>
+<li>Your program does not roll extra dice. For example, calling one of the Dice
+class's functions to generate a random number when you don't need to roll a
+die, or rolling each die twice instead of once.</li>
+</ul>
+<h3 id="functions-2"><a class="header" href="#functions-2">Functions</a></h3>
+<p>Your program must include all of the functions described below.</p>
+<p>Unless they are required to handle specific errors, your functions can assume
+that all of their parameters contain valid input.</p>
+<h4 id="rollabilityscores"><a class="header" href="#rollabilityscores"><code>rollAbilityScores</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters: none</li>
+</ul>
+<p>Must create and return an array of six integers representing a character's
+ability scores. Must generate each score by simulating four six-sided dice rolls
+and summing the three highest rolls.</p>
+<h4 id="purchaseabilityscores"><a class="header" href="#purchaseabilityscores"><code>purchaseAbilityScores</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters: <strong>none</strong></li>
+</ul>
+<p>Must create and return an array of six integers representing a character's
+ability scores. The user will set the scores following the standard point buy
+rules for D&amp;D 5th edition.</p>
+<p>Must repeat the following process until the user is finished:</p>
+<ul>
+<li>Display the current ability scores and point budget.</li>
+<li>Prompt the user for either an ability (the three-letter abbreviation) or the
+word "done", which will end the process and return the current set of ability
+scores.</li>
+<li>Prompt the user to enter a new score for the chosen ability. This must be an
+integer between 8 and 15 (inclusive).</li>
+<li>If the user has enough points left in their budget to set the chosen ability
+to the chosen score, then the ability score and point budget must update.</li>
+<li>If the user does not have enough points, then the program will print "You
+can't afford to change ABILITY from OLD to NEW." before continuing. <code>ABILITY</code>
+must be replaced with the abbreviated name of the ability, <code>OLD</code> must be
+replaced with the current score, and <code>NEW</code> must be replaced with the new score
+entered by the user.</li>
+</ul>
+<h4 id="applyancestryadjustments"><a class="header" href="#applyancestryadjustments"><code>applyAncestryAdjustments</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's ancestry</li>
+<li>An <code>int</code> array containing the ability scores</li>
+</ul>
+</li>
+</ul>
+<p>Must adjust the ability scores based on the given ancestry. This method changes
+elements in its array parameter and does not create or return a new array.</p>
+<p>If your function receives an invalid ancestry, then it doesn't have to do
+anything.</p>
+<h4 id="calculateabilitymodifiers"><a class="header" href="#calculateabilitymodifiers"><code>calculateAbilityModifiers</code></a></h4>
+<ul>
+<li>Return type: <code>int[]</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array containing the character's ability scores</li>
+</ul>
+</li>
+</ul>
+<p>Must return an array containing the modifier derived from each ability score.
+The modifiers must be in the same order as the scores.</p>
+<h4 id="gethitdie"><a class="header" href="#gethitdie"><code>getHitDie</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+</ul>
+</li>
+</ul>
+<p>Must return the size of the hit die for the given class.</p>
+<p>If your function receives an invalid class, then it can return 4.</p>
+<h4 id="rollhitpoints"><a class="header" href="#rollhitpoints"><code>rollHitPoints</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Must calculate and return the character's hit points using the rolling method
+described for hit points.</p>
+<p>Remember that your program must simulate random dice rolls by calling the
+appropriate method from the <code>Dice</code> class, and it must not simulate more dice
+rolls than necessary. This is required to keep your code compatible with the
+test program.</p>
+<h4 id="averagehitpoints"><a class="header" href="#averagehitpoints"><code>averageHitPoints</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Must calculate and return the character's hit points using the average method
+described for hit points.</p>
+<h4 id="calculatearmorclass"><a class="header" href="#calculatearmorclass"><code>calculateArmorClass</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> array containing the character's ability modifiers</li>
+</ul>
+</li>
+</ul>
+<p>Calculate and return the character's armor class.</p>
+<p>If your function receives an invalid class, then it can return whichever number
+you want. 10 is a good default value, but the tests will only provide valid
+class names.</p>
+<h4 id="createcharactersheet"><a class="header" href="#createcharactersheet"><code>createCharacterSheet</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>A <code>String</code> representing the player's name</li>
+<li>A <code>String</code> representing the character's name</li>
+<li>A <code>String</code> representing the character's ancestry</li>
+<li>A <code>String</code> representing the character's class</li>
+<li>An <code>int</code> representing the character's level</li>
+<li>A <code>boolean</code> representing whether the user chose to roll their hit points
+(<code>true</code>) or take the average (<code>false</code>)</li>
+<li>An <code>int</code> array containing the character's ability scores before ancestry
+adjustments</li>
+</ul>
+</li>
+</ul>
+<p>Must perform all calculations necessary to create the character sheet and then
+print the character sheet. The parameters represent input provided by the user
+in response to the program's initial prompts and the ability scores generated by
+either the point buy or the dice roll method.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="project-6-complete-dice-game"><a class="header" href="#project-6-complete-dice-game">Project 6: Complete Dice Game</a></h1>
+<p>After completing this part, you should have a fully functioning dice game that
+you can play on your terminal.</p>
+<h2 id="primary-topics-5"><a class="header" href="#primary-topics-5">Primary Topics</a></h2>
+<ul>
+<li>Simple conditional expressions</li>
+<li>Simple iterative expressions</li>
+<li>Simple functions</li>
+<li>Simple data structures (arrays, strings)</li>
+</ul>
+<h2 id="prerequisites-and-setup-5"><a class="header" href="#prerequisites-and-setup-5">Prerequisites and Setup</a></h2>
+<ul>
+<li>Complete projects 3 and 4. This assignment builds directly on the program
+created for those projects.</li>
+<li>Make sure you have <code>Dice.java</code> from projects 3 and 4.</li>
+<li>Create a file named <code>DiceGame3.java</code> in your projects folder. You can either
+start from scratch or copy your code from <code>DiceGame2.java</code>.</li>
+</ul>
+<h2 id="tasks-5"><a class="header" href="#tasks-5">Tasks</a></h2>
+<h3 id="task-1-determine-your-rules"><a class="header" href="#task-1-determine-your-rules">Task 1: Determine Your Rules</a></h3>
+<p>Choose one of the options below.</p>
+<h4 id="option-1-default-yahtzee"><a class="header" href="#option-1-default-yahtzee">Option 1: (Default) Yahtzee</a></h4>
+<p>If you choose this option, then you must complete the program by implementing
+the remaining parts of Yahtzee. Your program must follow all of the standard
+rules except for the "Yahtzee Bonus" rules in the official rules. In your
+program, a Yahtzee should be treated like any other scoring category with no
+special cases.</p>
+<p>Program summary:</p>
+<ul>
+<li>A single user will play a full thirteen rounds of Yahtzee.</li>
+<li>Each round will consist of a reroll phase and a score phase.
+<ul>
+<li>During the reroll phase the user can reroll their dice up to two times, and
+they can choose which dice to reroll each time.</li>
+<li>During the score phase the user must choose one unused score category to
+determine how many points they receive for their dice.</li>
+</ul>
+</li>
+<li>After thirteen rounds, the game will end and the user will see a final
+scorecard showing their points in each category, as well as their total score.</li>
+</ul>
+<p>This option also requires your program to pass a set of tests. The
+<a href="project6.html#additional-details">additional details</a> section has a list of requirements
+that will be checked by the tests, and the structure provided by these
+requirements may be helpful if you're having trouble writing this program
+without the usual guided coding steps.</p>
+<h4 id="option-2-custom-other-dice-game"><a class="header" href="#option-2-custom-other-dice-game">Option 2: (Custom) Other Dice Game</a></h4>
+<p>If you're interested in designing an alternative program for this project, then
+talk to me during class or office hours. It would require you to write a
+detailed proposal for your version of the project, which would take the place of
+the normal requirements in this project.</p>
+<!-- If you choose this option, then you can implement a different dice game instead -->
+<!-- of finishing Yahtzee. This can be a game you designed or an existing game. I -->
+<!-- expect the game you implement to be similar in complexity to Yahtzee. A simple -->
+<!-- game that takes little effort to code is not appropriate for this project. Feel -->
+<!-- free to ask me about your game before submitting a proposal if you're not sure -->
+<!-- whether I will allow you to use it. -->
+<!---->
+<!-- This option exempts you from the I/O requirements, the function requirements, -->
+<!-- and the tests for this project. It requires an approved proposal before you -->
+<!-- start working on or submit the project. -->
+<!---->
+<!-- Your proposal must answer the following questions: -->
+<!---->
+<!-- 1. Explain the rules of your game in enough detail that I or another person -->
+<!--    could play your game using real dice. If you are using an existing game, then -->
+<!--    you can summarize the rules (in your own words), state any changes you are -->
+<!--    making to the rules, and link to the official rules or another source that -->
+<!--    explains them in detail. I expect you to play your game a few times to ensure -->
+<!--    you understand the rules and that any rules you changed or designed yourself -->
+<!--    work in practice. -->
+<!-- 2. Explain how the user would interact with your program. Describe any commands -->
+<!--    or input the user would be expected to type while using the program and how -->
+<!--    the program should respond. -->
+<!-- 3. Describe three new functions you expect to create while implementing this -->
+<!--    program. What do these functions do, what parameters do they require, and -->
+<!--    what (if anything) do they return? These must be new functions that did not -->
+<!--    already exist in 2.1 or 2.2, not modified versions of functions you wrote for -->
+<!--    those programs. -->
+<!---->
+<!-- Your answers to questions 2 and 3 may change as you write your program, and -->
+<!-- that's okay! As long as your game's rules remain the same, you do not need to -->
+<!-- submit a new proposal. You will address changes to the functions and user input -->
+<!-- in the writeup task. -->
+<h3 id="task-2-implement-your-program-1"><a class="header" href="#task-2-implement-your-program-1">Task 2: Implement Your Program</a></h3>
+<p>If you chose the default option, then refer to the
+<a href="project6.html#additional-details">additional details</a> section for specific requirements.</p>
+<p>If you chose the custom option, then you should refer to your accepted proposal
+for specific requirements and ignore the additional details section of this
+assignment.</p>
+<h4 id="updating-main"><a class="header" href="#updating-main">Updating <code>main</code></a></h4>
+<p>To help you get started, here's an outline of the <code>main</code> function for the
+default version of the program:</p>
+<ul>
+<li>Create the following arrays, which will be passed to and used by other
+functions in your program:
+<ul>
+<li>an array of thirteen strings for the category names</li>
+<li>an array of thirteen ints for the category scores</li>
+<li>an array of thirteen booleans for the availability of these categories and
+set each element to <code>true</code></li>
+<li>an array of five ints for the dice</li>
+</ul>
+</li>
+<li>Create a loop to play thirteen rounds of the game, which should:
+<ul>
+<li>Print the round number</li>
+<li>Roll the dice</li>
+<li>Call <code>rerollPhase</code></li>
+<li>Call <code>scorePhase</code></li>
+</ul>
+</li>
+<li>Print the final score card after the loop terminates.</li>
+</ul>
+<h3 id="task-3-run-tests-1"><a class="header" href="#task-3-run-tests-1">Task 3: Run Tests</a></h3>
+<p>If you chose the default version of this assignment, then run the tests for your
+project and look at the feedback. If your code passed every test, then this step
+is finished.</p>
+<p>If you chose the custom version, then you should not attempt to test it with my
+test program. Instead, you should run your program enough to be confident that
+it works correctly under normal circumstances. If it is difficult for me to use
+your program without encountering significant bugs or errors, then you will have
+to revise and resubmit the project.</p>
+<h3 id="task-4-write-up-1"><a class="header" href="#task-4-write-up-1">Task 4: Write-Up</a></h3>
+<p>After completing the program, answer the questions below in a separate document.
+<strong>This is not an essay: do NOT double-space, and keep your answers to each
+question separate</strong>. Your answers should be reasonably detailed and address each
+question in full. I expect you to be accurate when describing your project, but
+I'm otherwise not concerned with whether you provide the "correct" answer to a
+question. Much of what I'm asking you for is your opinion or analysis of your
+work. I want to know what <em>you</em> think so that I can assess your understanding
+and provide useful feedback. If I disagree with you, then I will explain why and
+offer suggestions without penalizing your grade.</p>
+<p>Also, an important reminder: <strong>do not use ChatGPT or another LLM to assist with
+or complete the write-up for you</strong>. The whole point is for you to think
+critically about and explain your code. I do not care what ChatGPT "thinks"
+about your work. Form your own opinions and justify them as best you can.</p>
+<ol>
+<li>Review your program and find a piece of code that was either challenging to
+write or that you think is an example of particularly good code (it's up to you
+what "good code" means, but you should be able to justify your opinion). Explain
+why you chose this code: why is it an example of good code or what was
+challenging about writing it? Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+<li>Review your program and find a piece of code that you think could be improved.
+What do you dislike or want to change about this code? If you were to spend more
+time on the project, how might you improve this code? To be clear, I'm not
+asking you how the <em>program</em> could be better. I don't want to know what feature
+you'd add or how you'd make it easier to use. I'm asking how part of the <em>code</em>
+could be better. This might mean shorter, easier to read, less repetitive, or
+something else that you value and think you could improve with additional time
+and/or programming knowledge. Include the code in your answer and note the line
+number(s) and file where it appears in your program.</li>
+</ol>
+<!-- Additionally, answer the following questions if you designed your own program: -->
+<!---->
+<!-- 3. Explain how to use your program. You can assume the user has read the rules -->
+<!--    of your dice game, but don't assume they know anything about how to use your -->
+<!--    program yet. These directions and your program's prompts must be sufficient -->
+<!--    for someone to learn how to use your program without reading any of the code. -->
+<!--    If your prompts are good, then you may not need to write much for this -->
+<!--    question! -->
+<!-- 4. What changes, if any, did you make to the user input you described in your -->
+<!--    proposal? Why did you make these changes? -->
+<!-- 5. What changes, if any, did you make to the functions you described in your -->
+<!--    proposal? Why did you make these changes? -->
+<h2 id="deliverables-5"><a class="header" href="#deliverables-5">Deliverables</a></h2>
+<ul>
+<li>Your <code>DiceGame3.java</code> file</li>
+<li>Your writeup</li>
+<li>Any other material you created for this project (only relevant if you chose
+the custom option in part 1)</li>
+</ul>
+<h2 id="additional-details-5"><a class="header" href="#additional-details-5">Additional Details</a></h2>
+<p>This section covers the requirements for anyone who chose the default option. If
+you went with the custom option, then you can ignore this part of the
+assignment.</p>
+<h3 id="io-format-5"><a class="header" href="#io-format-5">I/O Format</a></h3>
+<p>This program must meet the following I/O requirements:</p>
+<ul>
+<li>The program accepts the required input in the order shown in the assignment
+and does not expect any additional input.</li>
+<li>The program produces each line of required output in the order specified in
+the assignment.</li>
+</ul>
+<p>The program may include additional output before, between, and after lines of
+required output. This additional output must be on a separate line from any
+required output.</p>
+<p>Your program must accept the same user input as in Project 4 for every round of
+the game. There will be 13 rounds in a full game.</p>
+<p>Your program must print the same output as in Project 4, but with the following
+changes:</p>
+<ul>
+<li>At the beginning of each round print "Round X", where X is the round number
+(starting at 1)</li>
+<li>During the score phase:
+<ul>
+<li>A list of options produced by this project's version of the <code>printScore</code>
+function</li>
+<li>The message "ERROR: INVALID CATEGORY" when user chooses a category that
+isn't a number from 1 to 13</li>
+<li>The message "ERROR: CATEGORY UNAVAILABLE" when the user chooses a category
+that was already taken</li>
+<li>The number of points received for the chosen category and that category's
+name formatted as "You receive X points for Y."</li>
+</ul>
+</li>
+<li>After the final round:
+<ul>
+<li>The line "Final Score Card:"</li>
+<li>The output of the <code>printScore</code> function</li>
+</ul>
+</li>
+</ul>
+<p>Additionally, your program should include reasonable prompts for information and
+any additional text that you think would make it easier for the user to interact
+with the program. It's up to you how much of this to include, what exactly to
+say, and how to format it. The tests will not check these prompts.</p>
+<h3 id="random-numbers-3"><a class="header" href="#random-numbers-3">Random Numbers</a></h3>
+<p>See <a href="./project3.html#random-numbers">Project 3</a>.</p>
+<h3 id="functions-3"><a class="header" href="#functions-3">Functions</a></h3>
+<p>Your program must include all of the functions described below <strong>in addition to
+the functions required in <a href="./project3.html#functions">Project 3</a> and
+<a href="./project4.html#functions">Project 4</a></strong>. If a function from Project 3 or 4
+appears below, then the version in this project replaces the version from the
+earlier project.</p>
+<h4 id="scorephase-1"><a class="header" href="#scorephase-1"><code>scorePhase</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> array containing the score for each category</li>
+<li>A <code>boolean</code> array representing whether each category is available</li>
+<li>A <code>String</code> array containing the name of each category</li>
+</ul>
+</li>
+</ul>
+<p>Must perform the following process:</p>
+<ul>
+<li>Display the score options, their availability, and how many points each option
+is worth (call <code>printScores</code>)</li>
+<li>Read integers from the user until they enter a number from one to thirteen
+that corresponds to an available category, displaying an error message for
+each invalid input</li>
+<li>Calculate and print the score for the category chosen by the user</li>
+<li>Store the score in the scores array</li>
+<li>Mark the category as unavailable</li>
+</ul>
+<h4 id="calculatedicescore"><a class="header" href="#calculatedicescore"><code>calculateDiceScore</code></a></h4>
+<ul>
+<li>Return type: <code>int</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> representing a score category (assume a number from 1 to 13)</li>
+</ul>
+</li>
+</ul>
+<p>The numbers 1 to 13 correspond to the following score categories:</p>
+<ul>
+<li>1 -&gt; Aces</li>
+<li>2 -&gt; Twos</li>
+<li>3 -&gt; Threes</li>
+<li>4 -&gt; Fours</li>
+<li>5 -&gt; Fives</li>
+<li>6 -&gt; Sixes</li>
+<li>7 -&gt; Three of a Kind</li>
+<li>8 -&gt; Four of a Kind</li>
+<li>9 -&gt; Full House</li>
+<li>10 -&gt; Small Straight</li>
+<li>11 -&gt; Large Straight</li>
+<li>12 -&gt; Yahtzee</li>
+<li>13 -&gt; Chance</li>
+</ul>
+<p>The score is calculated using the given set of dice.</p>
+<p>You may wish to break this function into separate functions for each score
+category, but it's not required.</p>
+<h4 id="printscores"><a class="header" href="#printscores"><code>printScores</code></a></h4>
+<ul>
+<li>Return type: <code>void</code></li>
+<li>Parameters:
+<ul>
+<li>An <code>int</code> array representing a set of five dice</li>
+<li>An <code>int</code> array containing the score for each category</li>
+<li>A <code>boolean</code> array representing whether each category is available</li>
+<li>A <code>String</code> array containing the name of each category</li>
+</ul>
+</li>
+</ul>
+<p>For each score category, print:</p>
+<ul>
+<li>The category's number (1 to 13)</li>
+<li>The category's name</li>
+<li>If the category is available, then the word "available", followed by the score
+the user will receive from their dice if they choose that category</li>
+<li>If the category is unavailable, then the score previously assigned to that
+category</li>
+</ul>
+<p>The Upper Section's Bonus is 35 points if categories 1-6 add up to 63 or more
+points; otherwise, it is 0 points. The Upper Section Total must include the
+Bonus. The bonus and totals should only be based on the numbers in the scores
+array, not the numbers calculated for available categories.</p>
+<pre><code>Upper Section
+
+1. Aces: X
+2. Twos: X
+3. Threes: X
+4. Fours: X
+5. Fives: X
+6. Sixes: X
+
+Bonus: X
+
+Lower Section
+
+7. Three of a Kind: X
+8. Four of a Kind: X
+9. Full House: X
+10. Small Straight: X
+11. Large Straight: X
+12. Yahtzee: X
+13. Chance: X
+
+Upper Section Total: X
+Lower Section Total: X
+
+Total Points: X
+</code></pre>
+<p>The blank lines are optional but recommended for readability.</p>
 
                     </main>
 
