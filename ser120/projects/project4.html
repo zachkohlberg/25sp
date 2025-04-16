@@ -199,6 +199,86 @@ include the following features:</p>
 <li>Uses the included interfaces to customize how the game awards points and
 spawns food for the snake (strategy pattern)</li>
 </ol>
+<h3 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h3>
+<p>A good place to start is to make the game playable, even if there's no food or
+score. This requires a few things, all of which can be done in the <code>main</code> method
+of a single class:</p>
+<ul>
+<li>Create an instance of <code>SnakeGame</code>
+<ul>
+<li>For now, just use the constructor that takes a width and height and make the
+grid whatever size you want</li>
+</ul>
+</li>
+<li>Set up a <code>JFrame</code></li>
+<li>Add a <code>JPanel</code> subclass that draws the game
+<ul>
+<li>The game has methods to get all points containing food and snake segments</li>
+<li>See the example further down of drawing points on a grid</li>
+</ul>
+</li>
+<li>Start a <code>javax.swing.Timer</code> that calls the game's <code>update</code> method and the
+panel's <code>repaint</code> method
+<ul>
+<li>You can use whatever interval you want, but I recommend starting at 250
+milliseconds and adjusting after you get a feel for the game running at 4
+fps</li>
+</ul>
+</li>
+<li>Add a <code>KeyListener</code> that changes the snake's direction whenever the user
+presses an arrow key (or WASD, up to you)
+<ul>
+<li>Specify a direction using the appropriate constant in <code>SnakeGame</code>. For
+example, <code>SnakeGame.DIR_NORTH</code> if the snake should face up.</li>
+</ul>
+</li>
+</ul>
+<p>This is all you need to be able to run the game and control the snake.</p>
+<h3 id="drawing-points"><a class="header" href="#drawing-points">Drawing Points</a></h3>
+<p>The snake game operates on a grid. To draw the game, you need to draw each cell
+on this grid, or at least the cells that contain the snake and its food. A cell
+is represented by a <code>Point</code>. You can draw a point as a cell on a grid by
+converting the point's coordinates to pixel coordinates (multiply by the size of
+a cell) and then drawing something at that position.</p>
+<pre><code class="language-java">// we'll assume you have these values already. I'm just listing them here to
+// specify their types.
+Point p;
+Graphics g;
+Color c; // only if drawing cells as a shape
+BufferedImage img; // only if drawing cells as an image
+int cellWidth, cellHeight; // these are whatever numbers you want them to be
+
+// calculate the cell coordinates
+
+int cellX = p.x() * cellWidth;
+int cellY = p.y() * cellHeight;
+
+// draw the cell as either...
+
+// 1, a shape
+g.setColor(c);
+g.fillRect(cellX, cellY, cellWidth, cellHeight);
+// another shape could also work
+
+// or 2, an image
+g.drawImage(img, cellX, cellY, cellWidth, cellHeight, null);
+// for best results, use images that have the same size as your cells
+</code></pre>
+<h3 id="spawning-and-scoring"><a class="header" href="#spawning-and-scoring">Spawning and Scoring</a></h3>
+<p>The <code>update</code> methods in your spawning/scoring algorithms will run every time the
+snake moves. This is probably more often than you'll want to award points or
+create new food. You can reduce this frequency by:</p>
+<ul>
+<li>Only running every Nth update. For example, you could return <code>0</code> or
+<code>new Point[0]</code> if <code>timeAlive % n != 0</code>, where <code>n</code> is how many updates you wish
+to wait before doing something.</li>
+<li>Randomly deciding each update whether to do anything. For example, you could
+return <code>0</code> or <code>new Point[0]</code> if <code>Math.random() &gt; n</code>, where <code>n</code> is the
+probability (from 0.0 to 1.0) of doing something that update.</li>
+</ul>
+<p>The spawning algorithm also gets a list of empty points as its first parameter.
+An easy way to spawn food is to randomly choose one point from that array and
+return it in its own array: <code>return new Point[] { p };</code>.</p>
 <h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
 <ul>
 <li>All java files required for the GUI to run</li>
