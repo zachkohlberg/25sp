@@ -186,10 +186,13 @@ together during class.</li>
 <p>Your only task for this project is to create a swing app that serves as a
 graphical user interface for the provided <code>SnakeGame</code> class. Your program must
 include the following features:</p>
+<blockquote>
+<p>NOTE: The new game feature has been removed. That was originally included to
+make use of the proxy pattern, which is no longer part of the assignment.</p>
+</blockquote>
 <ol>
 <li>Buttons or keyboard shortcuts for the following functions:
 <ul>
-<li>Start a new game</li>
 <li>Pause/resume the game</li>
 <li>Show help text (a popup or terminal output) with all keyboard controls</li>
 </ul>
@@ -234,6 +237,20 @@ example, <code>SnakeGame.DIR_NORTH</code> if the snake should face up.</li>
 </li>
 </ul>
 <p>This is all you need to be able to run the game and control the snake.</p>
+<p>Once you have a functioning game, the remaining features are:</p>
+<ul>
+<li>Strategy pattern: Write a class for each of the two interfaces included with
+the snake code, and use these to control how the user scores points and where
+the game spawns food. See the section below on spawning and scoring.</li>
+<li>Pause/resume: You can create a JButton or add code to your key listener that
+stops/starts the timer.</li>
+<li>Help text: Again, a JButton or more key listener code can handle this. You can
+print the help text to the terminal or display it in a popup.</li>
+<li>Score display: There are many ways to display the score, such as: in the
+frame's title text, in a jlabel, or by drawing it in the drawing panel. You
+can update the score display in your timer's action listener after calling the
+game's update method.</li>
+</ul>
 <h3 id="drawing-points"><a class="header" href="#drawing-points">Drawing Points</a></h3>
 <p>The snake game operates on a grid. To draw the game, you need to draw each cell
 on this grid, or at least the cells that contain the snake and its food. A cell
@@ -264,6 +281,43 @@ g.fillRect(cellX, cellY, cellWidth, cellHeight);
 g.drawImage(img, cellX, cellY, cellWidth, cellHeight, null);
 // for best results, use images that have the same size as your cells
 </code></pre>
+<p>The above code only shows how to draw a single point as a cell on the game's
+grid. To draw the whole game, you'll need to get all points representing food
+and segments of the snake and draw them. This means the code for drawing a point
+would be placed inside of for loops iterating over those point arrays. You
+should also draw a background for the entire grid so that the player can easily
+see where it ends; this is important because running into the grid's border will
+cause them to lose the game. All of this should take place in your drawing
+panel's <code>paintComponent</code> method:</p>
+<pre><code class="language-java">@Override
+public void paintComponent(Graphics g) {
+    super.paintComponent(g);
+
+    // TODO: they don't have to be declared in this method, but we need access
+    // to variables for a few things in this scope:
+    // - the cell width and height
+    // - the color of the snake and food cells OR images for the snake and food
+    //   cells
+    // - the instance of SnakeGame that we're drawing (it has methods to get the
+    //   food and snake points)
+
+    // TODO: get all points at which there is food
+
+    // TODO: draw the food
+    // for each point in the food array {
+    //     calculate the cell coordinates
+    //     draw the cell
+    // }
+
+    // TODO: get all points occupied by the snake
+
+    // TODO: draw the snake
+    // for each point in the snake array {
+    //     calculate the cell coordinates
+    //     draw the cell
+    // }
+}
+</code></pre>
 <h3 id="spawning-and-scoring"><a class="header" href="#spawning-and-scoring">Spawning and Scoring</a></h3>
 <p>The <code>update</code> methods in your spawning/scoring algorithms will run every time the
 snake moves. This is probably more often than you'll want to award points or
@@ -281,7 +335,8 @@ An easy way to spawn food is to randomly choose one point from that array and
 return it in its own array: <code>return new Point[] { p };</code>.</p>
 <h2 id="deliverables"><a class="header" href="#deliverables">Deliverables</a></h2>
 <ul>
-<li>All java files required for the GUI to run</li>
+<li>All java files required for the GUI to run (not including the starter code,
+which <strong>should not</strong> be modified for this assignment)</li>
 </ul>
 <h2 id="submission"><a class="header" href="#submission">Submission</a></h2>
 <p><strong>Before submitting this assignment, make sure you understand and abide by the
