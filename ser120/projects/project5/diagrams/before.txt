@@ -1,0 +1,40 @@
+classDiagram
+    class Ball {
+        +update()
+        +mousePressed(MouseEvent)
+        +mouseReleased(MouseEvent)
+        +mouseDragged(MouseEvent)
+        +draw(Graphics)
+    }
+
+    class OutlineBall {
+        +draw(Graphics)
+    }
+
+    class DraggableBall {
+        -mousePrevX: double
+        -mousePrevY: double
+        +mousePressed(MouseEvent)
+        +mouseDragged(MouseEvent)
+    }
+
+    class MovingBall {
+        -vx: double
+        -vy: double
+        +update()
+    }
+
+    class ShinyBall {
+        +update()
+    }
+
+    class SplittingBall {
+        +mousePressed(MouseEvent)
+    }
+
+    Ball <|-- OutlineBall
+    OutlineBall <|-- DraggableBall
+    Ball <|-- MovingBall
+    MovingBall <|-- SplittingBall
+    Ball <|-- ShinyBall
+

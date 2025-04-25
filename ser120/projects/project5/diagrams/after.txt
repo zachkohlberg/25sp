@@ -1,0 +1,52 @@
+classDiagram
+    class Ball {
+        -components: ArrayList<Component>
+    }
+
+    class Component {
+        <<interface>>
+        +attach(Ball)
+        +update()
+        +mousePressed(MouseEvent)
+        +mouseReleased(MouseEvent)
+        +mouseDragged(MouseEvent)
+        +draw(Graphics)
+    }
+
+    class Outline {
+        +attach(Ball)
+        +draw(Graphics)
+    }
+
+    class Draggable {
+        -mousePrevX: double
+        -mousePrevY: double
+        +attach(Ball)
+        +mousePressed(MouseEvent)
+        +mouseDragged(MouseEvent)
+    }
+
+    class Moving {
+        -vx: double
+        -vy: double
+        +attach(Ball)
+        +update()
+    }
+
+    class Shiny {
+        +attach(Ball)
+        +update()
+    }
+
+    class Splitting {
+        +attach(Ball)
+        +mousePressed(MouseEvent)
+    }
+
+    Ball o--> Component
+    Component <|.. Outline
+    Component <|.. Draggable
+    Component <|.. Moving
+    Component <|.. Splitting
+    Component <|.. Shiny
+
