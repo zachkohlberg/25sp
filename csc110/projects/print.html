@@ -1802,7 +1802,6 @@ character's name, level, ancestry (lowercase), and class (lowercase) in that
 order</li>
 <li><code>HP: ___, AC: ___</code>, replacing the blanks with the character's hit points and
 armor class</li>
-<li><code>Proficiency: +</code> followed by the character's proficiency bonus</li>
 <li><code>Abilities:</code></li>
 <li>Each ability's three-letter abbreviation, score, and modifier indented and
 formatted as they were in the previous project</li>
@@ -1811,7 +1810,6 @@ formatted as they were in the previous project</li>
 <pre><code>Player: Alice
 Character: Bob, level 15 elf bard
 HP: 73, AC: 15
-Proficiency: +5
 Abilities:
     Str 15 (+2)
     Dex 16 (+3)
@@ -2304,6 +2302,189 @@ Lower Section Total: X
 Total Points: X
 </code></pre>
 <p>The blank lines are optional but recommended for readability.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="test-script"><a class="header" href="#test-script">Test Script</a></h1>
+<blockquote>
+<p>NOTE: I'm posting this early with just the I/O samples for projects 1-4. I'll
+update the files on OneDrive with samples for 5 and 6 early next week.</p>
+</blockquote>
+<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<p>You can download the test script (<code>io_test</code>) and the io samples (<code>io.zip</code>) from
+the shared OneDrive folder. Move the test script to your projects folder, and
+extract the io archive to a folder named <code>io</code> in your projects folder. You can
+do this with the following commands:</p>
+<pre><code class="language-bash"># These commands assume io.zip and io_test are in your downloads folder
+# The cd command should use the actual path to your projects folder
+cd path/to/your/projects/folder
+cp ~/Downloads/io_test ./io_test
+unzip ~/Downloads/io.zip
+</code></pre>
+<p>If you're using the Safari browser on a Mac, then it's possible your browser
+already extracted the zip when you downloaded it. In that case, you can just
+move the extracted <code>io</code> folder to your projects folder.</p>
+<p>The test script and extracted <code>io</code> folder should now reside in your projects
+folder along with all of your programs. If you run the <code>ls</code> command in your
+projects folder, then you should see the following:</p>
+<pre><code>CharacterSheet1.java
+CharacterSheet2.java
+CharacterSheet3.java
+Dice.java
+DiceGame1.java
+DiceGame2.java
+DiceGame3.java
+io
+io_test
+</code></pre>
+<p>Some of the programs may be missing from that list if you haven't yet started
+them, but all of the programs you are working on should be in this folder. If
+you run <code>ls io</code>, then you should see folders numbered 1 through 6. These contain
+the input and output samples for each project.</p>
+<p>If <code>ls io</code> shows another folder named <code>io</code>, then try <code>ls io/io</code>. If that shows
+numbers from 1 to 6, then your <code>io</code> folder is inside of a second folder named
+<code>io</code>. You can fix that with <code>mv io/io/* io/</code> or by manually moving those folders
+from the inner <code>io</code> folder to the outer <code>io</code> folder. Run <code>rmdir io/io</code> after you
+move the numbered folders to delete the empty extra <code>io</code> folder. This command is
+safe and will only work on an empty folder.</p>
+<p>Finally, you should make the <code>io_test</code> script executable so you can run it more
+easily:</p>
+<pre><code class="language-bash">chmod u+x io_test
+</code></pre>
+<h3 id="test-version-of-dicejava"><a class="header" href="#test-version-of-dicejava">Test Version of <code>Dice.java</code></a></h3>
+<p>When testing Projects 3, 4, 5, and 6, you will need a modified version of
+<code>Dice.java</code> and an extra line of code at the start of your main function. Add
+the following line to the beginning of your main function:</p>
+<pre><code class="language-java">Dice.init();
+</code></pre>
+<p>Then replace the <code>Dice.java</code> used by your projects with the following version:</p>
+<pre><code class="language-java">import java.util.Random;
+import java.io.IO;
+
+/**
+ * Modified version of the Dice class for use during testing. To make your
+ * code from Projects 3+ compatible with the test script, add the following
+ * line to the start of your main function:
+ *
+ * Dice.init();
+ *
+ * This will read the first input as the seed for a random number generator and
+ * ensure your program receives the same series of "random" dice rolls as the
+ * code that produced the expected output for that I/O sample.
+ *
+ * @author Zach Kohlberg
+ */
+@SuppressWarnings("preview")
+public class Dice {
+    private static Random rand = null;
+
+    public static void init() {
+        if (rand == null) {
+            try {
+                rand = new Random(Long.parseLong(IO.readln("")));
+            } catch (NumberFormatException e) {
+                rand = new Random();
+            }
+        } else {
+            throw new RuntimeException("You cannot init Dice more than once!");
+        }
+    }
+
+    public static int roll(int sides) {
+        return rand.nextInt(sides) + 1;
+    }
+
+    public static int d4() {
+        return roll(4);
+    }
+
+    public static int d6() {
+        return roll(6);
+    }
+
+    public static int d8() {
+        return roll(8);
+    }
+
+    public static int d10() {
+        return roll(10);
+    }
+
+    public static int d12() {
+        return roll(12);
+    }
+
+    public static int d20() {
+        return roll(20);
+    }
+}
+</code></pre>
+<p>When manually testing these projects, you will now have to enter a "seed" value
+for the random number generator when you begin running your program. The random
+numbers generated by the dice functions depend on this seed, and reusing the
+same seed will produce the same sequence of "random" numbers. This allows your
+program to be tested against specific expected output on projects that rely on
+some random elements.</p>
+<p>You may also find a consistent sequence of numbers instead of random values
+helpful for manual testing. If you would like to use a random seed, then you can
+always just press enter without entering a number to let the program run with an
+arbitrary seed.</p>
+<h2 id="manual-testing"><a class="header" href="#manual-testing">Manual Testing</a></h2>
+<p>Before using the test script, it's important to test your program manually. The
+script is only going to help you find mistakes in your code; it won't help you
+fix them. If your code crashes, contains syntax errors, or has obvious mistakes,
+then it will be easier to identify and fix them with manual testing. The test
+script will not function correctly if your program can't run without errors.</p>
+<p>Run your program with the <code>java</code> command and provide reasonable input. For
+example, you could run project 1 with the command
+<code>java --enable-preview CharacterSheet1.java</code>. If your program crashes, if Java
+reports syntax errors, or if there are obvious mistakes in the output, then you
+should fix those before using the test script.</p>
+<h2 id="using-the-test-script"><a class="header" href="#using-the-test-script">Using the Test Script</a></h2>
+<p>To test your program with all of the I/O samples, use the command
+<code>./io_test X all</code>, where <code>X</code> is the project's number. For example,
+<code>./io_test 1 all</code> would run the test for Project 1. The script should report any
+I/O samples that your program failed.</p>
+<p>If your program fails an I/O sample, then you can check that specific sample
+with <code>./io_test X Y</code>, where Y is that sample's number. For example,
+<code>./io_test 1 3</code> would check the third I/O sample for Project 1. The test script
+will provide additional information about why your program failed for that I/O
+sample, and this may help you identify the problem.</p>
+<h2 id="running-io-samples-without-the-test-script"><a class="header" href="#running-io-samples-without-the-test-script">Running I/O Samples Without the Test Script</a></h2>
+<p>The test script only shows which lines from the expected output were missing
+from your program's output. You can check your program's full output for that
+I/O sample by using input redirection. For example, to run Project 2 with its
+seventh sample input, you would use the command
+<code>java --enable-preview CharacterSheet2.java &lt; io/2/in7.txt</code>. You can open the
+files <code>io/2/in7.txt</code> and <code>io/2/out7.txt</code> to view the input and expected output
+for that sample.</p>
+<p>Your program passes the test for an I/O sample if <strong>every line of the expected
+output appears in your program's output in the same order and on its own line.</strong>
+This means that any extra output your program produces will <strong>not</strong> affect the
+test as long as it appears on a separate line from the required output. This
+also means that if your output is in the wrong order, then some of it may
+register as missing. The test should also ignore leading and trailing whitespace
+in your output.</p>
+<h2 id="tricking-the-test-script"><a class="header" href="#tricking-the-test-script">Tricking the Test Script</a></h2>
+<p>It's very easy to trick the test script into passing your code. I will still
+look at submitted code to ensure it is not plagiarized and that it actually
+attempts to complete the assignment as directed. If you try to fool the test
+script instead of completing the assignment, then this will be treated as a
+violation of the school's academic integrity policy.</p>
+<p>As an example, the following program would pass every test if you copied all of
+the text from the output files into the print statement:</p>
+<pre><code class="language-java">void main() {
+
+println("""
+This is a multiline string literal. You can copy as much text here as you want,
+and you can include line breaks without \n. If you copy all of the text from the
+output files, then this program will print that text and fool the test script.
+
+COPY TEXT HERE
+
+The script is not hard to fool, but code designed to fool the script is also
+easy to spot and will not lead to you getting credit for the assignment.
+""");
+
+}
+</code></pre>
 
                     </main>
 
