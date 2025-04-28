@@ -2303,10 +2303,6 @@ Total Points: X
 </code></pre>
 <p>The blank lines are optional but recommended for readability.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="test-script"><a class="header" href="#test-script">Test Script</a></h1>
-<blockquote>
-<p>NOTE: I'm posting this early with just the I/O samples for projects 1-4. I'll
-update the files on OneDrive with samples for 5 and 6 early next week.</p>
-</blockquote>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
 <p>You can download the test script (<code>io_test</code>) and the io samples (<code>io.zip</code>) from
 the shared OneDrive folder. Move the test script to your projects folder, and
@@ -2440,6 +2436,17 @@ example, you could run project 1 with the command
 <code>java --enable-preview CharacterSheet1.java</code>. If your program crashes, if Java
 reports syntax errors, or if there are obvious mistakes in the output, then you
 should fix those before using the test script.</p>
+<h2 id="readln-issue"><a class="header" href="#readln-issue"><code>readln</code> Issue</a></h2>
+<p>A warning before you use the test script: the <code>readln</code> function doesn't add a
+newline character to its prompts. Even if you include a newline in the prompt
+message, it may not appear in the output when I/O redirection is used. This can
+cause some of your program's required output to appear on the same line as the
+last prompt, which will cause your program to fail the test.</p>
+<p>To avoid this, you can call <code>println("");</code> after calling <code>readln</code>. This will add
+a line break to separate the next piece of output from the <code>readln</code> prompt
+message, but it's only necessary between calling <code>readln</code> and printing a line of
+required output. For example, in Project 1 this should only be necessary after
+the last <code>readln</code>, before you print the character sheet.</p>
 <h2 id="using-the-test-script"><a class="header" href="#using-the-test-script">Using the Test Script</a></h2>
 <p>To test your program with the first I/O sample, use the command <code>./io_test X 1</code>,
 where <code>X</code> is the project's number. For example, <code>./io_test 1 1</code> would test
